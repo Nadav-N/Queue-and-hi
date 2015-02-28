@@ -23,4 +23,61 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <!-- Style for app buttons -->
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        
+    </Style>
+    
+    <!-- Style for adding visual hints in text boxes using the Tag property of the text box
+         currently = NOT WORKING THAT GREAT...-->
+    <Style x:Key="WatermarkedTextBox" TargetType="TextBox">
+        <Setter Property="Control.Template" >
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox" >
+                    <!-- Template derived from Default TextBoxBase. -->
+                    <!-- Added the Label InternalWatermarkLabel together with the surrounding Grid. -->
+                    <Grid>
+                        <TextBox Name="Bd"
+                                           Background="{TemplateBinding Panel.Background}" 
+                                           BorderBrush="{TemplateBinding Border.BorderBrush}"
+                                           BorderThickness="{TemplateBinding Border.BorderThickness}"
+                                           SnapsToDevicePixels="True">
+                            
+                        </TextBox>
+                        <Label x:Name="InternalWatermarkLabel" 
+                               Content="{TemplateBinding Tag}" 
+                               Visibility="Collapsed" 
+                               Focusable="False"
+                               Foreground="Silver"
+                               Background="Transparent"
+                               />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <!-- The multitrigger is responsible for showing and hiding the watermark. -->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsFocused" Value="False" />
+                                <Condition Property="Text" Value="" />
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter Property="Visibility" TargetName="InternalWatermarkLabel"
+                                        Value="Visible" />
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <!-- This trigger mimics the default behavior. -->
+                        <Trigger Property="UIElement.IsEnabled" Value="False" >
+                            <Setter Property="Panel.Background" TargetName="Bd"
+                                    Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+                            <Setter Property="TextElement.Foreground"
+                                    Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
