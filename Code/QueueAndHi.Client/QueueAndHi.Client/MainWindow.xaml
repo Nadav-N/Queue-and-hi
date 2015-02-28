@@ -4,6 +4,6 @@
         xmlns:qa="clr-namespace:QueueAndHi.Client"
         Title="Queue &amp; Hi" WindowState="Maximized">
     <StackPanel x:Name="screen"  Orientation="Vertical">
-        <qa:MainMenu/>
+        <qa:MainToolbar/>
     </StackPanel>
 </Window>

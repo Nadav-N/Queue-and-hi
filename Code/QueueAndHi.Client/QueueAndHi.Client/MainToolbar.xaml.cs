@@ -18,9 +18,9 @@ namespace QueueAndHi.Client
     /// <summary>
     /// Interaction logic for MainMenu.xaml
     /// </summary>
-    public partial class MainMenu : UserControl
+    public partial class MainToolbar : UserControl
     {
-        public MainMenu()
+        public MainToolbar()
         {
             InitializeComponent();
         }
