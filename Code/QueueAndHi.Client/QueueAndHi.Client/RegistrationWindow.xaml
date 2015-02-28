@@ -13,6 +13,7 @@
     </Window.Resources>
     <StackPanel x:Name="screen"  Orientation="Vertical">
         <qa:MainToolbar/>
+        <qa:MainMenu Margin="100,30,0,0"/>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="15"/>
