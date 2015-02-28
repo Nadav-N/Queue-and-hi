@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:qa="clr-namespace:QueueAndHi.Client"
         Title="Queue &amp; Hi" WindowState="Maximized">
-    <StackPanel x:Name="screen"  Orientation="Vertical">
+    <StackPanel x:Name="screen" Orientation="Vertical">
         <qa:MainToolbar/>
+        <qa:MainMenu Margin="100,30,0,0"/>
     </StackPanel>
 </Window>
