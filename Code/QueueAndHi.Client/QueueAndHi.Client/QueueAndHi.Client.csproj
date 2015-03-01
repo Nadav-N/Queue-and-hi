@@ -53,6 +53,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="QuestionInfo.cs" />
     <Compile Include="UserControls\QuestionList.xaml.cs">
       <DependentUpon>QuestionList.xaml</DependentUpon>
     </Compile>
