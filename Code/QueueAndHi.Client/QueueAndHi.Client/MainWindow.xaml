@@ -6,5 +6,6 @@
     <StackPanel x:Name="screen" Orientation="Vertical">
         <qa:MainToolbar/>
         <qa:MainMenu Margin="100,30,0,0"/>
+        <qa:QuestionList Margin="0,40,0,0"/>
     </StackPanel>
 </Window>

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QueueAndHi.Client.UserControls
+namespace QueueAndHi.Client
 {
     /// <summary>
     /// Interaction logic for QuestionList.xaml
