@@ -22,8 +22,8 @@
                 Queue &amp; Hi
             </TextBlock.Text>
         </TextBlock>
-        <Button Width="60" Margin="680,0,0,0" Padding="5,5,5,5" Foreground="White" Background="Transparent">sign up</Button>
-        <Button Width="52" Foreground="White" Padding="5,5,5,5" Background="Transparent">log in</Button>
-        <TextBox HorizontalAlignment="Stretch" Style="{StaticResource hintTextBox}" Margin="50,0,30,0" Width="180" Height="22" Text="{Binding Text , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type qa:MainToolbar}}}" />
+        <Button Width="60" Margin="680,0,0,0" Padding="5,5,5,5" Foreground="White" Background="Transparent" Style="{StaticResource toolbarButton}">sign up</Button>
+        <Button Width="52" Foreground="White" Padding="5,5,5,5" Background="Transparent" Style="{StaticResource toolbarButton}">log in</Button>
+        <TextBox HorizontalAlignment="Stretch" Style="{StaticResource hintTextBox}" Margin="50,0,30,0" Width="180" Height="22" Text="{Binding Text , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type qa:MainToolbar}}}"/>
     </StackPanel>
 </UserControl>
