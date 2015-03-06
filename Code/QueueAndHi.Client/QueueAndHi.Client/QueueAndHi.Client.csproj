@@ -54,9 +54,23 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="QuestionInfo.cs" />
+    <Compile Include="Samples\MyQuestions.xaml.cs">
+      <DependentUpon>MyQuestions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\SearchResults.xaml.cs">
+      <DependentUpon>SearchResults.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\QuestionList.xaml.cs">
       <DependentUpon>QuestionList.xaml</DependentUpon>
     </Compile>
+    <Page Include="Samples\MyQuestions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\SearchResults.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -126,6 +140,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\virtual-queue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\star.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

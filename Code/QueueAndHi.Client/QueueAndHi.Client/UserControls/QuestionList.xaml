@@ -6,6 +6,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="600">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
     <ItemsControl HorizontalContentAlignment="Stretch" ItemsSource="{Binding}">
         <ItemsControl.ItemTemplate>
             <ItemContainerTemplate DataType="qa:QuestionInfo">
@@ -14,17 +17,20 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="12*"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Vertical" Grid.Column="0" VerticalAlignment="Center">
+                        <Image Source="..\Resources\star.png" Height="40" Width="40" RenderOptions.BitmapScalingMode="NearestNeighbor"
+       RenderOptions.EdgeMode="Aliased" Visibility="{Binding IsRecommended, Converter={StaticResource BoolToVis}}" />
+                        <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
                             <TextBlock TextAlignment="Center" Text="{Binding VotesCount}" />
                             <TextBlock TextAlignment="Center">votes</TextBlock>
                         </StackPanel>
-                        <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+                        <StackPanel Orientation="Vertical" Grid.Column="2" VerticalAlignment="Center">
                             <TextBlock TextAlignment="Center" Text="{Binding AnswersCount}" />
                             <TextBlock TextAlignment="Center">answers</TextBlock>
                         </StackPanel>
-                        <Grid Grid.Column="2" Height="90">
+                        <Grid Grid.Column="3" Height="90">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />

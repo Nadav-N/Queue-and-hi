@@ -11,34 +11,33 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace QueueAndHi.Client
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SearchResults.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SearchResults : Window
     {
-        public MainWindow()
+        public SearchResults()
         {
             Questions = new ObservableCollection<QuestionInfo>
                 {
                     new QuestionInfo
                     {
-                        Author = "Nadav",
+                        Author = "Noffar",
                         AnswersCount = 1,
                         VotesCount = 2,
-                        Title = "Creating a new project in visual studio",
+                        Title = "Hint text in wpf textbox",
                         Tags = new ObservableCollection<string>
                         {
-                            "visual studio", "csproj"
+                            "WPF", "textbox"
                         }
                     },
                     new QuestionInfo
                     {
-                        Author = "Tomer",
+                        Author = "Itsik",
                         AnswersCount = 3,
                         VotesCount = 1,
                         Title = "TwoWay data binding in WPF",
@@ -50,19 +49,19 @@ namespace QueueAndHi.Client
                     },
                     new QuestionInfo                    
                     {
-                        Author = "Danny",
+                        Author = "Idan",
                         AnswersCount = 0,
                         VotesCount = 0,
-                        Title = "Entity framework Code-first error",
+                        Title = "WPF advantages over HTML5?",
                         Tags = new ObservableCollection<string>
                         {
-                            "Entity Framework", "Code first"
+                            "HTML5", "WPF"
                         },
                         IsRecommended = true
                     },
                     new QuestionInfo                    
                     {
-                        Author = "Yifat",
+                        Author = "Michal",
                         AnswersCount = 1,
                         VotesCount = 5,
                         Title = "Async operations in WPF UI",
@@ -70,13 +69,6 @@ namespace QueueAndHi.Client
                         {
                             "Async"
                         }
-                    },
-                    new QuestionInfo                    
-                    {
-                        Author = "Haim",
-                        AnswersCount = 0,
-                        VotesCount = 3,
-                        Title = "How to seperate BI layer from the client"
                     }
                 };
 
@@ -86,7 +78,7 @@ namespace QueueAndHi.Client
         public ObservableCollection<QuestionInfo> Questions
         {
             get;
-            private set;
+            set;
         }
     }
 }

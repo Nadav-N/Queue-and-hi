@@ -14,6 +14,7 @@ namespace QueueAndHi.Client
         private int votesCount;
         private string title;
         private string author;
+        private bool isRecommended;
         private ObservableCollection<string> tags;
 
         public int AnswersCount
@@ -65,6 +66,19 @@ namespace QueueAndHi.Client
             {
                 this.author = value;
                 OnPropertyChanged("Author");
+            }
+        }
+
+        public bool IsRecommended
+        {
+            get
+            {
+                return this.isRecommended;
+            }
+            set
+            {
+                this.isRecommended = value;
+                OnPropertyChanged("IsRecommended");
             }
         }
 

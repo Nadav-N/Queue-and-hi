@@ -1,0 +1,11 @@
+﻿<Window x:Class="QueueAndHi.Client.Samples.MyQuestions"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:qa="clr-namespace:QueueAndHi.Client"
+        Title="Queue &amp; Hi" WindowState="Maximized">
+    <StackPanel x:Name="screen" Orientation="Vertical">
+        <qa:MainToolbar />
+        <qa:MainMenu Margin="100,30,0,0"/>
+        <qa:QuestionList Margin="0,40,0,0" DataContext="{Binding Questions, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+    </StackPanel>
+</Window>
