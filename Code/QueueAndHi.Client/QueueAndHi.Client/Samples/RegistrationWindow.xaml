@@ -1,0 +1,11 @@
+﻿<Window x:Class="QueueAndHi.Client.RegistrationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:qa="clr-namespace:QueueAndHi.Client"
+        Title="Queue &amp; Hi - Registration" WindowState="Maximized">
+    <StackPanel x:Name="screen" Orientation="Vertical">
+        <qa:MainToolbar/>
+        <qa:MainMenu Margin="100,30,0,0"/>
+        <qa:RegistrationControl  HorizontalAlignment="Left"/>
+    </StackPanel>
+</Window>
