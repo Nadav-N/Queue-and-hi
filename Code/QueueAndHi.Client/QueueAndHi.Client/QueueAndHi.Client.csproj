@@ -60,14 +60,23 @@
     <Compile Include="Samples\NewQuestionWindow.xaml.cs">
       <DependentUpon>NewQuestionWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\QuestionViewWindow.xaml.cs">
+      <DependentUpon>QuestionViewWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\SearchResults.xaml.cs">
       <DependentUpon>SearchResults.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\NewQuestion.xaml.cs">
       <DependentUpon>NewQuestion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\QAView.xaml.cs">
+      <DependentUpon>QAView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\QuestionList.xaml.cs">
       <DependentUpon>QuestionList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\QuestionView.xaml.cs">
+      <DependentUpon>QuestionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\RegistrationControl.xaml.cs">
       <DependentUpon>RegistrationControl.xaml</DependentUpon>
@@ -77,6 +86,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Samples\NewQuestionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Samples\QuestionViewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -123,7 +136,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\QAView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\QuestionList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\QuestionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -164,6 +185,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\star.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\upvote.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\answered.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\downvote.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\unanswered.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\unstarred.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

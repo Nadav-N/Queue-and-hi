@@ -10,23 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace QueueAndHi.Client
+namespace QueueAndHi.Client.Samples
 {
     /// <summary>
-    /// Interaction logic for QuestionView.xaml
+    /// Interaction logic for QuestionViewWindow.xaml
     /// </summary>
-    public partial class QuestionView : UserControl
+    public partial class QuestionViewWindow : Window
     {
-        public QuestionView()
+        public QuestionViewWindow()
         {
             InitializeComponent();
         }
-
-        
-
-
     }
 }
