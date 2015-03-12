@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="QueueAndHi.Client.AnswerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="500"
+             >
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            
+        </Grid.RowDefinitions>
+
+        <TextBlock HorizontalAlignment="Left" Margin="5,5,5,5" 
+                   TextWrapping="Wrap"  VerticalAlignment="Top" 
+                   Grid.Row="2" Grid.Column="1"
+            Text="{Binding Content}"       >
+
+        </TextBlock>
+        <Separator HorizontalAlignment="Stretch"  Margin="1,5,1,5" 
+                   Grid.Row="1" Grid.Column="1"
+                   VerticalAlignment="Center" />
+       
+        <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,5,0">
+            <Run Text="Posted by: "/>
+            <Run Text="{Binding Author}" Style="{DynamicResource bolder}"/>
+            <Run Text="  on "/>
+            <Run Text="{Binding DatePosted}" Style="{DynamicResource bolder}"/>
+        </TextBlock>
+       
+        <Grid Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Button  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
+                 Grid.Column="0" Grid.Row="0" Grid.RowSpan="1"
+                 Width="33" Name="btnUpVote" ToolTip="Click to add positive rating for a helpful answer"
+                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <StackPanel>
+                    <Image Source="..\resources\upvote.png"/>
+                </StackPanel>
+            </Button>
+            <Label Content="{Binding VotesCount}" HorizontalAlignment="Center"
+               Grid.Row="1" Grid.Column="0"
+               Margin="5,0,5,0" VerticalAlignment="Center" Name="lblRating"/>
+            <Button  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
+                 Grid.Row="2" Grid.Column="0"
+                 Width="33" Name="btnDownVote" ToolTip="Click to add negative rating for a bad answer"
+                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <StackPanel>
+                    <Image Source="..\resources\downvote.png"/>
+                </StackPanel>
+            </Button>
+            <Button  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
+                 Width="30" Name="btnNotAnswered" ToolTip="Click to clear accepted status of answer"
+                 Grid.Row="3" Grid.Column="0" Grid.RowSpan="1"
+                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <StackPanel>
+                    <Image Source="..\resources\unanswered.png" Visibility="{Binding !Recommended, Converter={StaticResource BoolToVis}}"/>
+                </StackPanel>
+            </Button>
+            <Button  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
+                 Width="30" Name="btnAnswered" ToolTip="Click to mark answer as accepted"
+                 Grid.Row="3" Grid.Column="0" Grid.RowSpan="1"
+                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <StackPanel>
+                    <Image Source="..\resources\answered.png" Visibility="{Binding Recommended, Converter={StaticResource BoolToVis}}"/>
+                </StackPanel>
+            </Button>
+
+        </Grid>
+
+
+
+
+
+
+    </Grid>
+</UserControl>

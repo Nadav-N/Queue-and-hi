@@ -5,13 +5,115 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:QueueAndHi.Client" x:Class="QueueAndHi.Client.QuestionView" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="600">
-    <Grid>
+               d:DesignHeight="300" d:DesignWidth="500">
+    <UserControl.Resources>
         
-        <local:QAView/>
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock HorizontalAlignment="Left" Margin="5,5,5,5" 
+                   TextWrapping="Wrap"  VerticalAlignment="Top" 
+                   Grid.Row="2" Grid.Column="1"
+            Text="{Binding Content}"       >
+            
+        </TextBlock>
+        <Separator HorizontalAlignment="Stretch"  Margin="1,5,1,5" 
+                   Grid.Row="1" Grid.Column="1"
+                   VerticalAlignment="Center" />
+        <Label Content="{Binding Title}" HorizontalAlignment="Left" Style="{DynamicResource header}"
+               Margin="5,0,5,0" VerticalAlignment="Center"
+               Grid.Row="0" Grid.Column="1"
+               />
+        <Button  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
+                 Width="30" Name="btnNotFavorite" ToolTip="Click to add negative rating for a bad question"
+                 Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <StackPanel>
+                <Image Source="..\resources\unstarred.png" Visibility="{Binding !Recommended, Converter={StaticResource BoolToVis}}"/>
+            </StackPanel>
+        </Button>
+        <Button  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
+                 Width="30" Name="btnFavorite" ToolTip="Click to add negative rating for a bad question"
+                 Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <StackPanel>
+                <Image Source="..\resources\star.png" Visibility="{Binding Recommended, Converter={StaticResource BoolToVis}}"/>
+            </StackPanel>
+        </Button>
+        <TextBlock Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,5,0">
+            <Run Text="Posted by: "/>
+            <Run Text="{Binding Author}" Style="{DynamicResource bolder}"/>
+            <Run Text="  on "/>
+            <Run Text="{Binding DatePosted}" Style="{DynamicResource bolder}"/>
+        </TextBlock>
+        <DockPanel Grid.Row="3" Grid.Column="1">
+            <ItemsControl Background="Transparent" VerticalAlignment="Center" Margin="10,10,0,10" DockPanel.Dock="Left" ItemsSource="{Binding Tags}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <ItemContainerTemplate>
+                        <Button Background="AliceBlue" Padding="3" Margin="0,0,8,0" Content="{Binding}"/>
+                    </ItemContainerTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </DockPanel>
+        <Grid Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Button  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
+                 Grid.Column="0" Grid.Row="0" Grid.RowSpan="1"
+                 Width="33" Name="btnUpVote" ToolTip="Click to add positive rating for a helpful question"
+                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <StackPanel>
+                <Image Source="..\resources\upvote.png"/>
+            </StackPanel>
+        </Button>
+        <Label Content="{Binding VotesCount}" HorizontalAlignment="Center"
+               Grid.Row="1" Grid.Column="0"
+               Margin="5,0,5,0" VerticalAlignment="Center" Name="lblRating"/>
+        <Button  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
+                 Grid.Row="2" Grid.Column="0"
+                 Width="33" Name="btnDownVote" ToolTip="Click to add negative rating for a bad question"
+                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <StackPanel>
+                <Image Source="..\resources\downvote.png"/>
+            </StackPanel>
+        </Button>
+
+        </Grid>
+
+
 
 
 
 
     </Grid>
+    
 </UserControl>

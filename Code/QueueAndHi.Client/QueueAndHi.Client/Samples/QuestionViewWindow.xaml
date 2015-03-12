@@ -4,8 +4,6 @@
         xmlns:Client="clr-namespace:QueueAndHi.Client" x:Class="QueueAndHi.Client.Samples.QuestionViewWindow"
         Title="QuestionViewWindow" Height="400" Width="800">
     <Grid>
-
-        
-
+        <Client:QuestionView DataContext="{Binding Question, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
     </Grid>
 </Window>

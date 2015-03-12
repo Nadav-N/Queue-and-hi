@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,33 +15,27 @@ using System.Windows.Shapes;
 namespace QueueAndHi.Client.Samples
 {
     /// <summary>
-    /// Interaction logic for QuestionViewWindow.xaml
+    /// Interaction logic for AnswerViewWindow.xaml
     /// </summary>
-    public partial class QuestionViewWindow : Window
+    public partial class AnswerViewWindow : Window
     {
-        public QuestionViewWindow()
+        public AnswerViewWindow()
         {
-            Question = new Question
+            Answer = new Answer
             {
-                Author = "Tomer",
+                Author = "Nadav",
                 Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                DatePosted = new DateTime(2015, 02, 15),
-                Title = "A simple one",
+                DatePosted = new DateTime(2015, 02, 16),
                 VotesCount = 365,
-                Recommended = true,
-                Tags = new ObservableCollection<string>
-                        {
-                            "WPF", "animation", "programming", "homework", "gui", "code", "bll", "dll"
-                        }
-            };   
+                Answered= false
+            };
             InitializeComponent();
         }
 
-        public Question Question
+        public Answer Answer
         {
             get;
             private set;
         }
-                                       
     }
 }
