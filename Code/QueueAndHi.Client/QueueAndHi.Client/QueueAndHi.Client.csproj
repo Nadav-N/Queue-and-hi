@@ -64,6 +64,9 @@
     <Compile Include="Samples\AnswerViewWindow.xaml.cs">
       <DependentUpon>AnswerViewWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\NewAnswerWindow.xaml.cs">
+      <DependentUpon>NewAnswerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\MyQuestions.xaml.cs">
       <DependentUpon>MyQuestions.xaml</DependentUpon>
     </Compile>
@@ -80,6 +83,9 @@
       <DependentUpon>UserManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserAccount.cs" />
+    <Compile Include="UserControls\NewAnswer.xaml.cs">
+      <DependentUpon>NewAnswer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\NewQuestion.xaml.cs">
       <DependentUpon>NewQuestion.xaml</DependentUpon>
     </Compile>
@@ -102,6 +108,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Samples\NewAnswerWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\MyQuestions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -121,6 +131,10 @@
     <Page Include="Samples\UserManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\NewAnswer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\MainMenu.xaml">
       <SubType>Designer</SubType>
