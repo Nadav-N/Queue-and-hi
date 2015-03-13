@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace QueueAndHi.Client
 {
-    public class Question:AbstractPost
+    public class Question : AbstractPost
     {
         private bool recommended;
         private ObservableCollection<string> tags;

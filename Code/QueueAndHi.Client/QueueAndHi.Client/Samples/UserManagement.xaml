@@ -1,0 +1,14 @@
+﻿<Window x:Class="QueueAndHi.Client.Samples.UserManagement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:qa="clr-namespace:QueueAndHi.Client"
+        Title="UserManagement" WindowState="Maximized">
+    <Window.Icon>
+        <BitmapImage UriSource="..\Resources\virtual-queue.png" />
+    </Window.Icon>
+    <StackPanel x:Name="screen" Orientation="Vertical">
+        <qa:MainToolbar Text="WPF"/>
+        <qa:MainMenu Margin="100,30,0,0"/>
+        <qa:UserManagementView Margin="40" DataContext="{Binding Users, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+    </StackPanel>
+</Window>

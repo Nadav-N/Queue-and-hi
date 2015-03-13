@@ -31,7 +31,7 @@
             <TextBox Margin="0,5,0,0" Tag="at least one tag such as (entity-framework C# WCF), max 5 tags" Style="{DynamicResource WatermarkedTextBox}"></TextBox>
             <!-- here i put the tags -->
         </StackPanel>
-        <Button HorizontalAlignment="Left" Margin="0,30,0,0" Grid.Row="3" Width="120" Height="25" Foreground="White" Background="#CC009AFD">
+        <Button HorizontalAlignment="Left" Margin="0,30,0,0" Grid.Row="3" Width="120" Height="25">
             Post Your Quetion
         </Button>
     </Grid>
