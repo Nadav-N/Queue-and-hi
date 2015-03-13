@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="QueueAndHi.Client.UserManagementView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="False" SelectionUnit="FullRow" Grid.Row="0" CanUserAddRows="False" CanUserDeleteRows="False" Width="750">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Username" Width="175" Binding="{Binding Username}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Points" Width="175" Binding="{Binding Points}" IsReadOnly="True"/>
+                <DataGridCheckBoxColumn Header="Muted" Width="175" Binding="{Binding IsMuted}"/>
+                <DataGridCheckBoxColumn Header="Admin" Width="175" Binding="{Binding IsAdmin}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Width="90" Height="30" Margin="0,50,0,0" Grid.Row="1">Save</Button>
+    </Grid>
+</UserControl>
