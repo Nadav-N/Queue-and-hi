@@ -22,6 +22,7 @@ namespace QueueAndHi.Client.Samples
     {
         public QuestionViewWindow()
         {
+            
             Question = new Question
             {
                 Author = "Tomer",
@@ -57,7 +58,11 @@ namespace QueueAndHi.Client.Samples
 
             System.Diagnostics.Debug.WriteLine(Question.AnswerCount);
             InitializeComponent();
+
+            
+            
         }
+
 
         public Question Question
         {

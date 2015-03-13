@@ -10,6 +10,6 @@
     <StackPanel x:Name="screen" Orientation="Vertical">
         <qa:MainToolbar/>
         <qa:MainMenu Margin="100,30,0,0"/>
-        <Client:QuestionView DataContext="{Binding Question, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+        <Client:QuestionView x:Name="qview" DataContext="{Binding Question, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
     </StackPanel>
 </Window>

@@ -43,17 +43,19 @@
                Grid.Row="0" Grid.Column="1"
                />
         <Button  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
-                 Width="30" Name="btnNotFavorite" ToolTip="Click to add negative rating for a bad question"
+                 Width="30" Name="btnNotFavorite" ToolTip="Click to mark as favorite question"
                  Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
-                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                 Style="{DynamicResource NoMouseOverImageButton}">
             <StackPanel>
                 <Image Source="..\resources\unstarred.png" Visibility="{Binding Recommended, Converter={StaticResource InvBool2VisConverter}}"/>
             </StackPanel>
         </Button>
+        
         <Button  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
-                 Width="30" Name="btnFavorite" ToolTip="Click to add negative rating for a bad question"
+                 Width="30" Name="btnFavorite" ToolTip="Click to clear favorite marking"
                  Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
-                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                 Style="{DynamicResource NoMouseOverImageButton}"
+                 >
             <StackPanel>
                 <Image Source="..\resources\star.png" Visibility="{Binding Recommended, Converter={StaticResource Bool2VisConverter}}"/>
             </StackPanel>
@@ -63,6 +65,12 @@
             <Run Text=" first asked this on "/>
             <Run Text="{Binding DatePosted}" Style="{DynamicResource bolder}"/>
         </TextBlock>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="0,0,0,10">
+            <TextBlock  VerticalAlignment="Bottom" HorizontalAlignment="Left" Text="Delete Question" Style="{DynamicResource commandLinks}"/>
+            <TextBlock  VerticalAlignment="Bottom" HorizontalAlignment="Left" Text="Add Answer" Style="{DynamicResource commandLinks}"/>
+        </StackPanel>
+        
         <DockPanel Grid.Row="3" Grid.Column="1">
             <ItemsControl Background="Transparent" VerticalAlignment="Center" Margin="10,10,0,10" DockPanel.Dock="Left" ItemsSource="{Binding Tags}">
                 <ItemsControl.ItemsPanel>
@@ -72,7 +80,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <ItemContainerTemplate>
-                        <Button Background="AliceBlue" Padding="3" Margin="0,0,8,0" Content="{Binding}"/>
+                        <Button Background="AliceBlue" Padding="3" Margin="0,0,8,0" Content="{Binding}" Style="{DynamicResource NoMouseOverButton}"/>
                     </ItemContainerTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -89,7 +97,7 @@
             <Button  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
                  Grid.Column="0" Grid.Row="0" Grid.RowSpan="1"
                  Width="33" Name="btnUpVote" ToolTip="Click to add positive rating for a helpful question"
-                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                 Style="{DynamicResource NoMouseOverImageButton}">
             <StackPanel>
                 <Image Source="..\resources\upvote.png"/>
             </StackPanel>
@@ -100,7 +108,7 @@
         <Button  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
                  Grid.Row="2" Grid.Column="0"
                  Width="33" Name="btnDownVote" ToolTip="Click to add negative rating for a bad question"
-                 Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                 Style="{DynamicResource NoMouseOverImageButton}">
             <StackPanel>
                 <Image Source="..\resources\downvote.png"/>
             </StackPanel>
