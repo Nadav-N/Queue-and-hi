@@ -55,6 +55,8 @@
     </ApplicationDefinition>
     <Compile Include="AbstractPost.cs" />
     <Compile Include="Answer.cs" />
+    <Compile Include="Converters\BooleanConverter.cs" />
+    <Compile Include="Converters\Bool2VisConverter.cs" />
     <Compile Include="Question.cs" />
     <Compile Include="QuestionInfo.cs" />
     <Compile Include="Samples\AnswerViewWindow.xaml.cs">

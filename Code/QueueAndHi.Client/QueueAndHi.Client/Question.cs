@@ -13,6 +13,7 @@ namespace QueueAndHi.Client
         private ObservableCollection<string> tags;
         private ObservableCollection<Answer> answers;
         private string title;
+        private int answerCount;
 
         public string Title
         {
@@ -56,7 +57,18 @@ namespace QueueAndHi.Client
             set
             {
                 this.answers = value;
+                AnswerCount = this.answers.Count;
                 OnPropertyChanged("Answers");
+            }
+        }
+
+        public int AnswerCount
+        {
+            get { return this.answerCount; }
+            set
+            {
+                this.answerCount = value;
+                OnPropertyChanged("AnswerCount");
             }
         }
     }

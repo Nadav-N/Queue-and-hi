@@ -9,14 +9,13 @@
     <UserControl.Resources>
 
         <ResourceDictionary>
-            <BooleanToVisibilityConverter x:Key="BoolToVis"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="..\Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Margin="25,10,25,10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
@@ -40,15 +39,14 @@
                    VerticalAlignment="Center" />
        
         <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,5,0">
-            <Run Text="Posted by: "/>
             <Run Text="{Binding Author}" Style="{DynamicResource bolder}"/>
-            <Run Text="  on "/>
+            <Run Text=" answered on "/>
             <Run Text="{Binding DatePosted}" Style="{DynamicResource bolder}"/>
         </TextBlock>
        
         <Grid Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -80,7 +78,7 @@
                  Grid.Row="3" Grid.Column="0" Grid.RowSpan="1"
                  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                 <StackPanel>
-                    <Image Source="..\resources\unanswered.png" Visibility="{Binding !Recommended, Converter={StaticResource BoolToVis}}"/>
+                    <Image Source="..\resources\unanswered.png" Visibility="{Binding Answered, Converter={StaticResource InvBool2VisConverter}}"/>
                 </StackPanel>
             </Button>
             <Button  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
@@ -88,7 +86,7 @@
                  Grid.Row="3" Grid.Column="0" Grid.RowSpan="1"
                  Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                 <StackPanel>
-                    <Image Source="..\resources\answered.png" Visibility="{Binding Recommended, Converter={StaticResource BoolToVis}}"/>
+                    <Image Source="..\resources\answered.png" Visibility="{Binding Answered, Converter={StaticResource Bool2VisConverter}}"/>
                 </StackPanel>
             </Button>
 

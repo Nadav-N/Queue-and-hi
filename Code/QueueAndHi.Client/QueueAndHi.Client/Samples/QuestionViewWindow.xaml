@@ -2,8 +2,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Client="clr-namespace:QueueAndHi.Client" x:Class="QueueAndHi.Client.Samples.QuestionViewWindow"
+        xmlns:qa="clr-namespace:QueueAndHi.Client"
         Title="QuestionViewWindow" Height="400" Width="800">
-    <Grid>
+    <Window.Icon>
+        <BitmapImage UriSource="..\Resources\virtual-queue.png" />
+    </Window.Icon>
+    <StackPanel x:Name="screen" Orientation="Vertical">
+        <qa:MainToolbar/>
+        <qa:MainMenu Margin="100,30,0,0"/>
         <Client:QuestionView DataContext="{Binding Question, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
-    </Grid>
+    </StackPanel>
 </Window>

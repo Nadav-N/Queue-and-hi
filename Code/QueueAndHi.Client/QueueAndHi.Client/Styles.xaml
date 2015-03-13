@@ -1,5 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:app="clr-namespace:QueueAndHi.Client">
+
+    <!-- ################  Styles ###########################################################-->
     <Style x:Key="hintTextBox" TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
         <Style.Resources>
             <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="Fill">
@@ -94,4 +97,19 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <!-- ################  End Of Styles ###########################################################-->
+    
+    <!-- ################  Converters  ###########################################################-->
+    
+    <app:Bool2VisConverter
+                x:Key="Bool2VisConverter" 
+                True="Visible" 
+                False="Collapsed" />
+    <app:Bool2VisConverter
+                x:Key="InvBool2VisConverter"
+                True="Collapsed"
+                False="Visible" />
+
+    <!-- ################  End Of Converters  ###########################################################-->
 </ResourceDictionary>

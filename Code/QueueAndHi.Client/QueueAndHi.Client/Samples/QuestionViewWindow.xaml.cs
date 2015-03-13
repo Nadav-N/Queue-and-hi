@@ -25,16 +25,37 @@ namespace QueueAndHi.Client.Samples
             Question = new Question
             {
                 Author = "Tomer",
-                Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                Content = "How can I use the inverted value of a BooleanToVisibilityConverter\n\nFor Example, I want to be able to Show one image if the Value is true, but hide it and show another if the value is false",
                 DatePosted = new DateTime(2015, 02, 15),
-                Title = "A simple one",
+                Title = "Inverting BooleanToVisibilityConverter",
                 VotesCount = 365,
-                Recommended = true,
+                Recommended = false,
                 Tags = new ObservableCollection<string>
                         {
                             "WPF", "animation", "programming", "homework", "gui", "code", "bll", "dll"
-                        }
-            };   
+                        },
+                Answers = new ObservableCollection<Answer> 
+                {
+                    new Answer
+                    {
+                        Author = "Nadav",
+                        Content = "Look into writing a custom inverter, that way you can do it anything you'd like.",
+                        DatePosted = new DateTime(2015, 02, 16),
+                        VotesCount = 47,
+                        Answered= false
+                    },
+                    new Answer
+                    {
+                        Author = "Danni",
+                        Content = "There's an example in the course book. check it out.",
+                        DatePosted = new DateTime(2015, 02, 17),
+                        VotesCount = 153,
+                        Answered= true
+                    }
+                }
+            };
+
+            System.Diagnostics.Debug.WriteLine(Question.AnswerCount);
             InitializeComponent();
         }
 
@@ -43,6 +64,6 @@ namespace QueueAndHi.Client.Samples
             get;
             private set;
         }
-                                       
+
     }
 }
