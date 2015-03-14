@@ -31,7 +31,7 @@
             </StackPanel.Resources>
             
             <Button>Questions</Button>
-            <Button>My Unanswered</Button>
+            <Button>My Questions</Button>
             <Button>Ask Question</Button>
             <Button>User Management</Button>
         </StackPanel>
