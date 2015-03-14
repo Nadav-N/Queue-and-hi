@@ -32,7 +32,7 @@
             
             <Button>Questions</Button>
             <Button>My Questions</Button>
-            <Button>Ask Question</Button>
+            <Button>New Question</Button>
             <Button>User Management</Button>
         </StackPanel>
         
