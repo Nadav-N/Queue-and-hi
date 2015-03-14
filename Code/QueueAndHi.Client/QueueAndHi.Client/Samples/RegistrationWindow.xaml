@@ -5,7 +5,7 @@
         Title="Queue &amp; Hi - Registration" WindowState="Maximized">
     <StackPanel x:Name="screen" Orientation="Vertical">
         <qa:MainToolbar/>
-        <qa:MainMenu Margin="100,30,0,0"/>
+        <qa:MainMenu Margin="100,30,0,0" HorizontalAlignment="Stretch"/>
         <qa:RegistrationControl  HorizontalAlignment="Left"/>
     </StackPanel>
 </Window>
