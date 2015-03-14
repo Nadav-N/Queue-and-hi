@@ -5,7 +5,7 @@
         Title="Queue &amp; Hi" WindowState="Maximized">
     <StackPanel x:Name="screen" Orientation="Vertical">
         <qa:MainToolbar />
-        <qa:MainMenu Margin="100,30,0,0"/>
+        <qa:MainMenu Margin="100,30,100,0"/>
         <qa:NewQuestion Margin="40,40,0,0" HorizontalAlignment="Left" Width="550"/>
     </StackPanel>
 </Window>

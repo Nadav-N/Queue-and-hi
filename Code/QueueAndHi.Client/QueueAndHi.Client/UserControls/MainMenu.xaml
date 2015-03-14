@@ -30,7 +30,7 @@
                 </Style>
             </StackPanel.Resources>
             
-            <Button>Questions</Button>
+            <Button>Home</Button>
             <Button>My Questions</Button>
             <Button>New Question</Button>
             <Button>User Management</Button>
