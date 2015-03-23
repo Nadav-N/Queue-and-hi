@@ -7,18 +7,10 @@ using System.Threading.Tasks;
 
 namespace QueueAndHi.Common
 {
-    public interface IPost
+    [DataContract]
+    public class Notification
     {
         [DataMember]
-        string Content { get; }
-
-        [DataMember]
-        int Ranking { get; set; }
-
-        [DataMember]
-        UserInfo Author { get; }
-
-        [DataMember]
-        int ID { get; }
+        public string Message { get; set; }
     }
 }

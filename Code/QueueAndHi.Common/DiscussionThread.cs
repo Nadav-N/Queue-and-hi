@@ -7,18 +7,13 @@ using System.Threading.Tasks;
 
 namespace QueueAndHi.Common
 {
-    public interface IPost
+    [DataContract]
+    public class DiscussionThread
     {
         [DataMember]
-        string Content { get; }
+        public Question Question { get; set; }
 
         [DataMember]
-        int Ranking { get; set; }
-
-        [DataMember]
-        UserInfo Author { get; }
-
-        [DataMember]
-        int ID { get; }
+        public IEnumerable<Answer> Answers { get; set; } 
     }
 }

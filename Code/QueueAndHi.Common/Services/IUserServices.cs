@@ -9,10 +9,10 @@ using System.Text;
 namespace QueueAndHi.Common
 {
     [ServiceContract]
-    public interface IUserService
+    public interface IUserServices
     {
         [OperationContract]
-        void AddNewUser(UserInfo newUser);
+        void AddNewUser(UserInfo newUser, string password);
 
         // TODO: We need to change the return type of this method so that
         // it will return something similar to "Authentication token"

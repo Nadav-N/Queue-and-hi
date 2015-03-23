@@ -14,7 +14,7 @@ namespace QueueAndHi.Common
         public int Ranking { get; set; }
 
         [DataMember]
-        public string Username { get; set; }
+        public string Name { get; set; }
 
         [DataMember]
         public string EmailAddress { get; set; }

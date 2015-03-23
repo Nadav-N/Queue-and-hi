@@ -11,15 +11,18 @@ namespace QueueAndHi.Common
     public class Answer : IPost
     {
         [DataMember]
-        public string Content { get; set; }
+        public string Content { get; }
 
         [DataMember]
         public int Ranking { get; set; }
 
         [DataMember]
-        public UserInfo Author { get; set; }
+        public UserInfo Author { get; }
 
         [DataMember]
-        public Question RelatedQuestion { get; set; }
+        public Question RelatedQuestion { get; }
+
+        [DataMember]
+        public int ID { get; }
     }
 }
