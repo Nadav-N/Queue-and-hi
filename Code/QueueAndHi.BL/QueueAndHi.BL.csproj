@@ -63,12 +63,15 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Notifications\INotificationAggregator.cs" />
     <Compile Include="UserServices.svc.cs">
       <DependentUpon>UserServices.svc</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validators\EmailAddressValidator.cs" />
     <Compile Include="Validators\IUserValidator.cs" />
     <Compile Include="Validators\UserValidatorDecorator.cs" />
+    <Compile Include="Validators\ValidationResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
