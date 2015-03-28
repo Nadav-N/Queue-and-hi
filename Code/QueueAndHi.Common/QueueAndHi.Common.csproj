@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Answer.cs" />
     <Compile Include="DiscussionThread.cs" />
+    <Compile Include="GetNotificationResult.cs" />
     <Compile Include="IPost.cs" />
     <Compile Include="Notification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
