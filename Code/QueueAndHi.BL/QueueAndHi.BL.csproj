@@ -59,11 +59,16 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="NotificationService.svc" />
     <Content Include="UserServices.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NotificationService.svc.cs">
+      <DependentUpon>NotificationService.svc</DependentUpon>
+    </Compile>
     <Compile Include="Notifications\INotificationAggregator.cs" />
+    <Compile Include="Notifications\NotificationAggregator.cs" />
     <Compile Include="UserServices.svc.cs">
       <DependentUpon>UserServices.svc</DependentUpon>
     </Compile>

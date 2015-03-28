@@ -9,7 +9,10 @@ namespace QueueAndHi.BL.Notifications
 {
     public interface INotificationAggregator
     {
-        // TODO: userinfo should probably be generated on server side from authentication token
-        bool TryGetNewNotification(UserInfo userInfo, out Notification notification);
+        void OnNewNotification(string notification, UserInfo userInfo);
+
+        void OnNewNotification(string notification, IEnumerable<UserInfo> userInfo);
+
+        bool TryGetUserNotification(UserInfo user, out Notification notification)
     }
 }

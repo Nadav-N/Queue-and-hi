@@ -24,5 +24,8 @@ namespace QueueAndHi.Common
 
         [DataMember]
         public bool IsMuted { get; set; }
+
+        [DataMember]
+        public int ID { get; set; }
     }
 }

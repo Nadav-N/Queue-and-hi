@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace QueueAndHi.Common.Services
 {
+    [ServiceContract]
     public interface INotificationService
     {
         [OperationContract]
-        Notification ListenForNotification();
+        GetNotificationResult GetNotification(UserInfo userBeingNotified);
     }
 }

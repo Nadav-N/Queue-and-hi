@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="QueueAndHi.BL.NotificationService" CodeBehind="NotificationService.svc.cs" %>
