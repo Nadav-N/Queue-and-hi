@@ -28,6 +28,7 @@ namespace QueueAndHi.BL.Notifications
 
         public bool TryGetUserNotification(UserInfo user, out Notification notification)
         {
+            notification = null;
             ConcurrentQueue<string> messagesQueue = GetUserNotificationsQueue(user);
             List<string> notificationMessages = new List<string>();
             string message;
@@ -47,14 +48,15 @@ namespace QueueAndHi.BL.Notifications
             for (int i = 1 ; i < notificationMessages.Count ; i++)
             {
                 notificationStringBuilder.AppendLine();
-                notificationStringBuilder.Append(currentMessage);
+                notificationStringBuilder.Append(notificationMessages[i]);
             }
-            return new Notification { Message = notificationStringBuilder.ToString() };
+            notification = new Notification { Message = notificationStringBuilder.ToString() };
+            return true;
         }
 
         private ConcurrentQueue<string> GetUserNotificationsQueue(UserInfo user)
         {
-            return this.aggregatedNotifications.GetOrAdd(userInfo.ID, id => new ConcurrentQueue<string>());
+            return this.aggregatedNotifications.GetOrAdd(user.ID, id => new ConcurrentQueue<string>());
         }
     }
 }

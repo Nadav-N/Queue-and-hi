@@ -9,6 +9,6 @@ namespace QueueAndHi.BL.Validators
 {
     public interface IUserValidator
     {
-        ValidationResult IsValid(UserInfo user);
+        OperationResult IsValid(UserInfo user);
     }
 }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace QueueAndHi.BL.Validators
+namespace QueueAndHi.Common
 {
-    public class ValidationResult
+    public class OperationResult
     {
-        public ValidationResult(ICollection<string> errorMessage)
+        public OperationResult(ICollection<string> errorMessage)
         {
             IsSuccessful = false;
             ErrorMessages = errorMessage;
@@ -16,7 +16,7 @@ namespace QueueAndHi.BL.Validators
         /// <summary>
         /// Creates a new Validation result object with "IsSuccessful" set to True
         /// </summary>
-        public ValidationResult()
+        public OperationResult()
         {
             IsSuccessful = true;
             ErrorMessages = new List<string>();

@@ -12,17 +12,17 @@ namespace QueueAndHi.Common
     public interface IUserServices
     {
         [OperationContract]
-        void AddNewUser(UserInfo newUser, string password);
+        OperationResult AddNewUser(UserInfo newUser, string password);
 
         // TODO: We need to change the return type of this method so that
         // it will return something similar to "Authentication token"
         [OperationContract]
-        void LogIn(string username, string password);
+        OperationResult LogIn(string username, string password);
 
         [OperationContract]
         IEnumerable<UserInfo> GetUsersData();
 
         [OperationContract]
-        void SaveUsersData(IEnumerable<UserInfo> usersData);
+        OperationResult SaveUsersData(IEnumerable<UserInfo> usersData);
     }
 }

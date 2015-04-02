@@ -8,9 +8,10 @@ namespace QueueAndHi.BL.Validators
 {
     public class EmailAddressValidator : UserValidatorDecorator
     {
-        public override ValidationResult IsValidInternal(UserInfo userInfo)
+        public override OperationResult IsValidInternal(UserInfo userInfo)
         {
             // check if email of the user is valid
+            return null;
         }
     }
 }

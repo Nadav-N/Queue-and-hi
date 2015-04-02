@@ -13,6 +13,6 @@ namespace QueueAndHi.BL.Notifications
 
         void OnNewNotification(string notification, IEnumerable<UserInfo> userInfo);
 
-        bool TryGetUserNotification(UserInfo user, out Notification notification)
+        bool TryGetUserNotification(UserInfo user, out Notification notification);
     }
 }

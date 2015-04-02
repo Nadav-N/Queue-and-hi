@@ -24,7 +24,7 @@ namespace QueueAndHi.BL
         {
             GetNotificationResult notificationResult = new GetNotificationResult();
             Notification newNotification;
-            if (notificationAggregator.TryGetUserNotification(userBeingNotified, newNotification))
+            if (notificationAggregator.TryGetUserNotification(userBeingNotified, out newNotification))
             {
                 notificationResult.IsNewNotification = true;
                 notificationResult.Notification = newNotification;

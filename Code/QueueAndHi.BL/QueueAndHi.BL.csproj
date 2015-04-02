@@ -76,7 +76,6 @@
     <Compile Include="Validators\EmailAddressValidator.cs" />
     <Compile Include="Validators\IUserValidator.cs" />
     <Compile Include="Validators\UserValidatorDecorator.cs" />
-    <Compile Include="Validators\ValidationResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
