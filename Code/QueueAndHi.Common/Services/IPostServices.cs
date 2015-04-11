@@ -11,24 +11,24 @@ namespace QueueAndHi.Common.Services
     public interface IPostServices
     {
         [OperationContract]
-        void AddQuestion(Question question);
+        void AddQuestion(AuthenticatedOperation<Question> question);
 
         [OperationContract]
-        void DeleteQuestion(Question question);
+        void DeleteQuestion(AuthenticatedOperation<Question> question);
 
         [OperationContract]
-        void AddAnswer(Answer answer);
+        void AddAnswer(AuthenticatedOperation<Answer> answer);
 
         [OperationContract]
-        void DeleteAnswer(Answer answer);
+        void DeleteAnswer(AuthenticatedOperation<Answer> answer);
 
         [OperationContract]
-        void VoteUpPost(IPost post);
+        void VoteUpPost(AuthenticatedOperation<IPost> post);
 
         [OperationContract]
-        void VoteDownPost(IPost post);
+        void VoteDownPost(AuthenticatedOperation<IPost> post);
 
         [OperationContract]
-        void RecommendQuestion(Question question);
+        void RecommendQuestion(AuthenticatedOperation<Question> question);
     }
 }

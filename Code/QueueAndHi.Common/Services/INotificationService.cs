@@ -11,6 +11,6 @@ namespace QueueAndHi.Common.Services
     public interface INotificationService
     {
         [OperationContract]
-        GetNotificationResult GetNotification(UserInfo userBeingNotified);
+        GetNotificationResult GetNotification(AuthenticatedOperation<UserInfo> userBeingNotified);
     }
 }

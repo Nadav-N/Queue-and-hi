@@ -26,4 +26,19 @@ namespace QueueAndHi.Common
 
         public bool IsSuccessful { get; private set; }
     }
+
+    public class OperationResult<TPayload> : OperationResult
+    {
+        public OperationResult(TPayload payload) : base()
+        {
+            Payload = payload;
+        }
+
+        public OperationResult(ICollection<string> errorMessage)
+            : base(errorMessage)
+        {
+        }
+
+        public TPayload Payload { get; private set; }
+    }
 }

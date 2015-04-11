@@ -11,15 +11,15 @@ namespace QueueAndHi.Common.Services
     public interface IPostQueries
     {
         [OperationContract]
-        IEnumerable<Question> FreeSearch(string searchString);
+        IEnumerable<Question> FreeSearch(AuthenticatedOperation<string> searchString);
 
         [OperationContract]
-        IEnumerable<Question> TagsSearch(IEnumerable<string> tags);
+        IEnumerable<Question> TagsSearch(AuthenticatedOperation<IEnumerable<string>> tags);
 
         [OperationContract]
-        IEnumerable<Question> GetMyQuestions(UserInfo user);
+        IEnumerable<Question> GetMyQuestions(AuthenticatedOperation<UserInfo> user);
 
         [OperationContract]
-        DiscussionThread GetDiscussionThreadById(int id);
+        DiscussionThread GetDiscussionThreadById(AuthenticatedOperation<int> id);
     }
 }

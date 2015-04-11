@@ -20,11 +20,11 @@ namespace QueueAndHi.BL
         }
 
         // TODO: We should probably get here something like authentication token of the user
-        public GetNotificationResult GetNotification(UserInfo userBeingNotified)
+        public GetNotificationResult GetNotification(AuthenticatedOperation<UserInfo> userBeingNotified)
         {
             GetNotificationResult notificationResult = new GetNotificationResult();
             Notification newNotification;
-            if (notificationAggregator.TryGetUserNotification(userBeingNotified, out newNotification))
+            if (notificationAggregator.TryGetUserNotification(userBeingNotified.Payload, out newNotification))
             {
                 notificationResult.IsNewNotification = true;
                 notificationResult.Notification = newNotification;

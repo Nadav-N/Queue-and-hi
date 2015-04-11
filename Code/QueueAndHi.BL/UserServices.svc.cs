@@ -10,7 +10,7 @@ namespace QueueAndHi.BL
 
         public UserServices()
         {
-            IUserValidator userValidator = new EmailAddressValidator();
+            this.userValidator = new EmailAddressValidator();
             // userValidator = new DecoratedValidator(userValidator);
         }
 
@@ -30,17 +30,17 @@ namespace QueueAndHi.BL
             return validationResult;
         }
 
-        public OperationResult LogIn(string username, string password)
+        public OperationResult<AuthenticationToken> LogIn(string username, string password)
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<UserInfo> GetUsersData()
+        public IEnumerable<UserInfo> GetUsersData(AuthenticationToken authToken)
         {
             throw new System.NotImplementedException();
         }
 
-        public OperationResult SaveUsersData(IEnumerable<UserInfo> usersData)
+        public OperationResult SaveUsersData(AuthenticatedOperation<IEnumerable<UserInfo>> usersData)
         {
             throw new System.NotImplementedException();
         }

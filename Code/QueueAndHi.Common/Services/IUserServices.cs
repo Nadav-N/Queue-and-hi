@@ -17,12 +17,12 @@ namespace QueueAndHi.Common
         // TODO: We need to change the return type of this method so that
         // it will return something similar to "Authentication token"
         [OperationContract]
-        OperationResult LogIn(string username, string password);
+        OperationResult<AuthenticationToken> LogIn(string username, string password);
 
         [OperationContract]
-        IEnumerable<UserInfo> GetUsersData();
+        IEnumerable<UserInfo> GetUsersData(AuthenticationToken authToken);
 
         [OperationContract]
-        OperationResult SaveUsersData(IEnumerable<UserInfo> usersData);
+        OperationResult SaveUsersData(AuthenticatedOperation<IEnumerable<UserInfo>> usersData);
     }
 }
