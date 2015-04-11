@@ -1,5 +1,6 @@
-﻿using QueueAndHi.BL.Validators;
-using QueueAndHi.Common;
+﻿using QueueAndHi.Common;
+using QueueAndHi.Common.Logic.Validators;
+using QueueAndHi.Common.Logic.Validators.User;
 using QueueAndHi.Common.Services;
 using System.Collections.Generic;
 
@@ -7,7 +8,7 @@ namespace QueueAndHi.BL
 {
     public class UserServices : IUserServices
     {
-        private IUserRegisrationValidator userValidator;
+        private IValidator<UserInfo> userValidator;
 
         public UserServices()
         {
@@ -36,12 +37,18 @@ namespace QueueAndHi.BL
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<UserInfo> GetUsersData(AuthenticationToken authToken)
+        public IEnumerable<UserInfo> GetAllUsersData(AuthenticationToken authToken)
         {
             throw new System.NotImplementedException();
         }
 
         public OperationResult SaveUsersData(AuthenticatedOperation<IEnumerable<UserInfo>> usersData)
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        public OperationResult<UserInfo> GetUserInfo(AuthenticationToken authToken)
         {
             throw new System.NotImplementedException();
         }

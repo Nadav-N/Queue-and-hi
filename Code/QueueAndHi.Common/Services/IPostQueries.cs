@@ -17,7 +17,7 @@ namespace QueueAndHi.Common.Services
         IEnumerable<Question> TagsSearch(AuthenticatedOperation<IEnumerable<string>> tags);
 
         [OperationContract]
-        IEnumerable<Question> GetMyQuestions(AuthenticatedOperation<UserInfo> user);
+        IEnumerable<Question> GetMyQuestions(AuthenticationToken authToken);
 
         [OperationContract]
         DiscussionThread GetDiscussionThreadById(AuthenticatedOperation<int> id);

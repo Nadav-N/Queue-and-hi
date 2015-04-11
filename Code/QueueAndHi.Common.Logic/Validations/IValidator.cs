@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QueueAndHi.BL.Validators
+namespace QueueAndHi.Common.Logic.Validators
 {
-    public interface IUserRegisrationValidator
+    public interface IValidator<in T>
     {
-        OperationResult IsValid(UserInfo user);
+        OperationResult IsValid(T data);
     }
 }

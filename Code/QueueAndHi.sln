@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueAndHi.BL", "QueueAndHi.BL\QueueAndHi.BL.csproj", "{B8D4B72D-16A3-4520-90F7-4CB8E5A3AA1D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueAndHi.Client", "QueueAndHi.Client\QueueAndHi.Client.csproj", "{F665F6CD-334D-4113-BAB8-6A48C17A7174}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueAndHi.Common", "QueueAndHi.Common\QueueAndHi.Common.csproj", "{A097CF67-ADCD-443B-8DCC-782F7876A928}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueAndHi.Common.Logic", "QueueAndHi.Common.Logic\QueueAndHi.Common.Logic.csproj", "{4C334EEC-8138-4773-9B21-93FC8049C9CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,10 @@ Global
 		{A097CF67-ADCD-443B-8DCC-782F7876A928}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A097CF67-ADCD-443B-8DCC-782F7876A928}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A097CF67-ADCD-443B-8DCC-782F7876A928}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C334EEC-8138-4773-9B21-93FC8049C9CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C334EEC-8138-4773-9B21-93FC8049C9CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C334EEC-8138-4773-9B21-93FC8049C9CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C334EEC-8138-4773-9B21-93FC8049C9CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

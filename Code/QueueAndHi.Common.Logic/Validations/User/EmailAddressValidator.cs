@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace QueueAndHi.BL.Validators
+namespace QueueAndHi.Common.Logic.Validators.User
 {
-    public class EmailAddressValidator : UserRegistrationValidatorDecorator
+    public class EmailAddressValidator : ValidatorDecorator<UserInfo>
     {
         public override OperationResult IsValidInternal(UserInfo userInfo)
         {

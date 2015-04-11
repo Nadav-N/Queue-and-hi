@@ -29,6 +29,9 @@ namespace QueueAndHi.Common
         public bool IsRecommended { get; set; }
 
         [DataMember]
+        public int? RightAnswerId { get; set; }
+
+        [DataMember]
         public int ID { get; private set; }
     }
 }

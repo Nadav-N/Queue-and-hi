@@ -19,8 +19,14 @@ namespace QueueAndHi.Common.Services
         [OperationContract]
         OperationResult<AuthenticationToken> LogIn(string username, string password);
 
+        /// <summary>
+        /// This method is to get the UserInfo once in a while, in case of rank changes so that the UI will have permission changes
+        /// </summary>
         [OperationContract]
-        IEnumerable<UserInfo> GetUsersData(AuthenticationToken authToken);
+        OperationResult<UserInfo> GetUserInfo(AuthenticationToken authToken);
+
+        [OperationContract]
+        IEnumerable<UserInfo> GetAllUsersData(AuthenticationToken authToken);
 
         [OperationContract]
         OperationResult SaveUsersData(AuthenticatedOperation<IEnumerable<UserInfo>> usersData);
