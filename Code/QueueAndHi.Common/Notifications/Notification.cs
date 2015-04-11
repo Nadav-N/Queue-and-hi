@@ -5,15 +5,18 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QueueAndHi.Common
+namespace QueueAndHi.Common.Notifications
 {
     [DataContract]
-    public class GetNotificationResult
+    public class Notification
     {
         [DataMember]
-        public Notification Notification { get; set; }
+        public string Message { get; set; }
 
         [DataMember]
         public bool IsNewNotification { get; set; }
+
+        [DataMember]
+        public NotificationType Type { get; set; }
     }
 }

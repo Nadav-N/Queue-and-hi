@@ -6,7 +6,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 
-namespace QueueAndHi.Common
+namespace QueueAndHi.Common.Services
 {
     [ServiceContract]
     public interface IUserServices

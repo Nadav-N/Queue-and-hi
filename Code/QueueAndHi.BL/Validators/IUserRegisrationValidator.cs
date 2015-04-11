@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace QueueAndHi.BL.Validators
 {
-    public interface IUserValidator
+    public interface IUserRegisrationValidator
     {
         OperationResult IsValid(UserInfo user);
     }

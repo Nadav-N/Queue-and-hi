@@ -1,4 +1,5 @@
 ﻿using QueueAndHi.Common;
+using QueueAndHi.Common.Notifications;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -10,53 +11,9 @@ namespace QueueAndHi.BL.Notifications
 {
     public class NotificationAggregator : INotificationAggregator
     {
-        private ConcurrentDictionary<int, ConcurrentQueue<string>> aggregatedNotifications = new ConcurrentDictionary<int, ConcurrentQueue<string>>();
-
-        public void OnNewNotification(string notification, UserInfo userInfo)
+        public IEnumerable<Notification> AggregateNotifications(IEnumerable<Notification> notifications)
         {
-            ConcurrentQueue<string> messagesQueue = GetUserNotificationsQueue(userInfo);
-            messagesQueue.Enqueue(notification);
-        }
-
-        public void OnNewNotification(string notification, IEnumerable<UserInfo> usersInfo)
-        {
-            foreach (UserInfo user in usersInfo)
-            {
-                OnNewNotification(notification, user);
-            }
-        }
-
-        public bool TryGetUserNotification(UserInfo user, out Notification notification)
-        {
-            notification = null;
-            ConcurrentQueue<string> messagesQueue = GetUserNotificationsQueue(user);
-            List<string> notificationMessages = new List<string>();
-            string message;
-            while (messagesQueue.TryDequeue(out message))
-            {
-                notificationMessages.Add(message);
-            }
-
-            // If there are no new notifications to the user
-            if (notificationMessages.Count == 0)
-            {
-                return false;
-            }
-
-            StringBuilder notificationStringBuilder = new StringBuilder();
-            notificationStringBuilder.Append(notificationMessages[0]);
-            for (int i = 1 ; i < notificationMessages.Count ; i++)
-            {
-                notificationStringBuilder.AppendLine();
-                notificationStringBuilder.Append(notificationMessages[i]);
-            }
-            notification = new Notification { Message = notificationStringBuilder.ToString() };
-            return true;
-        }
-
-        private ConcurrentQueue<string> GetUserNotificationsQueue(UserInfo user)
-        {
-            return this.aggregatedNotifications.GetOrAdd(user.ID, id => new ConcurrentQueue<string>());
+            return null;
         }
     }
 }

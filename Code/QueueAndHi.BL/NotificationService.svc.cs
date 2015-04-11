@@ -1,12 +1,7 @@
 ﻿using QueueAndHi.BL.Notifications;
 using QueueAndHi.Common;
-using QueueAndHi.Common.Services;
-using System;
+using QueueAndHi.Common.Notifications;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
 
 namespace QueueAndHi.BL
 {
@@ -19,17 +14,13 @@ namespace QueueAndHi.BL
             this.notificationAggregator = new NotificationAggregator();
         }
 
-        // TODO: We should probably get here something like authentication token of the user
-        public GetNotificationResult GetNotification(AuthenticatedOperation<UserInfo> userBeingNotified)
+        public IEnumerable<Notification> GetNotifications(AuthenticationToken authToken)
         {
-            GetNotificationResult notificationResult = new GetNotificationResult();
-            Notification newNotification;
-            if (notificationAggregator.TryGetUserNotification(userBeingNotified.Payload, out newNotification))
-            {
-                notificationResult.IsNewNotification = true;
-                notificationResult.Notification = newNotification;
-            }
-            return notificationResult;
+            // Get the user-id from the authToken
+            // Get all new notifications from the DAL
+            // Aggregate the notifications
+            // return the aggregated notifications
+            return null;
         }
     }
 }

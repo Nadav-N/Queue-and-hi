@@ -6,7 +6,7 @@ using System.Web;
 
 namespace QueueAndHi.BL.Validators
 {
-    public class EmailAddressValidator : UserValidatorDecorator
+    public class EmailAddressValidator : UserRegistrationValidatorDecorator
     {
         public override OperationResult IsValidInternal(UserInfo userInfo)
         {

@@ -1,12 +1,13 @@
 ﻿using QueueAndHi.BL.Validators;
 using QueueAndHi.Common;
+using QueueAndHi.Common.Services;
 using System.Collections.Generic;
 
 namespace QueueAndHi.BL
 {
     public class UserServices : IUserServices
     {
-        private IUserValidator userValidator;
+        private IUserRegisrationValidator userValidator;
 
         public UserServices()
         {

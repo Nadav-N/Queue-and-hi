@@ -74,8 +74,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validators\EmailAddressValidator.cs" />
-    <Compile Include="Validators\IUserValidator.cs" />
-    <Compile Include="Validators\UserValidatorDecorator.cs" />
+    <Compile Include="Validators\IUserRegisrationValidator.cs" />
+    <Compile Include="Validators\UserRegistrationValidatorDecorator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

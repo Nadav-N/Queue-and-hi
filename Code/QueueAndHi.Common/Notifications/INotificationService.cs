@@ -5,12 +5,12 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QueueAndHi.Common.Services
+namespace QueueAndHi.Common.Notifications
 {
     [ServiceContract]
     public interface INotificationService
     {
         [OperationContract]
-        GetNotificationResult GetNotification(AuthenticatedOperation<UserInfo> userBeingNotified);
+        IEnumerable<Notification> GetNotifications(AuthenticationToken authToken);
     }
 }

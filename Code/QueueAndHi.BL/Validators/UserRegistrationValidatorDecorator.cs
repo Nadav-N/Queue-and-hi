@@ -9,13 +9,13 @@ namespace QueueAndHi.BL.Validators
     /// <summary>
     /// This class is using both the decorator pattern and the template method pattern
     /// </summary>
-    public abstract class UserValidatorDecorator : IUserValidator
+    public abstract class UserRegistrationValidatorDecorator : IUserRegisrationValidator
     {
-        protected IUserValidator decoratedValidator;
+        protected IUserRegisrationValidator decoratedValidator;
 
-        protected UserValidatorDecorator() { }
+        protected UserRegistrationValidatorDecorator() { }
 
-        protected UserValidatorDecorator(IUserValidator userValidator)
+        protected UserRegistrationValidatorDecorator(IUserRegisrationValidator userValidator)
         {
             this.decoratedValidator = userValidator;
         }
