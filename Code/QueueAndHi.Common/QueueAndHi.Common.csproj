@@ -56,6 +56,7 @@
     <Compile Include="Services\IPostQueries.cs" />
     <Compile Include="Services\IPostServices.cs" />
     <Compile Include="Services\IUserServices.cs" />
+    <Compile Include="UserCredentials.cs" />
     <Compile Include="UserInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

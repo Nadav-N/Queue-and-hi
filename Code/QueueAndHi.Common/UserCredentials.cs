@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace QueueAndHi.BL.Authentication
+namespace QueueAndHi.Common
 {
     public class UserCredentials
     {

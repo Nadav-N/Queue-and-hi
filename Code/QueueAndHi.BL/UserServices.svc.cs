@@ -16,7 +16,7 @@ namespace QueueAndHi.BL
             // userValidator = new DecoratedValidator(userValidator);
         }
 
-        public OperationResult AddNewUser(UserInfo newUser, string password)
+        public OperationResult AddNewUser(UserInfo newUser, UserCredentials userCredentials)
         {
             newUser.Ranking = 0;
             newUser.IsMuted = false;
@@ -32,7 +32,7 @@ namespace QueueAndHi.BL
             return validationResult;
         }
 
-        public OperationResult<AuthenticationToken> LogIn(string username, string password)
+        public OperationResult<AuthenticationToken> LogIn(UserCredentials userCredentials)
         {
             throw new System.NotImplementedException();
         }
