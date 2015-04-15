@@ -60,15 +60,27 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="NotificationService.svc" />
+    <Content Include="PostQueries.svc" />
+    <Content Include="PostServices.svc" />
     <Content Include="UserServices.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\AuthTokenCache.cs" />
+    <Compile Include="Authentication\AuthTokenSerializer.cs" />
+    <Compile Include="Authentication\IAuthTokenSerializer.cs" />
+    <Compile Include="Authentication\UserCredentials.cs" />
     <Compile Include="NotificationService.svc.cs">
       <DependentUpon>NotificationService.svc</DependentUpon>
     </Compile>
     <Compile Include="Notifications\INotificationAggregator.cs" />
     <Compile Include="Notifications\NotificationAggregator.cs" />
+    <Compile Include="PostQueries.svc.cs">
+      <DependentUpon>PostQueries.svc</DependentUpon>
+    </Compile>
+    <Compile Include="PostServices.svc.cs">
+      <DependentUpon>PostServices.svc</DependentUpon>
+    </Compile>
     <Compile Include="UserServices.svc.cs">
       <DependentUpon>UserServices.svc</DependentUpon>
     </Compile>

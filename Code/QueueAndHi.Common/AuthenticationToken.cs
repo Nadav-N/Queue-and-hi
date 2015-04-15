@@ -13,6 +13,6 @@ namespace QueueAndHi.Common
             TokenString = tokenString;
         }
 
-       public  string TokenString { get; private set; }
+       public string TokenString { get; private set; }
     }
 }
