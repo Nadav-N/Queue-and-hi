@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e322c1e0403548f8b1ed08222bdbcb69" Name="Diagram1">
+        <EntityTypeShape EntityType="qnhdbModel.answer_rankings" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qnhdbModel.answer" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qnhdbModel.question_rankings" Width="1.5" PointX="8.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="qnhdbModel.question" Width="1.5" PointX="3" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="qnhdbModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qnhdbModel.tag" Width="1.5" PointX="5.25" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="qnhdbModel.user" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <AssociationConnector Association="qnhdbModel.FK_answer_rankings_answers" ManuallyRouted="false" />
+        <AssociationConnector Association="qnhdbModel.FK_answer_rankings_users" ManuallyRouted="false" />
+        <AssociationConnector Association="qnhdbModel.FK_answers_questions" ManuallyRouted="false" />
+        <AssociationConnector Association="qnhdbModel.FK_answers_users" ManuallyRouted="false" />
+        <AssociationConnector Association="qnhdbModel.FK_question_rankings_questions" ManuallyRouted="false" />
+        <AssociationConnector Association="qnhdbModel.FK_question_rankings_users" ManuallyRouted="false" />
+        <AssociationConnector Association="qnhdbModel.FK_questions_users" ManuallyRouted="false" />
+        <AssociationConnector Association="qnhdbModel.FK_tags_questions" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

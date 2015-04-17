@@ -1,0 +1,557 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="qnhdbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="qnhdbModelStoreContainer">
+          <EntitySet Name="answer_rankings" EntityType="qnhdbModel.Store.answer_rankings" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="answers" EntityType="qnhdbModel.Store.answers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="question_rankings" EntityType="qnhdbModel.Store.question_rankings" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="questions" EntityType="qnhdbModel.Store.questions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="qnhdbModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tags" EntityType="qnhdbModel.Store.tags" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="users" EntityType="qnhdbModel.Store.users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_answer_rankings_answers" Association="qnhdbModel.Store.FK_answer_rankings_answers">
+            <End Role="answers" EntitySet="answers" />
+            <End Role="answer_rankings" EntitySet="answer_rankings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_answer_rankings_users" Association="qnhdbModel.Store.FK_answer_rankings_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="answer_rankings" EntitySet="answer_rankings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_answers_questions" Association="qnhdbModel.Store.FK_answers_questions">
+            <End Role="questions" EntitySet="questions" />
+            <End Role="answers" EntitySet="answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_answers_users" Association="qnhdbModel.Store.FK_answers_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="answers" EntitySet="answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_question_rankings_questions" Association="qnhdbModel.Store.FK_question_rankings_questions">
+            <End Role="questions" EntitySet="questions" />
+            <End Role="question_rankings" EntitySet="question_rankings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_question_rankings_users" Association="qnhdbModel.Store.FK_question_rankings_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="question_rankings" EntitySet="question_rankings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questions_users" Association="qnhdbModel.Store.FK_questions_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="questions" EntitySet="questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tags_questions" Association="qnhdbModel.Store.FK_tags_questions">
+            <End Role="questions" EntitySet="questions" />
+            <End Role="tags" EntitySet="tags" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="answer_rankings">
+          <Key>
+            <PropertyRef Name="author_id" />
+            <PropertyRef Name="answer_id" />
+          </Key>
+          <Property Name="author_id" Type="int" Nullable="false" />
+          <Property Name="answer_id" Type="int" Nullable="false" />
+          <Property Name="rank" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="answers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="question_id" Type="int" Nullable="false" />
+          <Property Name="contents" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ranking" Type="int" Nullable="false" />
+          <Property Name="author_id" Type="int" Nullable="false" />
+          <Property Name="seen" Type="tinyint" />
+          <Property Name="created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="question_rankings">
+          <Key>
+            <PropertyRef Name="author_id" />
+            <PropertyRef Name="question_id" />
+          </Key>
+          <Property Name="author_id" Type="int" Nullable="false" />
+          <Property Name="question_id" Type="int" Nullable="false" />
+          <Property Name="rank" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="questions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="contents" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ranking" Type="int" Nullable="false" />
+          <Property Name="author_id" Type="int" Nullable="false" />
+          <Property Name="recommended" Type="tinyint" Nullable="false" />
+          <Property Name="created" Type="datetime" Nullable="false" />
+          <Property Name="right_answer_id" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tags">
+          <Key>
+            <PropertyRef Name="question_id" />
+            <PropertyRef Name="tag" />
+          </Key>
+          <Property Name="question_id" Type="int" Nullable="false" />
+          <Property Name="tag" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="email" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="isadmin" Type="tinyint" Nullable="false" />
+          <Property Name="isowner" Type="tinyint" Nullable="false" />
+          <Property Name="ismuted" Type="tinyint" Nullable="false" />
+          <Property Name="ranking" Type="int" Nullable="false" />
+          <Property Name="created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_answer_rankings_answers">
+          <End Role="answers" Type="qnhdbModel.Store.answers" Multiplicity="1" />
+          <End Role="answer_rankings" Type="qnhdbModel.Store.answer_rankings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="answers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="answer_rankings">
+              <PropertyRef Name="answer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_answer_rankings_users">
+          <End Role="users" Type="qnhdbModel.Store.users" Multiplicity="1" />
+          <End Role="answer_rankings" Type="qnhdbModel.Store.answer_rankings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="answer_rankings">
+              <PropertyRef Name="author_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_answers_questions">
+          <End Role="questions" Type="qnhdbModel.Store.questions" Multiplicity="1" />
+          <End Role="answers" Type="qnhdbModel.Store.answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="answers">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_answers_users">
+          <End Role="users" Type="qnhdbModel.Store.users" Multiplicity="1" />
+          <End Role="answers" Type="qnhdbModel.Store.answers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="answers">
+              <PropertyRef Name="author_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_question_rankings_questions">
+          <End Role="questions" Type="qnhdbModel.Store.questions" Multiplicity="1" />
+          <End Role="question_rankings" Type="qnhdbModel.Store.question_rankings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="question_rankings">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_question_rankings_users">
+          <End Role="users" Type="qnhdbModel.Store.users" Multiplicity="1" />
+          <End Role="question_rankings" Type="qnhdbModel.Store.question_rankings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="question_rankings">
+              <PropertyRef Name="author_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_questions_users">
+          <End Role="users" Type="qnhdbModel.Store.users" Multiplicity="1" />
+          <End Role="questions" Type="qnhdbModel.Store.questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questions">
+              <PropertyRef Name="author_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tags_questions">
+          <End Role="questions" Type="qnhdbModel.Store.questions" Multiplicity="1" />
+          <End Role="tags" Type="qnhdbModel.Store.tags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tags">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="qnhdbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="qnhdb_connection_settings" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="answer_rankings" EntityType="qnhdbModel.answer_rankings" />
+          <EntitySet Name="answers" EntityType="qnhdbModel.answer" />
+          <EntitySet Name="question_rankings" EntityType="qnhdbModel.question_rankings" />
+          <EntitySet Name="questions" EntityType="qnhdbModel.question" />
+          <EntitySet Name="sysdiagrams" EntityType="qnhdbModel.sysdiagram" />
+          <EntitySet Name="tags" EntityType="qnhdbModel.tag" />
+          <EntitySet Name="users" EntityType="qnhdbModel.user" />
+          <AssociationSet Name="FK_answer_rankings_answers" Association="qnhdbModel.FK_answer_rankings_answers">
+            <End Role="answers" EntitySet="answers" />
+            <End Role="answer_rankings" EntitySet="answer_rankings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_answer_rankings_users" Association="qnhdbModel.FK_answer_rankings_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="answer_rankings" EntitySet="answer_rankings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_answers_questions" Association="qnhdbModel.FK_answers_questions">
+            <End Role="questions" EntitySet="questions" />
+            <End Role="answers" EntitySet="answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_answers_users" Association="qnhdbModel.FK_answers_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="answers" EntitySet="answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_question_rankings_questions" Association="qnhdbModel.FK_question_rankings_questions">
+            <End Role="questions" EntitySet="questions" />
+            <End Role="question_rankings" EntitySet="question_rankings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_question_rankings_users" Association="qnhdbModel.FK_question_rankings_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="question_rankings" EntitySet="question_rankings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questions_users" Association="qnhdbModel.FK_questions_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="questions" EntitySet="questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tags_questions" Association="qnhdbModel.FK_tags_questions">
+            <End Role="questions" EntitySet="questions" />
+            <End Role="tags" EntitySet="tags" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="answer_rankings">
+          <Key>
+            <PropertyRef Name="author_id" />
+            <PropertyRef Name="answer_id" />
+          </Key>
+          <Property Name="author_id" Type="Int32" Nullable="false" />
+          <Property Name="answer_id" Type="Int32" Nullable="false" />
+          <Property Name="rank" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="answer" Relationship="qnhdbModel.FK_answer_rankings_answers" FromRole="answer_rankings" ToRole="answers" />
+          <NavigationProperty Name="user" Relationship="qnhdbModel.FK_answer_rankings_users" FromRole="answer_rankings" ToRole="users" />
+        </EntityType>
+        <EntityType Name="answer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="question_id" Type="Int32" Nullable="false" />
+          <Property Name="contents" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ranking" Type="Int32" Nullable="false" />
+          <Property Name="author_id" Type="Int32" Nullable="false" />
+          <Property Name="seen" Type="Byte" />
+          <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="answer_rankings" Relationship="qnhdbModel.FK_answer_rankings_answers" FromRole="answers" ToRole="answer_rankings" />
+          <NavigationProperty Name="question" Relationship="qnhdbModel.FK_answers_questions" FromRole="answers" ToRole="questions" />
+          <NavigationProperty Name="user" Relationship="qnhdbModel.FK_answers_users" FromRole="answers" ToRole="users" />
+        </EntityType>
+        <EntityType Name="question_rankings">
+          <Key>
+            <PropertyRef Name="author_id" />
+            <PropertyRef Name="question_id" />
+          </Key>
+          <Property Name="author_id" Type="Int32" Nullable="false" />
+          <Property Name="question_id" Type="Int32" Nullable="false" />
+          <Property Name="rank" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="question" Relationship="qnhdbModel.FK_question_rankings_questions" FromRole="question_rankings" ToRole="questions" />
+          <NavigationProperty Name="user" Relationship="qnhdbModel.FK_question_rankings_users" FromRole="question_rankings" ToRole="users" />
+        </EntityType>
+        <EntityType Name="question">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="contents" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ranking" Type="Int32" Nullable="false" />
+          <Property Name="author_id" Type="Int32" Nullable="false" />
+          <Property Name="recommended" Type="Byte" Nullable="false" />
+          <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="right_answer_id" Type="Int32" />
+          <NavigationProperty Name="answers" Relationship="qnhdbModel.FK_answers_questions" FromRole="questions" ToRole="answers" />
+          <NavigationProperty Name="question_rankings" Relationship="qnhdbModel.FK_question_rankings_questions" FromRole="questions" ToRole="question_rankings" />
+          <NavigationProperty Name="user" Relationship="qnhdbModel.FK_questions_users" FromRole="questions" ToRole="users" />
+          <NavigationProperty Name="tags" Relationship="qnhdbModel.FK_tags_questions" FromRole="questions" ToRole="tags" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tag">
+          <Key>
+            <PropertyRef Name="question_id" />
+            <PropertyRef Name="tag1" />
+          </Key>
+          <Property Name="question_id" Type="Int32" Nullable="false" />
+          <Property Name="tag1" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="question" Relationship="qnhdbModel.FK_tags_questions" FromRole="tags" ToRole="questions" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="isadmin" Type="Byte" Nullable="false" />
+          <Property Name="isowner" Type="Byte" Nullable="false" />
+          <Property Name="ismuted" Type="Byte" Nullable="false" />
+          <Property Name="ranking" Type="Int32" Nullable="false" />
+          <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="answer_rankings" Relationship="qnhdbModel.FK_answer_rankings_users" FromRole="users" ToRole="answer_rankings" />
+          <NavigationProperty Name="answers" Relationship="qnhdbModel.FK_answers_users" FromRole="users" ToRole="answers" />
+          <NavigationProperty Name="question_rankings" Relationship="qnhdbModel.FK_question_rankings_users" FromRole="users" ToRole="question_rankings" />
+          <NavigationProperty Name="questions" Relationship="qnhdbModel.FK_questions_users" FromRole="users" ToRole="questions" />
+        </EntityType>
+        <Association Name="FK_answer_rankings_answers">
+          <End Role="answers" Type="qnhdbModel.answer" Multiplicity="1" />
+          <End Role="answer_rankings" Type="qnhdbModel.answer_rankings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="answers">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="answer_rankings">
+              <PropertyRef Name="answer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_answer_rankings_users">
+          <End Role="users" Type="qnhdbModel.user" Multiplicity="1" />
+          <End Role="answer_rankings" Type="qnhdbModel.answer_rankings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="answer_rankings">
+              <PropertyRef Name="author_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_answers_questions">
+          <End Role="questions" Type="qnhdbModel.question" Multiplicity="1" />
+          <End Role="answers" Type="qnhdbModel.answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="answers">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_answers_users">
+          <End Role="users" Type="qnhdbModel.user" Multiplicity="1" />
+          <End Role="answers" Type="qnhdbModel.answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="answers">
+              <PropertyRef Name="author_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_question_rankings_questions">
+          <End Role="questions" Type="qnhdbModel.question" Multiplicity="1" />
+          <End Role="question_rankings" Type="qnhdbModel.question_rankings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="question_rankings">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_question_rankings_users">
+          <End Role="users" Type="qnhdbModel.user" Multiplicity="1" />
+          <End Role="question_rankings" Type="qnhdbModel.question_rankings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="question_rankings">
+              <PropertyRef Name="author_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_questions_users">
+          <End Role="users" Type="qnhdbModel.user" Multiplicity="1" />
+          <End Role="questions" Type="qnhdbModel.question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questions">
+              <PropertyRef Name="author_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tags_questions">
+          <End Role="questions" Type="qnhdbModel.question" Multiplicity="1" />
+          <End Role="tags" Type="qnhdbModel.tag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tags">
+              <PropertyRef Name="question_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="qnhdbModelStoreContainer" CdmEntityContainer="qnhdb_connection_settings">
+          <EntitySetMapping Name="answer_rankings">
+            <EntityTypeMapping TypeName="qnhdbModel.answer_rankings">
+              <MappingFragment StoreEntitySet="answer_rankings">
+                <ScalarProperty Name="author_id" ColumnName="author_id" />
+                <ScalarProperty Name="answer_id" ColumnName="answer_id" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="answers">
+            <EntityTypeMapping TypeName="qnhdbModel.answer">
+              <MappingFragment StoreEntitySet="answers">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="contents" ColumnName="contents" />
+                <ScalarProperty Name="ranking" ColumnName="ranking" />
+                <ScalarProperty Name="author_id" ColumnName="author_id" />
+                <ScalarProperty Name="seen" ColumnName="seen" />
+                <ScalarProperty Name="created" ColumnName="created" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="question_rankings">
+            <EntityTypeMapping TypeName="qnhdbModel.question_rankings">
+              <MappingFragment StoreEntitySet="question_rankings">
+                <ScalarProperty Name="author_id" ColumnName="author_id" />
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="questions">
+            <EntityTypeMapping TypeName="qnhdbModel.question">
+              <MappingFragment StoreEntitySet="questions">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="contents" ColumnName="contents" />
+                <ScalarProperty Name="ranking" ColumnName="ranking" />
+                <ScalarProperty Name="author_id" ColumnName="author_id" />
+                <ScalarProperty Name="recommended" ColumnName="recommended" />
+                <ScalarProperty Name="created" ColumnName="created" />
+                <ScalarProperty Name="right_answer_id" ColumnName="right_answer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="qnhdbModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tags">
+            <EntityTypeMapping TypeName="qnhdbModel.tag">
+              <MappingFragment StoreEntitySet="tags">
+                <ScalarProperty Name="question_id" ColumnName="question_id" />
+                <ScalarProperty Name="tag1" ColumnName="tag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="qnhdbModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="isadmin" ColumnName="isadmin" />
+                <ScalarProperty Name="isowner" ColumnName="isowner" />
+                <ScalarProperty Name="ismuted" ColumnName="ismuted" />
+                <ScalarProperty Name="ranking" ColumnName="ranking" />
+                <ScalarProperty Name="created" ColumnName="created" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
