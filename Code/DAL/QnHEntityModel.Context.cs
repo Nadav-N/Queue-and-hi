@@ -13,10 +13,10 @@ namespace DAL
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class qnhdb_connection_settings : DbContext
+    public partial class qnhdb : DbContext
     {
-        public qnhdb_connection_settings()
-            : base("name=qnhdb_connection_settings")
+        public qnhdb()
+            : base("name=qnhdb")
         {
         }
     

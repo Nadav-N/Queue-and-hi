@@ -221,7 +221,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="qnhdbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="qnhdb_connection_settings" p1:LazyLoadingEnabled="true">
+        <EntityContainer Name="qnhdb" p1:LazyLoadingEnabled="true">
           <EntitySet Name="answer_rankings" EntityType="qnhdbModel.answer_rankings" />
           <EntitySet Name="answers" EntityType="qnhdbModel.answer" />
           <EntitySet Name="question_rankings" EntityType="qnhdbModel.question_rankings" />
@@ -453,7 +453,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="qnhdbModelStoreContainer" CdmEntityContainer="qnhdb_connection_settings">
+        <EntityContainerMapping StorageEntityContainer="qnhdbModelStoreContainer" CdmEntityContainer="qnhdb">
           <EntitySetMapping Name="answer_rankings">
             <EntityTypeMapping TypeName="qnhdbModel.answer_rankings">
               <MappingFragment StoreEntitySet="answer_rankings">

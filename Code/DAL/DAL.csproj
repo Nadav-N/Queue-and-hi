@@ -48,70 +48,70 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="answer.cs">
-      <DependentUpon>QnHModel.tt</DependentUpon>
+      <DependentUpon>QnHEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="answer_rankings.cs">
-      <DependentUpon>QnHModel.tt</DependentUpon>
+      <DependentUpon>QnHEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QnHModel.Context.cs">
+    <Compile Include="QnHEntityModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>QnHModel.Context.tt</DependentUpon>
+      <DependentUpon>QnHEntityModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="QnHModel.cs">
+    <Compile Include="QnHEntityModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>QnHModel.tt</DependentUpon>
+      <DependentUpon>QnHEntityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="QnHModel.Designer.cs">
+    <Compile Include="QnHEntityModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>QnHModel.edmx</DependentUpon>
+      <DependentUpon>QnHEntityModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="question.cs">
-      <DependentUpon>QnHModel.tt</DependentUpon>
+      <DependentUpon>QnHEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="question_rankings.cs">
-      <DependentUpon>QnHModel.tt</DependentUpon>
+      <DependentUpon>QnHEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagram.cs">
-      <DependentUpon>QnHModel.tt</DependentUpon>
+      <DependentUpon>QnHEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tag.cs">
-      <DependentUpon>QnHModel.tt</DependentUpon>
+      <DependentUpon>QnHEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="user.cs">
-      <DependentUpon>QnHModel.tt</DependentUpon>
+      <DependentUpon>QnHEntityModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="QnHModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>QnHModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
-    <None Include="QnHModel.edmx.diagram">
-      <DependentUpon>QnHModel.edmx</DependentUpon>
+    <EntityDeploy Include="QnHEntityModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QnHEntityModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="QnHEntityModel.edmx.diagram">
+      <DependentUpon>QnHEntityModel.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="QnHModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QnHModel.edmx</DependentUpon>
-      <LastGenOutput>QnHModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="QnHModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QnHModel.edmx</DependentUpon>
-      <LastGenOutput>QnHModel.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="QnHEntityModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QnHEntityModel.edmx</DependentUpon>
+      <LastGenOutput>QnHEntityModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="QnHEntityModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QnHEntityModel.edmx</DependentUpon>
+      <LastGenOutput>QnHEntityModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
