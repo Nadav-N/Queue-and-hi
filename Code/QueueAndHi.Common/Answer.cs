@@ -17,10 +17,10 @@ namespace QueueAndHi.Common
         public int Ranking { get; set; }
 
         [DataMember]
-        public UserInfo Author { get; set; }
+        public int AuthorID { get; set; }
 
         [DataMember]
-        public Question RelatedQuestion { get; set; }
+        public int RelatedQuestionId { get; set; }
 
         [DataMember]
         public int ID { get; set; }

@@ -18,7 +18,7 @@ namespace QueueAndHi.BL
             throw new NotImplementedException();
         }
 
-        public void DeleteQuestion(AuthenticatedOperation<Question> question)
+        public void DeleteQuestion(AuthenticatedOperation<int> questionId)
         {
             throw new NotImplementedException();
         }
@@ -28,22 +28,32 @@ namespace QueueAndHi.BL
             throw new NotImplementedException();
         }
 
-        public void DeleteAnswer(AuthenticatedOperation<Answer> answer)
+        public void DeleteAnswer(AuthenticatedOperation<int> answerId)
         {
             throw new NotImplementedException();
         }
 
-        public void VoteUpPost(AuthenticatedOperation<IPost> post)
+        public void RecommendQuestion(AuthenticatedOperation<int> questionId)
         {
             throw new NotImplementedException();
         }
 
-        public void VoteDownPost(AuthenticatedOperation<IPost> post)
+        public void VoteUpQuestion(AuthenticatedOperation<int> questionId)
         {
             throw new NotImplementedException();
         }
 
-        public void RecommendQuestion(AuthenticatedOperation<Question> question)
+        public void VoteDownQuestion(AuthenticatedOperation<int> questionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void VoteUpAnswer(AuthenticatedOperation<int> answerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void VoteDownAnswer(AuthenticatedOperation<int> answerId)
         {
             throw new NotImplementedException();
         }

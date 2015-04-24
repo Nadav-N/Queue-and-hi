@@ -20,7 +20,7 @@ namespace QueueAndHi.Common
         public int Ranking { get; set; }
 
         [DataMember]
-        public UserInfo Author { get; set; }
+        public int AuthorID { get; set; }
 
         [DataMember]
         public IEnumerable<string> Tags { get; set; }

@@ -16,7 +16,7 @@ namespace QueueAndHi.Common
         int Ranking { get; set; }
 
         [DataMember]
-        UserInfo Author { get; }
+        int AuthorID { get; }
 
         [DataMember]
         int ID { get; }

@@ -14,21 +14,27 @@ namespace QueueAndHi.Common.Services
         void AddQuestion(AuthenticatedOperation<Question> question);
 
         [OperationContract]
-        void DeleteQuestion(AuthenticatedOperation<Question> question);
+        void DeleteQuestion(AuthenticatedOperation<int> questionId);
 
         [OperationContract]
         void AddAnswer(AuthenticatedOperation<Answer> answer);
 
         [OperationContract]
-        void DeleteAnswer(AuthenticatedOperation<Answer> answer);
+        void DeleteAnswer(AuthenticatedOperation<int> answerId);
 
         [OperationContract]
-        void VoteUpPost(AuthenticatedOperation<IPost> post);
+        void VoteUpQuestion(AuthenticatedOperation<int> questionId);
 
         [OperationContract]
-        void VoteDownPost(AuthenticatedOperation<IPost> post);
+        void VoteDownQuestion(AuthenticatedOperation<int> questionId);
 
         [OperationContract]
-        void RecommendQuestion(AuthenticatedOperation<Question> question);
+        void VoteUpAnswer(AuthenticatedOperation<int> answerId);
+
+        [OperationContract]
+        void VoteDownAnswer(AuthenticatedOperation<int> answerId);
+
+        [OperationContract]
+        void RecommendQuestion(AuthenticatedOperation<int> questionId);
     }
 }
