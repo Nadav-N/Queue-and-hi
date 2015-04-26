@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace QueueAndHi.Client.Notifications
 {
-    class NotificationsObserver
+    public class NotificationsObserver
     {
+        public event EventHandler<NewNotificationsEventArgs> NewNotifications;
     }
 }

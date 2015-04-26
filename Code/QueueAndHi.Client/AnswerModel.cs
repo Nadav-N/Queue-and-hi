@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QueueAndHi.Client
 {
-    public class Answer : AbstractPost
+    public class AnswerModel : AbstractPost
     {
         private bool answered;
         public bool Answered

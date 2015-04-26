@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace QueueAndHi.Client
 {
-    public class Question : AbstractPost
+    public class QuestionModel : AbstractPost
     {
         private bool recommended;
         private ObservableCollection<string> tags;
-        private ObservableCollection<Answer> answers;
+        private ObservableCollection<AnswerModel> answers;
         private string title;
         private int answerCount;
 
@@ -48,7 +48,7 @@ namespace QueueAndHi.Client
             }
         }
 
-        public ObservableCollection<Answer> Answers
+        public ObservableCollection<AnswerModel> Answers
         {
             get
             {

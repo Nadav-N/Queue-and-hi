@@ -11,14 +11,8 @@ namespace QueueAndHi.Client
     {
         private DateTime datePosted;
         private int votesCount;
-        //private string title //question only;
         private string author;
         private string content;
-
-        //private bool isRecommended //question only;
-        //private bool answered; //answer only
-        //private ObservableCollection<string> tags;
-
 
         public DateTime DatePosted
         {

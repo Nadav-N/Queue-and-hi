@@ -57,11 +57,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AbstractPost.cs" />
-    <Compile Include="Answer.cs" />
+    <Compile Include="AnswerModel.cs" />
+    <Compile Include="Authentication\AuthenticationTokenSingleton.cs" />
     <Compile Include="Converters\BooleanConverter.cs" />
     <Compile Include="Converters\Bool2VisConverter.cs" />
+    <Compile Include="Notifications\NewNotificationsEventArgs.cs" />
     <Compile Include="Notifications\NotificationsObserver.cs" />
-    <Compile Include="Question.cs" />
+    <Compile Include="QuestionModel.cs" />
     <Compile Include="QuestionInfo.cs" />
     <Compile Include="Samples\AnswerViewWindow.xaml.cs">
       <DependentUpon>AnswerViewWindow.xaml</DependentUpon>
@@ -256,6 +258,7 @@
       <Name>QueueAndHi.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

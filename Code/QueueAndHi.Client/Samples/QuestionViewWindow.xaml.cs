@@ -23,7 +23,7 @@ namespace QueueAndHi.Client.Samples
         public QuestionViewWindow()
         {
             
-            Question = new Question
+            Question = new QuestionModel
             {
                 Author = "Tomer",
                 Content = "How can I use the inverted value of a BooleanToVisibilityConverter\n\nFor Example, I want to be able to Show one image if the Value is true, but hide it and show another if the value is false",
@@ -35,9 +35,9 @@ namespace QueueAndHi.Client.Samples
                         {
                             "WPF", "animation", "programming", "homework", "gui", "code", "bll", "dll"
                         },
-                Answers = new ObservableCollection<Answer> 
+                Answers = new ObservableCollection<AnswerModel> 
                 {
-                    new Answer
+                    new AnswerModel
                     {
                         Author = "Nadav",
                         Content = "Look into writing a custom inverter, that way you can do it anything you'd like.",
@@ -45,7 +45,7 @@ namespace QueueAndHi.Client.Samples
                         VotesCount = 47,
                         Answered= false
                     },
-                    new Answer
+                    new AnswerModel
                     {
                         Author = "Danni",
                         Content = "There's an example in the course book. check it out.",
@@ -64,7 +64,7 @@ namespace QueueAndHi.Client.Samples
         }
 
 
-        public Question Question
+        public QuestionModel Question
         {
             get;
             private set;
