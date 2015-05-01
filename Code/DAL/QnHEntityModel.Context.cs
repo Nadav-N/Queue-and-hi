@@ -32,5 +32,6 @@ namespace DAL
         public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<tag> tags { get; set; }
         public DbSet<user> users { get; set; }
+        public DbSet<notification> notifications { get; set; }
     }
 }

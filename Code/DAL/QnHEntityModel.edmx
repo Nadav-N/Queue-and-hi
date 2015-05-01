@@ -4,10 +4,11 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="qnhdbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="qnhdbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="qnhdbModelStoreContainer">
           <EntitySet Name="answer_rankings" EntityType="qnhdbModel.Store.answer_rankings" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="answers" EntityType="qnhdbModel.Store.answers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="notifications" EntityType="qnhdbModel.Store.notifications" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="question_rankings" EntityType="qnhdbModel.Store.question_rankings" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="questions" EntityType="qnhdbModel.Store.questions" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="sysdiagrams" EntityType="qnhdbModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
@@ -67,6 +68,15 @@
           <Property Name="seen" Type="tinyint" />
           <Property Name="created" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="notifications">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="notification_type" Type="int" Nullable="false" />
+          <Property Name="message" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="question_rankings">
           <Key>
             <PropertyRef Name="author_id" />
@@ -88,6 +98,7 @@
           <Property Name="recommended" Type="tinyint" Nullable="false" />
           <Property Name="created" Type="datetime" Nullable="false" />
           <Property Name="right_answer_id" Type="int" />
+          <Property Name="version" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -216,8 +227,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="qnhdbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -261,6 +271,7 @@
             <End Role="questions" EntitySet="questions" />
             <End Role="tags" EntitySet="tags" />
           </AssociationSet>
+          <EntitySet Name="notifications" EntityType="qnhdbModel.notification" />
         </EntityContainer>
         <EntityType Name="answer_rankings">
           <Key>
@@ -315,6 +326,7 @@
           <NavigationProperty Name="question_rankings" Relationship="qnhdbModel.FK_question_rankings_questions" FromRole="questions" ToRole="question_rankings" />
           <NavigationProperty Name="user" Relationship="qnhdbModel.FK_questions_users" FromRole="questions" ToRole="users" />
           <NavigationProperty Name="tags" Relationship="qnhdbModel.FK_tags_questions" FromRole="questions" ToRole="tags" />
+          <Property Type="Int32" Name="version" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -448,6 +460,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="notification_type" Nullable="false" />
+          <Property Type="String" Name="message" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="timestamp" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -488,6 +509,7 @@
           <EntitySetMapping Name="questions">
             <EntityTypeMapping TypeName="qnhdbModel.question">
               <MappingFragment StoreEntitySet="questions">
+                <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="contents" ColumnName="contents" />
@@ -529,6 +551,16 @@
                 <ScalarProperty Name="ismuted" ColumnName="ismuted" />
                 <ScalarProperty Name="ranking" ColumnName="ranking" />
                 <ScalarProperty Name="created" ColumnName="created" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notifications">
+            <EntityTypeMapping TypeName="qnhdbModel.notification">
+              <MappingFragment StoreEntitySet="notifications">
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="notification_type" ColumnName="notification_type" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

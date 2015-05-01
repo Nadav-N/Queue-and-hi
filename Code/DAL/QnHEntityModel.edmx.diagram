@@ -20,6 +20,7 @@
         <AssociationConnector Association="qnhdbModel.FK_question_rankings_users" ManuallyRouted="false" />
         <AssociationConnector Association="qnhdbModel.FK_questions_users" ManuallyRouted="false" />
         <AssociationConnector Association="qnhdbModel.FK_tags_questions" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="qnhdbModel.notification" Width="1.5" PointX="7.9139768927888827" PointY="19.716260248663026" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

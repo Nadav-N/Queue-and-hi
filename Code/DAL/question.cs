@@ -29,6 +29,7 @@ namespace DAL
         public byte recommended { get; set; }
         public System.DateTime created { get; set; }
         public Nullable<int> right_answer_id { get; set; }
+        public int version { get; set; }
     
         public virtual ICollection<answer> answers { get; set; }
         public virtual ICollection<question_rankings> question_rankings { get; set; }

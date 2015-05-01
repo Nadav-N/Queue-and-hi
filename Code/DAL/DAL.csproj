@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DAL</RootNamespace>
     <AssemblyName>DAL</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -53,6 +54,12 @@
     <Compile Include="answer_rankings.cs">
       <DependentUpon>QnHEntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Converter.cs" />
+    <Compile Include="notification.cs">
+      <DependentUpon>QnHEntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationOps.cs" />
+    <Compile Include="PostOps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QnHEntityModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -84,6 +91,7 @@
     <Compile Include="user.cs">
       <DependentUpon>QnHEntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserOps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config">
@@ -112,6 +120,12 @@
       <DependentUpon>QnHEntityModel.edmx</DependentUpon>
       <LastGenOutput>QnHEntityModel.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QueueAndHi.Common\QueueAndHi.Common.csproj">
+      <Project>{a097cf67-adcd-443b-8dcc-782f7876a928}</Project>
+      <Name>QueueAndHi.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
