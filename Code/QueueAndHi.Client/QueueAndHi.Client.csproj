@@ -57,7 +57,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AbstractPost.cs" />
-    <Compile Include="AnswerModel.cs" />
+    <Compile Include="DelegateCommand.cs" />
+    <Compile Include="Models\AnswerModel.cs" />
     <Compile Include="Authentication\AuthenticationTokenSingleton.cs" />
     <Compile Include="Converters\BooleanConverter.cs" />
     <Compile Include="Converters\Bool2VisConverter.cs" />
@@ -65,8 +66,8 @@
     <Compile Include="NewDiscussionThreadVersionEventArgs.cs" />
     <Compile Include="Notifications\NewNotificationsEventArgs.cs" />
     <Compile Include="Notifications\NotificationsObserver.cs" />
-    <Compile Include="QuestionModel.cs" />
-    <Compile Include="QuestionInfo.cs" />
+    <Compile Include="Models\QuestionModel.cs" />
+    <Compile Include="Models\QuestionInfo.cs" />
     <Compile Include="Samples\AnswerViewWindow.xaml.cs">
       <DependentUpon>AnswerViewWindow.xaml</DependentUpon>
     </Compile>
@@ -88,7 +89,7 @@
     <Compile Include="Samples\UserManagement.xaml.cs">
       <DependentUpon>UserManagement.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserAccount.cs" />
+    <Compile Include="Models\UserAccountModel.cs" />
     <Compile Include="UserControls\NewAnswer.xaml.cs">
       <DependentUpon>NewAnswer.xaml</DependentUpon>
     </Compile>

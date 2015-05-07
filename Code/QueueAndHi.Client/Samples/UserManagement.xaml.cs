@@ -23,25 +23,25 @@ namespace QueueAndHi.Client.Samples
         public UserManagement()
         {
             InitializeComponent();
-            Users = new ObservableCollection<UserAccount>
+            Users = new ObservableCollection<UserAccountModel>
             {
-                new UserAccount
+                new UserAccountModel
                 {
                     Username = "Nadav",
                     Points = 4
                 },
-                new UserAccount
+                new UserAccountModel
                 {
                     Username = "Danny",
                     IsAdmin = true,
                     Points = 134
                 },
-                new UserAccount
+                new UserAccountModel
                 {
                     Username = "Tomer",
                     Points = 12
                 },
-                new UserAccount
+                new UserAccountModel
                 {
                     Username = "Dr. Evil",
                     Points = -27,
@@ -50,6 +50,6 @@ namespace QueueAndHi.Client.Samples
             };
         }
 
-        public ObservableCollection<UserAccount> Users { get; set; }
+        public ObservableCollection<UserAccountModel> Users { get; set; }
     }
 }

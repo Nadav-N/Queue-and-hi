@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace QueueAndHi.Client
 {
-    public class UserAccount : INotifyPropertyChanged
+    public class UserAccountModel : INotifyPropertyChanged
     {
         private string username;
         private int points;
