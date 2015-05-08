@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -90,6 +91,7 @@
       <DependentUpon>UserManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\UserAccountModel.cs" />
+    <Compile Include="ViewModels\MainToolbarViewModel.cs" />
     <Compile Include="UserControls\NewAnswer.xaml.cs">
       <DependentUpon>NewAnswer.xaml</DependentUpon>
     </Compile>
@@ -111,6 +113,14 @@
     <Compile Include="UserControls\UserManagementView.xaml.cs">
       <DependentUpon>UserManagementView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AnswerViewModel.cs" />
+    <Compile Include="ViewModels\MainMenuViewModel.cs" />
+    <Compile Include="ViewModels\NewAnswerViewModel.cs" />
+    <Compile Include="ViewModels\NewQuestionViewModel.cs" />
+    <Compile Include="ViewModels\QuestionListViewModel.cs" />
+    <Compile Include="ViewModels\QuestionViewModel.cs" />
+    <Compile Include="ViewModels\RegistrationViewModel.cs" />
+    <Compile Include="ViewModels\UserManagementViewModel.cs" />
     <Page Include="Samples\AnswerViewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

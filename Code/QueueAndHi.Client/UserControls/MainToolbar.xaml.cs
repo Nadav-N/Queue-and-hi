@@ -1,5 +1,7 @@
-﻿using System;
+﻿using QueueAndHi.Client.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +37,10 @@ namespace QueueAndHi.Client
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register("Text", typeof(string), typeof(MainToolbar), new PropertyMetadata(String.Empty));
 
-
+        [Import]
+        public MainToolbarViewModel ViewModel
+        {
+            set { this.DataContext = value; }
+        }
     }
 }

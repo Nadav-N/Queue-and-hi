@@ -1,5 +1,7 @@
-﻿using System;
+﻿using QueueAndHi.Client.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +25,12 @@ namespace QueueAndHi.Client
         public NewQuestion()
         {
             InitializeComponent();
+        }
+
+        [Import]
+        public NewQuestionViewModel ViewModel
+        {
+            set { this.DataContext = value; }
         }
     }
 }
