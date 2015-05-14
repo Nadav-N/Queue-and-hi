@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace QueueAndHi.Client.ViewModels
 {
-    [Export]
     public class QuestionViewModel : INotifyPropertyChanged
     {
         public QuestionModel Question

@@ -26,11 +26,5 @@ namespace QueueAndHi.Client
         {
             InitializeComponent();
         }
-
-        [Import]
-        public RegistrationViewModel ViewModel
-        {
-            set { this.DataContext = value; }
-        }
     }
 }

@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace QueueAndHi.Client.ViewModels
 {
-    [Export]
     public class NewQuestionViewModel : INotifyPropertyChanged
     {
         public QuestionModel Question { get; set; }

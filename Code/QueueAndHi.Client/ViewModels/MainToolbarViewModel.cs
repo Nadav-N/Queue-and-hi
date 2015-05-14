@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace QueueAndHi.Client.ViewModels
 {
-    [Export]
     public class MainToolbarViewModel : INotifyPropertyChanged
     {
         public string SearchText { get; set; }

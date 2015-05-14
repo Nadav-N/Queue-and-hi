@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace QueueAndHi.Client.ViewModels
 {
-    [Export]
     public class RegistrationViewModel : INotifyPropertyChanged
     {
         public UserInfo User { get; set; }

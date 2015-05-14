@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QueueAndHi.Client.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace QueueAndHi.Client
     {
         public MainWindow()
         {
+            MainMenuVM = new MainMenuViewModel();
+            MainToolbarVM = new MainToolbarViewModel();
             Questions = new ObservableCollection<QuestionInfo>
                 {
                     new QuestionInfo
@@ -87,6 +90,18 @@ namespace QueueAndHi.Client
         {
             get;
             private set;
+        }
+
+        public MainMenuViewModel MainMenuVM
+        {
+            get;
+            set;
+        }
+
+        public MainToolbarViewModel MainToolbarVM
+        {
+            get;
+            set;
         }
     }
 }
