@@ -64,6 +64,7 @@
     <Compile Include="Converters\BooleanConverter.cs" />
     <Compile Include="Converters\Bool2VisConverter.cs" />
     <Compile Include="DiscussionThreadObserver.cs" />
+    <Compile Include="NavigationManager.cs" />
     <Compile Include="NewDiscussionThreadVersionEventArgs.cs" />
     <Compile Include="Notifications\NewNotificationsEventArgs.cs" />
     <Compile Include="Notifications\NotificationsObserver.cs" />
