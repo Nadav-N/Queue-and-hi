@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </UserControl.Resources>
-    <ItemsControl HorizontalContentAlignment="Stretch" ItemsSource="{Binding}">
+    <ItemsControl HorizontalContentAlignment="Stretch" ItemsSource="{Binding Questions}">
         <ItemsControl.ItemTemplate>
             <ItemContainerTemplate DataType="qa:QuestionInfo">
                 <Border BorderBrush="LightGray" BorderThickness="0 1 0 1" Margin="30,0,30,0">

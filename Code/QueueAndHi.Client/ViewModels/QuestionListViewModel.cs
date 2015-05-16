@@ -6,11 +6,19 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace QueueAndHi.Client.ViewModels
 {
     public class QuestionListViewModel : INotifyPropertyChanged
     {
+        public QuestionListViewModel()
+        {
+            Questions = new ObservableCollection<QuestionInfo>();
+        }
+
+        public ICommand NavigateToQuestion { get; set; }
+
         public ObservableCollection<QuestionInfo> Questions
         {
             get;

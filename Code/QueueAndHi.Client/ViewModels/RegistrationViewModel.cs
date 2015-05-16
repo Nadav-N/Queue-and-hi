@@ -6,6 +6,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace QueueAndHi.Client.ViewModels
 {
@@ -13,6 +14,8 @@ namespace QueueAndHi.Client.ViewModels
     {
         public UserInfo User { get; set; }
         public UserCredentials Credentials { get; set; }
+
+        public ICommand RegisterUser { get; set; }
 
         internal void OnPropertyChanged(string propName)
         {

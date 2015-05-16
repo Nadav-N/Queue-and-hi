@@ -6,6 +6,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace QueueAndHi.Client.ViewModels
 {
@@ -16,6 +17,14 @@ namespace QueueAndHi.Client.ViewModels
             get;
             set;
         }
+
+        public ICommand RankUp { get; set; }
+
+        public ICommand RankDown { get; set; }
+
+        public ICommand Delete { get; set; }
+
+        public ICommand AddAnswer { get; set; }
 
         internal void OnPropertyChanged(string propName)
         {

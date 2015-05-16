@@ -26,70 +26,15 @@ namespace QueueAndHi.Client
         {
             MainMenuVM = new MainMenuViewModel();
             MainToolbarVM = new MainToolbarViewModel();
-            Questions = new ObservableCollection<QuestionInfo>
-                {
-                    new QuestionInfo
-                    {
-                        Author = "Nadav",
-                        AnswersCount = 1,
-                        VotesCount = 2,
-                        Title = "Creating a new project in visual studio",
-                        Tags = new ObservableCollection<string>
-                        {
-                            "visual studio", "csproj"
-                        }
-                    },
-                    new QuestionInfo
-                    {
-                        Author = "Tomer",
-                        AnswersCount = 3,
-                        VotesCount = 1,
-                        Title = "TwoWay data binding in WPF",
-                        Tags = new ObservableCollection<string>
-                        {
-                            "WPF", "Data Binding"
-                        },
-                        IsRecommended = true
-                    },
-                    new QuestionInfo                    
-                    {
-                        Author = "Danny",
-                        AnswersCount = 0,
-                        VotesCount = 0,
-                        Title = "Entity framework Code-first error",
-                        Tags = new ObservableCollection<string>
-                        {
-                            "Entity Framework", "Code first"
-                        },
-                        IsRecommended = true
-                    },
-                    new QuestionInfo                    
-                    {
-                        Author = "Yifat",
-                        AnswersCount = 1,
-                        VotesCount = 5,
-                        Title = "Async operations in WPF UI",
-                        Tags = new ObservableCollection<string>
-                        {
-                            "Async"
-                        }
-                    },
-                    new QuestionInfo                    
-                    {
-                        Author = "Haim",
-                        AnswersCount = 0,
-                        VotesCount = 3,
-                        Title = "How to seperate BI layer from the client"
-                    }
-                };
+            MainVM = new QuestionListViewModel();
 
             InitializeComponent();
         }
 
-        public ObservableCollection<QuestionInfo> Questions
+        public object MainVM
         {
             get;
-            private set;
+            set;
         }
 
         public MainMenuViewModel MainMenuVM
