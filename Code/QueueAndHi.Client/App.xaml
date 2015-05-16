@@ -32,5 +32,8 @@
         <DataTemplate DataType="{x:Type vms:UserManagementViewModel}">
             <views:UserManagementView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vms:NotificationsViewModel}">
+            <views:NotificationsView />
+        </DataTemplate>
     </Application.Resources>
 </Application>

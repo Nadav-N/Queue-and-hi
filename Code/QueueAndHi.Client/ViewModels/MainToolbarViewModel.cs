@@ -5,12 +5,15 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace QueueAndHi.Client.ViewModels
 {
     public class MainToolbarViewModel : INotifyPropertyChanged
     {
         public string SearchText { get; set; }
+
+        public ICommand Search { get; set; }
 
         internal void OnPropertyChanged(string propName)
         {

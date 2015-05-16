@@ -13,6 +13,7 @@ namespace QueueAndHi.Client.ViewModels
     public class RegistrationViewModel : INotifyPropertyChanged
     {
         public UserInfo User { get; set; }
+
         public UserCredentials Credentials { get; set; }
 
         public ICommand RegisterUser { get; set; }

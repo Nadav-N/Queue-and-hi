@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QueueAndHi.Common;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -16,6 +17,21 @@ namespace QueueAndHi.Client
         private string author;
         private bool isRecommended;
         private ObservableCollection<string> tags;
+
+        public QuestionInfo()
+        {
+
+        }
+
+        public QuestionInfo(Question question)
+        {
+
+        }
+
+        public Question ToExternal()
+        {
+            return null;
+        }
 
         public int AnswersCount
         {

@@ -17,7 +17,7 @@
         <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="False" SelectionUnit="FullRow" Grid.Row="0" CanUserAddRows="False" CanUserDeleteRows="False" Width="750">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Username" Width="175" Binding="{Binding Username}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Points" Width="175" Binding="{Binding Points}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Ranking" Width="175" Binding="{Binding Ranking}" IsReadOnly="True"/>
                 <DataGridCheckBoxColumn Header="Muted" Width="175" Binding="{Binding IsMuted}"/>
                 <DataGridCheckBoxColumn Header="Admin" Width="175" Binding="{Binding IsAdmin}"/>
             </DataGrid.Columns>

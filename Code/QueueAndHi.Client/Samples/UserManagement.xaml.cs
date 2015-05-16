@@ -28,23 +28,23 @@ namespace QueueAndHi.Client.Samples
                 new UserAccountModel
                 {
                     Username = "Nadav",
-                    Points = 4
+                    Ranking = 4
                 },
                 new UserAccountModel
                 {
                     Username = "Danny",
                     IsAdmin = true,
-                    Points = 134
+                    Ranking = 134
                 },
                 new UserAccountModel
                 {
                     Username = "Tomer",
-                    Points = 12
+                    Ranking = 12
                 },
                 new UserAccountModel
                 {
                     Username = "Dr. Evil",
-                    Points = -27,
+                    Ranking = -27,
                     IsMuted = true
                 }
             };

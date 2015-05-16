@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QueueAndHi.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -10,9 +11,24 @@ namespace QueueAndHi.Client
     public class UserAccountModel : INotifyPropertyChanged
     {
         private string username;
-        private int points;
+        private int ranking;
         private bool isAdmin;
         public bool isMuted;
+
+        public UserAccountModel()
+        {
+
+        }
+
+        public UserAccountModel(UserInfo userInfo)
+        {
+
+        }
+
+        public UserInfo ToExternal()
+        {
+            return null;
+        }
 
         public string Username
         {
@@ -27,16 +43,16 @@ namespace QueueAndHi.Client
             }
         }
 
-        public int Points
+        public int Ranking
         {
             get
             {
-                return this.points;
+                return this.ranking;
             }
             set
             {
-                this.points = value;
-                OnPropertyChanged("Points");
+                this.ranking = value;
+                OnPropertyChanged("Ranking");
             }
         }
 

@@ -1,5 +1,4 @@
-﻿using QueueAndHi.Client.Commands;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -19,8 +18,7 @@ namespace QueueAndHi.Client.ViewModels
 
         public bool IsUserAdmin { get; set; }
 
-        [Import]
-        public NavigateHomeCommand NavigateHome { get; set; }
+        public ICommand NavigateHome { get; set; }
 
         public ICommand NavigateMyQuestions { get; set; }
 

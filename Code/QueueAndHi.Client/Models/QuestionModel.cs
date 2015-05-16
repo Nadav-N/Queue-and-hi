@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QueueAndHi.Common;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,6 +15,21 @@ namespace QueueAndHi.Client
         private ObservableCollection<AnswerModel> answers;
         private string title;
         private int answerCount;
+
+        public QuestionModel()
+        {
+
+        }
+
+        public QuestionModel(DiscussionThread question)
+        {
+
+        }
+
+        public DiscussionThread ToExternal()
+        {
+            return null;
+        }
 
         public string Title
         {

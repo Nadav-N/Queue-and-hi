@@ -13,6 +13,6 @@ namespace QueueAndHi.Client
 
     public class NavigationRequestedEventArgs : EventArgs
     {
-        public Type TypeToNavigate { get; set; }
+        public object ViewModelToNavigate { get; set; }
     }
 }

@@ -58,7 +58,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AbstractPost.cs" />
-    <Compile Include="Commands\NavigateHomeCommand.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="Models\AnswerModel.cs" />
     <Compile Include="Authentication\AuthenticationTokenSingleton.cs" />
@@ -93,6 +92,9 @@
       <DependentUpon>UserManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\UserAccountModel.cs" />
+    <Compile Include="UserControls\NotificationsView.xaml.cs">
+      <DependentUpon>NotificationsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\MainToolbarViewModel.cs" />
     <Compile Include="UserControls\NewAnswer.xaml.cs">
       <DependentUpon>NewAnswer.xaml</DependentUpon>
@@ -119,6 +121,7 @@
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\NewAnswerViewModel.cs" />
     <Compile Include="ViewModels\NewQuestionViewModel.cs" />
+    <Compile Include="ViewModels\NotificationsViewModel.cs" />
     <Compile Include="ViewModels\QuestionListViewModel.cs" />
     <Compile Include="ViewModels\QuestionViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
@@ -195,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\AnswerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\NotificationsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

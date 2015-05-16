@@ -27,11 +27,18 @@ namespace QueueAndHi.Client
             MainMenuVM = new MainMenuViewModel();
             MainToolbarVM = new MainToolbarViewModel();
             MainVM = new QuestionListViewModel();
+            NotificationsVM = new NotificationsViewModel();
 
             InitializeComponent();
         }
 
         public object MainVM
+        {
+            get;
+            set;
+        }
+
+        public NotificationsViewModel NotificationsVM
         {
             get;
             set;
