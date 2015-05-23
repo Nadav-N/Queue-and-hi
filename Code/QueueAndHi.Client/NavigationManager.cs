@@ -8,6 +8,8 @@ namespace QueueAndHi.Client
 {
     public class NavigationManager
     {
+        public void RequestNavigation(object viewModel);
+
         event EventHandler<NavigationRequestedEventArgs> NavigationRequested;
     }
 

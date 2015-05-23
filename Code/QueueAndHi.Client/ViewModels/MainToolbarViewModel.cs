@@ -15,6 +15,12 @@ namespace QueueAndHi.Client.ViewModels
 
         public ICommand Search { get; set; }
 
+        public ICommand Login { get; set; }
+
+        public ICommand Register { get; set; }
+
+        public ICommand Logout { get; set; }
+
         internal void OnPropertyChanged(string propName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
