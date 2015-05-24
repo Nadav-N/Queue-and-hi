@@ -55,6 +55,7 @@
       <DependentUpon>QnHEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Converter.cs" />
+    <Compile Include="Exceptions.cs" />
     <Compile Include="notification.cs">
       <DependentUpon>QnHEntityModel.tt</DependentUpon>
     </Compile>
