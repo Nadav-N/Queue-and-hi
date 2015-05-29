@@ -8,7 +8,10 @@ namespace QueueAndHi.Client
 {
     public class NavigationManager
     {
-        public void RequestNavigation(object viewModel);
+        public void RequestNavigation(object viewModel)
+        {
+            throw new NotImplementedException();
+        }
 
         event EventHandler<NavigationRequestedEventArgs> NavigationRequested;
     }

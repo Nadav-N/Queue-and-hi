@@ -14,7 +14,13 @@ namespace QueueAndHi.Common.Notifications
         public string Message { get; set; }
 
         [DataMember]
-        public bool IsNewNotification { get; set; }
+        public DateTime TimeStamp { get; set; }
+
+        [DataMember]
+        public bool Seen { get; set; }
+
+        [DataMember]
+        public UserInfo Recipient { get; set; }
 
         [DataMember]
         public NotificationType Type { get; set; }
