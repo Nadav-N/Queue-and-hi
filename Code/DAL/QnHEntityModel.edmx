@@ -30,6 +30,10 @@
             <End Role="users" EntitySet="users" />
             <End Role="answers" EntitySet="answers" />
           </AssociationSet>
+          <AssociationSet Name="FK_notifications_users" Association="qnhdbModel.Store.FK_notifications_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="notifications" EntitySet="notifications" />
+          </AssociationSet>
           <AssociationSet Name="FK_question_rankings_questions" Association="qnhdbModel.Store.FK_question_rankings_questions">
             <End Role="questions" EntitySet="questions" />
             <End Role="question_rankings" EntitySet="question_rankings" />
@@ -76,6 +80,8 @@
           <Property Name="notification_type" Type="int" Nullable="false" />
           <Property Name="message" Type="nvarchar" Nullable="false" MaxLength="255" />
           <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="recipient" Type="int" Nullable="false" />
+          <Property Name="seen" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="question_rankings">
           <Key>
@@ -179,6 +185,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_notifications_users">
+          <End Role="users" Type="qnhdbModel.Store.users" Multiplicity="1" />
+          <End Role="notifications" Type="qnhdbModel.Store.notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="notifications">
+              <PropertyRef Name="recipient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_question_rankings_questions">
           <End Role="questions" Type="qnhdbModel.Store.questions" Multiplicity="1" />
           <End Role="question_rankings" Type="qnhdbModel.Store.question_rankings" Multiplicity="*" />
@@ -272,6 +290,10 @@
             <End Role="tags" EntitySet="tags" />
           </AssociationSet>
           <EntitySet Name="notifications" EntityType="qnhdbModel.notification" />
+          <AssociationSet Name="FK_notifications_users" Association="qnhdbModel.FK_notifications_users">
+            <End Role="user" EntitySet="users" />
+            <End Role="notification" EntitySet="notifications" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="answer_rankings">
           <Key>
@@ -363,6 +385,7 @@
           <NavigationProperty Name="answers" Relationship="qnhdbModel.FK_answers_users" FromRole="users" ToRole="answers" />
           <NavigationProperty Name="question_rankings" Relationship="qnhdbModel.FK_question_rankings_users" FromRole="users" ToRole="question_rankings" />
           <NavigationProperty Name="questions" Relationship="qnhdbModel.FK_questions_users" FromRole="users" ToRole="questions" />
+          <NavigationProperty Name="notifications" Relationship="qnhdbModel.FK_notifications_users" FromRole="user" ToRole="notification" />
         </EntityType>
         <Association Name="FK_answer_rankings_answers">
           <End Role="answers" Type="qnhdbModel.answer" Multiplicity="1" />
@@ -468,7 +491,22 @@
           <Property Type="Int32" Name="notification_type" Nullable="false" />
           <Property Type="String" Name="message" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="timestamp" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="recipient" Nullable="false" />
+          <Property Type="Byte" Name="seen" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="qnhdbModel.FK_notifications_users" FromRole="notification" ToRole="user" />
         </EntityType>
+        <Association Name="FK_notifications_users">
+          <End Type="qnhdbModel.user" Role="user" Multiplicity="1" />
+          <End Type="qnhdbModel.notification" Role="notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="notification">
+              <PropertyRef Name="recipient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -557,6 +595,8 @@
           <EntitySetMapping Name="notifications">
             <EntityTypeMapping TypeName="qnhdbModel.notification">
               <MappingFragment StoreEntitySet="notifications">
+                <ScalarProperty Name="seen" ColumnName="seen" />
+                <ScalarProperty Name="recipient" ColumnName="recipient" />
                 <ScalarProperty Name="timestamp" ColumnName="timestamp" />
                 <ScalarProperty Name="message" ColumnName="message" />
                 <ScalarProperty Name="notification_type" ColumnName="notification_type" />

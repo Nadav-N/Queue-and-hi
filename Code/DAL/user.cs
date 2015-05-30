@@ -20,6 +20,7 @@ namespace DAL
             this.answers = new HashSet<answer>();
             this.question_rankings = new HashSet<question_rankings>();
             this.questions = new HashSet<question>();
+            this.notifications = new HashSet<notification>();
         }
     
         public int id { get; set; }
@@ -35,5 +36,6 @@ namespace DAL
         public virtual ICollection<answer> answers { get; set; }
         public virtual ICollection<question_rankings> question_rankings { get; set; }
         public virtual ICollection<question> questions { get; set; }
+        public virtual ICollection<notification> notifications { get; set; }
     }
 }

@@ -21,6 +21,7 @@
         <AssociationConnector Association="qnhdbModel.FK_questions_users" ManuallyRouted="false" />
         <AssociationConnector Association="qnhdbModel.FK_tags_questions" ManuallyRouted="false" />
         <EntityTypeShape EntityType="qnhdbModel.notification" Width="1.5" PointX="7.9139768927888827" PointY="19.716260248663026" />
+        <AssociationConnector Association="qnhdbModel.FK_notifications_users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

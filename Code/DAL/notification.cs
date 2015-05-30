@@ -18,5 +18,9 @@ namespace DAL
         public int notification_type { get; set; }
         public string message { get; set; }
         public System.DateTime timestamp { get; set; }
+        public int recipient { get; set; }
+        public byte seen { get; set; }
+    
+        public virtual user user { get; set; }
     }
 }
