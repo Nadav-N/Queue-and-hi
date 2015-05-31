@@ -1,0 +1,1012 @@
+<Project>
+  <Name>Untitled</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>QueueAndHi.Client.exe</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>AbstractPost</Name>
+        <Access>Public</Access>
+        <Location left="1381" top="1666" />
+        <Size width="162" height="264" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private DateTime datePosted</Member>
+        <Member type="Field">private Int32 votesCount</Member>
+        <Member type="Field">private String author</Member>
+        <Member type="Field">private String content</Member>
+        <Member type="Property">public DateTime DatePosted { get; set; }</Member>
+        <Member type="Property">public Int32 VotesCount { get; set; }</Member>
+        <Member type="Property">public String Author { get; set; }</Member>
+        <Member type="Property">public String Content { get; set; }</Member>
+        <Member type="Event">public event PropertyChangedEventHandler PropertyChanged</Member>
+        <Member type="Constructor">protected AbstractPost()</Member>
+        <Member type="Method">internal Void OnPropertyChanged(String propName)</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AnswerModel</Name>
+        <Access>Public</Access>
+        <Location left="2001" top="1530" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Boolean answered</Member>
+        <Member type="Property">public Boolean Answered { get; set; }</Member>
+        <Member type="Constructor">public AnswerModel()</Member>
+        <Member type="Constructor">public AnswerModel(Answer answer)</Member>
+        <Member type="Method">public Answer ToExternal()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AuthenticationTokenSingleton</Name>
+        <Access>Public</Access>
+        <Location left="1146" top="34" />
+        <Size width="309" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private static AuthenticationTokenSingleton instance</Member>
+        <Member type="Property">public static AuthenticationTokenSingleton Instance { get; }</Member>
+        <Member type="Property">public AuthenticationToken AuthenticationToken { get; set; }</Member>
+        <Member type="Constructor">private AuthenticationTokenSingleton()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DiscussionThreadObserver</Name>
+        <Access>Public</Access>
+        <Location left="288" top="1824" />
+        <Size width="416" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Event">public event EventHandler&lt;NewDiscussionThreadEventArgs&gt; NewDiscussionThreadVersion</Member>
+        <Member type="Constructor">public DiscussionThreadObserver(IPostQueries postQueries)</Member>
+        <Member type="Method">public Void Dispose()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NavigationManager</Name>
+        <Access>Public</Access>
+        <Location left="1570" top="504" />
+        <Size width="379" height="155" />
+        <Collapsed>False</Collapsed>
+        <Member type="Event">private event EventHandler&lt;NavigationRequestedEventArgs&gt; NavigationRequested</Member>
+        <Member type="Constructor">public NavigationManager()</Member>
+        <Member type="Method">public Void RequestNavigation(Object viewModel)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NavigationRequestedEventArgs</Name>
+        <Access>Public</Access>
+        <Location left="1626" top="215" />
+        <Size width="267" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Object ViewModelToNavigate { get; set; }</Member>
+        <Member type="Constructor">public NavigationRequestedEventArgs()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NewDiscussionThreadVersionEventArgs</Name>
+        <Access>Public</Access>
+        <Location left="433" top="1568" />
+        <Size width="302" height="120" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public DiscussionThread NewDiscussionThread { get; set; }</Member>
+        <Member type="Constructor">public NewDiscussionThreadVersionEventArgs()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NotificationsObserver</Name>
+        <Access>Public</Access>
+        <Location left="840" top="820" />
+        <Size width="337" height="113" />
+        <Collapsed>False</Collapsed>
+        <Member type="Event">public event EventHandler&lt;NewNotificationsEventArgs&gt; NewNotifications</Member>
+        <Member type="Constructor">public NotificationsObserver()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>QuestionModel</Name>
+        <Access>Public</Access>
+        <Location left="677" top="2103" />
+        <Size width="162" height="298" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Boolean recommended</Member>
+        <Member type="Field">private ObservableCollection&lt;String&gt; tags</Member>
+        <Member type="Field">private ObservableCollection&lt;AnswerModel&gt; answers</Member>
+        <Member type="Field">private String title</Member>
+        <Member type="Field">private Int32 answerCount</Member>
+        <Member type="Property">public String Title { get; set; }</Member>
+        <Member type="Property">public Boolean Recommended { get; set; }</Member>
+        <Member type="Property">public ObservableCollection&lt;String&gt; Tags { get; set; }</Member>
+        <Member type="Property">public ObservableCollection&lt;AnswerModel&gt; Answers { get; set; }</Member>
+        <Member type="Property">public Int32 AnswerCount { get; set; }</Member>
+        <Member type="Constructor">public QuestionModel()</Member>
+        <Member type="Constructor">public QuestionModel(DiscussionThread question)</Member>
+        <Member type="Method">public DiscussionThread ToExternal()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>QuestionInfo</Name>
+        <Access>Public</Access>
+        <Location left="685" top="1143" />
+        <Size width="162" height="366" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Int32 answersCount</Member>
+        <Member type="Field">private Int32 votesCount</Member>
+        <Member type="Field">private String title</Member>
+        <Member type="Field">private String author</Member>
+        <Member type="Field">private Boolean isRecommended</Member>
+        <Member type="Field">private ObservableCollection&lt;String&gt; tags</Member>
+        <Member type="Property">public Int32 AnswersCount { get; set; }</Member>
+        <Member type="Property">public Int32 VotesCount { get; set; }</Member>
+        <Member type="Property">public String Title { get; set; }</Member>
+        <Member type="Property">public String Author { get; set; }</Member>
+        <Member type="Property">public Boolean IsRecommended { get; set; }</Member>
+        <Member type="Property">public ObservableCollection&lt;String&gt; Tags { get; set; }</Member>
+        <Member type="Event">public event PropertyChangedEventHandler PropertyChanged</Member>
+        <Member type="Constructor">public QuestionInfo()</Member>
+        <Member type="Constructor">public QuestionInfo(Question question)</Member>
+        <Member type="Method">public Question ToExternal()</Member>
+        <Member type="Method">private Void OnPropertyChanged(String propName)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>UserAccountModel</Name>
+        <Access>Public</Access>
+        <Location left="2723" top="1349" />
+        <Size width="276" height="298" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private String username</Member>
+        <Member type="Field">private Int32 ranking</Member>
+        <Member type="Field">private Boolean isAdmin</Member>
+        <Member type="Field">public Boolean isMuted</Member>
+        <Member type="Property">public String Username { get; set; }</Member>
+        <Member type="Property">public Int32 Ranking { get; set; }</Member>
+        <Member type="Property">public Boolean IsAdmin { get; set; }</Member>
+        <Member type="Property">public Boolean IsMuted { get; set; }</Member>
+        <Member type="Event">public event PropertyChangedEventHandler PropertyChanged</Member>
+        <Member type="Constructor">public UserAccountModel()</Member>
+        <Member type="Constructor">public UserAccountModel(UserInfo userInfo)</Member>
+        <Member type="Method">public UserInfo ToExternal()</Member>
+        <Member type="Method">private Void OnPropertyChanged(String propName)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NotificationsView</Name>
+        <Access>Public</Access>
+        <Location left="923" top="1195" />
+        <Size width="162" height="126" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public NotificationsView()</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>MainToolbarViewModel</Name>
+        <Access>Public</Access>
+        <Location left="1199" top="820" />
+        <Size width="271" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public String SearchText { get; set; }</Member>
+        <Member type="Property">public ICommand Search { get; set; }</Member>
+        <Member type="Property">public ICommand Login { get; set; }</Member>
+        <Member type="Property">public ICommand Register { get; set; }</Member>
+        <Member type="Property">public ICommand Logout { get; set; }</Member>
+        <Member type="Event">public event PropertyChangedEventHandler PropertyChanged</Member>
+        <Member type="Constructor">public MainToolbarViewModel()</Member>
+        <Member type="Method">internal Void OnPropertyChanged(String propName)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NewAnswer</Name>
+        <Access>Public</Access>
+        <Location left="1785" top="1160" />
+        <Size width="162" height="115" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public NewAnswer()</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NewQuestion</Name>
+        <Access>Public</Access>
+        <Location left="1520" top="1160" />
+        <Size width="186" height="130" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public NewQuestion()</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AnswerView</Name>
+        <Access>Public</Access>
+        <Location left="2444" top="1101" />
+        <Size width="165" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">internal Button btnUpVote</Member>
+        <Member type="Field">internal Label lblRating</Member>
+        <Member type="Field">internal Button btnDownVote</Member>
+        <Member type="Field">internal Button btnNotAnswered</Member>
+        <Member type="Field">internal Button btnAnswered</Member>
+        <Member type="Constructor">public AnswerView()</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>QuestionList</Name>
+        <Access>Public</Access>
+        <Location left="490" top="1129" />
+        <Size width="176" height="123" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public QuestionList()</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>QuestionView</Name>
+        <Access>Public</Access>
+        <Location left="166" top="1129" />
+        <Size width="167" height="196" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">internal Button btnNotFavorite</Member>
+        <Member type="Field">internal Button btnFavorite</Member>
+        <Member type="Field">internal Button btnUpVote</Member>
+        <Member type="Field">internal Label lblRating</Member>
+        <Member type="Field">internal Button btnDownVote</Member>
+        <Member type="Constructor">public QuestionView()</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>RegistrationControl</Name>
+        <Access>Public</Access>
+        <Location left="3087" top="1142" />
+        <Size width="171" height="302" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">internal Label lblDetails</Member>
+        <Member type="Field">internal Label lblName</Member>
+        <Member type="Field">internal Label lblEmail</Member>
+        <Member type="Field">internal Label lblPwd</Member>
+        <Member type="Field">internal Label lblPwdCnfrm</Member>
+        <Member type="Field">internal TextBox txtFirstName</Member>
+        <Member type="Field">internal TextBox txtLastName</Member>
+        <Member type="Field">internal TextBox txtEmail</Member>
+        <Member type="Field">internal PasswordBox txtPwd</Member>
+        <Member type="Field">internal PasswordBox txtPwd2</Member>
+        <Member type="Field">internal Button btnRegister</Member>
+        <Member type="Constructor">public RegistrationControl()</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>UserManagementView</Name>
+        <Access>Public</Access>
+        <Location left="2851" top="1126" />
+        <Size width="179" height="120" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public UserManagementView()</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AnswerViewModel</Name>
+        <Access>Public</Access>
+        <Location left="2383" top="820" />
+        <Size width="284" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public AnswerModel Answer { get; private set; }</Member>
+        <Member type="Property">public ICommand RankUp { get; set; }</Member>
+        <Member type="Property">public ICommand RankDown { get; set; }</Member>
+        <Member type="Property">public ICommand Delete { get; set; }</Member>
+        <Member type="Event">public event PropertyChangedEventHandler PropertyChanged</Member>
+        <Member type="Constructor">public AnswerViewModel()</Member>
+        <Member type="Method">internal Void OnPropertyChanged(String propName)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>MainMenuViewModel</Name>
+        <Access>Public</Access>
+        <Location left="2070" top="820" />
+        <Size width="296" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Boolean IsUserAdmin { get; set; }</Member>
+        <Member type="Property">public ICommand NavigateHome { get; set; }</Member>
+        <Member type="Property">public ICommand NavigateMyQuestions { get; set; }</Member>
+        <Member type="Property">public ICommand NavigateNewQuestion { get; set; }</Member>
+        <Member type="Property">public ICommand NavigateUserManagement { get; set; }</Member>
+        <Member type="Event">public event PropertyChangedEventHandler PropertyChanged</Member>
+        <Member type="Constructor">public MainMenuViewModel()</Member>
+        <Member type="Method">internal Void OnPropertyChanged(String propName)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NewAnswerViewModel</Name>
+        <Access>Public</Access>
+        <Location left="1770" top="820" />
+        <Size width="291" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public ICommand PublishAnswer { get; set; }</Member>
+        <Member type="Property">public AnswerModel Answer { get; set; }</Member>
+        <Member type="Event">public event PropertyChangedEventHandler PropertyChanged</Member>
+        <Member type="Constructor">public NewAnswerViewModel()</Member>
+        <Member type="Method">internal Void OnPropertyChanged(String propName)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NewQuestionViewModel</Name>
+        <Access>Public</Access>
+        <Location left="1483" top="820" />
+        <Size width="276" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public ICommand PublishQuestion { get; set; }</Member>
+        <Member type="Property">public QuestionModel Question { get; set; }</Member>
+        <Member type="Event">public event PropertyChangedEventHandler PropertyChanged</Member>
+        <Member type="Constructor">public NewQuestionViewModel()</Member>
+        <Member type="Method">internal Void OnPropertyChanged(String propName)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NotificationsViewModel</Name>
+        <Access>Public</Access>
+        <Location left="858" top="1008" />
+        <Size width="300" height="123" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public ObservableCollection&lt;Notification&gt; Notifications</Member>
+        <Member type="Constructor">public NotificationsViewModel()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>QuestionListViewModel</Name>
+        <Access>Public</Access>
+        <Location left="490" top="820" />
+        <Size width="329" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public ICommand NavigateToQuestion { get; set; }</Member>
+        <Member type="Property">public ObservableCollection&lt;QuestionInfo&gt; Questions { get; set; }</Member>
+        <Member type="Event">public event PropertyChangedEventHandler PropertyChanged</Member>
+        <Member type="Constructor">public QuestionListViewModel()</Member>
+        <Member type="Method">internal Void OnPropertyChanged(String propName)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>QuestionViewModel</Name>
+        <Access>Public</Access>
+        <Location left="93" top="820" />
+        <Size width="282" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public QuestionModel Question { get; set; }</Member>
+        <Member type="Property">public ICommand RankUp { get; set; }</Member>
+        <Member type="Property">public ICommand RankDown { get; set; }</Member>
+        <Member type="Property">public ICommand Delete { get; set; }</Member>
+        <Member type="Property">public ICommand AddAnswer { get; set; }</Member>
+        <Member type="Event">public event PropertyChangedEventHandler PropertyChanged</Member>
+        <Member type="Constructor">public QuestionViewModel()</Member>
+        <Member type="Method">internal Void OnPropertyChanged(String propName)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>RegistrationViewModel</Name>
+        <Access>Public</Access>
+        <Location left="3074" top="820" />
+        <Size width="285" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public UserInfo User { get; set; }</Member>
+        <Member type="Property">public UserCredentials Credentials { get; set; }</Member>
+        <Member type="Property">public ICommand RegisterUser { get; set; }</Member>
+        <Member type="Event">public event PropertyChangedEventHandler PropertyChanged</Member>
+        <Member type="Constructor">public RegistrationViewModel()</Member>
+        <Member type="Method">internal Void OnPropertyChanged(String propName)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>UserManagementViewModel</Name>
+        <Access>Public</Access>
+        <Location left="2680" top="820" />
+        <Size width="361" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public ObservableCollection&lt;UserAccountModel&gt; Users { get; set; }</Member>
+        <Member type="Property">public ICommand ApplyChanges { get; set; }</Member>
+        <Member type="Event">public event PropertyChangedEventHandler PropertyChanged</Member>
+        <Member type="Constructor">public UserManagementViewModel()</Member>
+        <Member type="Method">internal Void OnPropertyChanged(String propName)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>MainMenu</Name>
+        <Access>Public</Access>
+        <Location left="2163" top="1101" />
+        <Size width="173" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public MainMenu()</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>MainToolbar</Name>
+        <Access>Public</Access>
+        <Location left="1240" top="1114" />
+        <Size width="162" height="179" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">internal StackPanel mainMenu</Member>
+        <Member type="Field">public DependencyProperty TextProperty</Member>
+        <Member type="Property">public String Text { get; set; }</Member>
+        <Member type="Constructor">public MainToolbar()</Member>
+        <Member type="Constructor">static MainToolbar()</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>MainWindow</Name>
+        <Access>Public</Access>
+        <Location left="1307" top="1355" />
+        <Size width="311" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">internal StackPanel screen</Member>
+        <Member type="Property">public Object MainVM { get; set; }</Member>
+        <Member type="Property">public NotificationsViewModel NotificationsVM { get; set; }</Member>
+        <Member type="Property">public MainMenuViewModel MainMenuVM { get; set; }</Member>
+        <Member type="Property">public MainToolbarViewModel MainToolbarVM { get; set; }</Member>
+        <Member type="Constructor">public MainWindow()</Member>
+        <Member type="Method">public Void InitializeComponent()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NewNotificationsEventArgs</Name>
+        <Access>Public</Access>
+        <Location left="920" top="1412" />
+        <Size width="324" height="110" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public IEnumerable&lt;Notification&gt; NewNotifications { get; private set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Generalization" first="1" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>2078</X>
+          <Y>1799</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="8" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>796</X>
+          <Y>2078</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1305</X>
+          <Y>1798</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Association" first="2" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1481</X>
+          <Y>213</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1426</X>
+          <Y>275</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartRole>instance</StartRole>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Dependency" first="23" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1516</X>
+          <Y>795</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1516</X>
+          <Y>199</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Dependency" first="22" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1983</X>
+          <Y>793</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1603</X>
+          <Y>171</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Dependency" first="21" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>2261</X>
+          <Y>794</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1505</X>
+          <Y>138</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Dependency" first="12" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1300</X>
+          <Y>795</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1300</X>
+          <Y>283</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Dependency" first="7" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1215</X>
+          <Y>275</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Dependency" first="20" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1496</X>
+          <Y>114</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Dependency" first="26" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1121</X>
+          <Y>140</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Dependency" first="28" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1493</X>
+          <Y>85</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Dependency" first="25" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1111</X>
+          <Y>208</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Association" first="14" second="23">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="15" second="20">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="18" second="27">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="16" second="25">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="29" second="21">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Dependency" first="3" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>427</X>
+          <Y>1785</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1121</X>
+          <Y>165</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Association" first="17" second="26">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="24" second="7">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="24" second="11">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="28" second="19">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="31" second="12">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1436</X>
+          <Y>1324</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1436</X>
+          <Y>1061</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="31" second="21">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1583</X>
+          <Y>1329</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>2116</X>
+          <Y>1329</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="31" second="24">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1199</X>
+          <Y>1374</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1199</X>
+          <Y>1081</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="13" second="22">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="30" second="12">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1321</X>
+          <Y>1061</Y>
+        </BendPoint>
+        <Direction>Bidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="7" second="32">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1169</X>
+          <Y>958</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1169</X>
+          <Y>1387</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="24" second="32">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1101</X>
+          <Y>1156</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1101</X>
+          <Y>1386</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="3" second="6">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="26" second="6">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>400</X>
+          <Y>983</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>458</X>
+          <Y>1543</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="26" second="3">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>368</X>
+          <Y>1782</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="19" second="10">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>2969</X>
+          <Y>1324</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="28" second="10">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>2779</X>
+          <Y>1324</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="4" second="5">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1789</X>
+          <Y>471</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1789</X>
+          <Y>456</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Dependency" first="25" second="4">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>733</X>
+          <Y>795</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1539</X>
+          <Y>588</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Dependency" first="12" second="4">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1395</X>
+          <Y>774</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1545</X>
+          <Y>628</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Dependency" first="23" second="4">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1609</X>
+          <Y>684</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Dependency" first="22" second="4">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Dependency" first="21" second="4">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1659</X>
+          <Y>685</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Dependency" first="26" second="4">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>290</X>
+          <Y>701</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1523</X>
+          <Y>518</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Dependency" first="27" second="4">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>2031</X>
+          <Y>645</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Association" first="26" second="8">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>130</X>
+          <Y>1075</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>461</X>
+          <Y>2364</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="17" second="8">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>244</X>
+          <Y>1350</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>558</X>
+          <Y>2259</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="16" second="9">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="25" second="9">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="15" second="1">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>2150</X>
+          <Y>1488</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="13" second="1">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1864</X>
+          <Y>1564</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="22" second="1">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1981</X>
+          <Y>1071</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>2060</X>
+          <Y>1505</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>
