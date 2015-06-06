@@ -12,7 +12,7 @@ namespace QueueAndHi.Client.ViewModels
 {
     public class QuestionListViewModel : INotifyPropertyChanged
     {
-        public QuestionListViewModel()
+        public QuestionListViewModel(NavigationManager navigationManager)
         {
             Questions = new ObservableCollection<QuestionInfo>();
         }

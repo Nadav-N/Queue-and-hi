@@ -11,6 +11,11 @@ namespace QueueAndHi.Client.ViewModels
 {
     public class MainToolbarViewModel : INotifyPropertyChanged
     {
+        public MainToolbarViewModel(NavigationManager navigationManager)
+        {
+
+        }
+
         public string SearchText { get; set; }
 
         public ICommand Search { get; set; }

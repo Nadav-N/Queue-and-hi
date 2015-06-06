@@ -11,9 +11,9 @@ namespace QueueAndHi.Client.ViewModels
 {
     public class MainMenuViewModel : INotifyPropertyChanged
     {
-        public MainMenuViewModel()
+        public MainMenuViewModel(NavigationManager navigationManager)
         {
-
+            NavigateNewQuestion = new DelegateCommand(obj => navigationManager.RequestNavigation(new NewQuestionViewModel()));
         }
 
         public bool IsUserAdmin { get; set; }
@@ -22,7 +22,7 @@ namespace QueueAndHi.Client.ViewModels
 
         public ICommand NavigateMyQuestions { get; set; }
 
-        public ICommand NavigateNewQuestion { get; set; }
+        public ICommand NavigateNewQuestion { get; private set; }
 
         public ICommand NavigateUserManagement { get; set; }
 

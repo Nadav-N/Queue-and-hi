@@ -10,14 +10,22 @@ namespace QueueAndHi.Client
     {
         public void RequestNavigation(object viewModel)
         {
-            throw new NotImplementedException();
+            if (NavigationRequested != null)
+            {
+                NavigationRequested(this, new NavigationRequestedEventArgs(viewModel));
+            }
         }
 
-        event EventHandler<NavigationRequestedEventArgs> NavigationRequested;
+        public event EventHandler<NavigationRequestedEventArgs> NavigationRequested;
     }
 
     public class NavigationRequestedEventArgs : EventArgs
     {
-        public object ViewModelToNavigate { get; set; }
+        public NavigationRequestedEventArgs(object viewModel)
+        {
+            ViewModelToNavigate = viewModel;
+        }
+
+        public object ViewModelToNavigate { get; private set; }
     }
 }
