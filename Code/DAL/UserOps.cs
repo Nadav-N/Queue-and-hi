@@ -39,7 +39,20 @@ namespace DAL
 
         public UserInfo GetUserInfo(int userId)
         {
-            throw new NotImplementedException();
+            UserInfo result = new UserInfo();
+
+            user tmpUser = new user();
+
+            using (var db = new qnhdb())
+            {
+                tmpUser = db.users.Where(x => x.id == userId).Single();
+            }
+            
+            UserInfo tmpUserInfo;
+            UserCredentials tmpUserCredentials;
+            tmpUserInfo = Converter.toExtUser(tmpUser, out tmpUserCredentials);
+                
+            return result;
         }
 
 

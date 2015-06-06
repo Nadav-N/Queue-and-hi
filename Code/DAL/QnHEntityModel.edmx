@@ -136,6 +136,7 @@
           <Property Name="ismuted" Type="tinyint" Nullable="false" />
           <Property Name="ranking" Type="int" Nullable="false" />
           <Property Name="created" Type="datetime" Nullable="false" />
+          <Property Name="pwd" Type="varchar" Nullable="false" MaxLength="20" />
         </EntityType>
         <Association Name="FK_answer_rankings_answers">
           <End Role="answers" Type="qnhdbModel.Store.answers" Multiplicity="1" />
@@ -386,6 +387,7 @@
           <NavigationProperty Name="question_rankings" Relationship="qnhdbModel.FK_question_rankings_users" FromRole="users" ToRole="question_rankings" />
           <NavigationProperty Name="questions" Relationship="qnhdbModel.FK_questions_users" FromRole="users" ToRole="questions" />
           <NavigationProperty Name="notifications" Relationship="qnhdbModel.FK_notifications_users" FromRole="user" ToRole="notification" />
+          <Property Type="String" Name="pwd" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_answer_rankings_answers">
           <End Role="answers" Type="qnhdbModel.answer" Multiplicity="1" />
@@ -581,6 +583,7 @@
           <EntitySetMapping Name="users">
             <EntityTypeMapping TypeName="qnhdbModel.user">
               <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="email" ColumnName="email" />

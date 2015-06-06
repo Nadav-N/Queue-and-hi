@@ -17,7 +17,19 @@ namespace DAL
 
         internal static UserInfo toExtUser(user user, out UserCredentials userCredentials)
         {
-            throw new NotImplementedException();
+            UserInfo tmpUserInfo = new UserInfo()
+            {
+                EmailAddress = user.email,
+                ID = user.id,
+                IsAdmin = Convert.ToBoolean(user.isadmin),
+                IsMuted = Convert.ToBoolean(user.ismuted),
+                Ranking = user.ranking,
+                Username = user.name
+            };
+            
+            userCredentials = new UserCredentials(user.name, user.pwd);
+            
+            return tmpUserInfo;
         }
 
 

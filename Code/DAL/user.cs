@@ -31,6 +31,7 @@ namespace DAL
         public byte ismuted { get; set; }
         public int ranking { get; set; }
         public System.DateTime created { get; set; }
+        public string pwd { get; set; }
     
         public virtual ICollection<answer_rankings> answer_rankings { get; set; }
         public virtual ICollection<answer> answers { get; set; }
