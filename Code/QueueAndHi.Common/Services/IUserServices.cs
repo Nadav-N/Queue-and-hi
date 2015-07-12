@@ -17,7 +17,7 @@ namespace QueueAndHi.Common.Services
         // TODO: We need to change the return type of this method so that
         // it will return something similar to "Authentication token"
         [OperationContract]
-        OperationResult<AuthenticationToken> LogIn(UserCredentials userCredentials);
+        OperationResult<AuthenticatedUser> LogIn(UserCredentials userCredentials);
 
         /// <summary>
         /// This method is to get the UserInfo once in a while, in case of rank changes so that the UI will have permission changes

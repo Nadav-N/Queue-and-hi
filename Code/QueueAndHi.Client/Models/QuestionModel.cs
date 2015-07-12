@@ -18,17 +18,36 @@ namespace QueueAndHi.Client
 
         public QuestionModel()
         {
-
+            this.tags = new ObservableCollection<string>();
+            this.answers = new ObservableCollection<AnswerModel>();
         }
 
         public QuestionModel(DiscussionThread question)
         {
-
+            Author = question.Question.Author;
+            DatePosted = question.Question.DatePosted;
+            VotesCount = question.Question.Ranking;
+            Content = question.Question.Content;
+            Title = question.Question.Title;
+            Recommended = question.Question.IsRecommended;
+            Tags = new ObservableCollection<string>(question.Question.Tags);
+            Answers = new ObservableCollection<AnswerModel>(question.Answers);
+            AnswerCount = question.Answers.Count();
         }
 
-        public DiscussionThread ToExternal()
+        public Question ToExternal()
         {
-            return null;
+            return new Question
+            {
+                Author = Author,
+                DatePosted = DatePosted,
+                Ranking = VotesCount,
+                Content = Content,
+                Title = Title,
+                IsRecommended = Recommended,
+                Tags = Tags.ToList(),
+                AnswerCount = AnswerCount
+            }
         }
 
         public string Title

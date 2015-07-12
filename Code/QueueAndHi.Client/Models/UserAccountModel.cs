@@ -22,12 +22,21 @@ namespace QueueAndHi.Client
 
         public UserAccountModel(UserInfo userInfo)
         {
-
+            Username = userInfo.Username;
+            Ranking = userInfo.Ranking;
+            IsAdmin = userInfo.IsAdmin;
+            IsMuted = userInfo.IsMuted;
         }
 
         public UserInfo ToExternal()
         {
-            return null;
+            return new UserInfo
+            {
+                Username = Username,
+                Ranking = Ranking,
+                IsAdmin = IsAdmin,
+                IsMuted = IsMuted
+            };
         }
 
         public string Username

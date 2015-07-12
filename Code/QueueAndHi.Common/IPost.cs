@@ -16,9 +16,12 @@ namespace QueueAndHi.Common
         int Ranking { get; set; }
 
         [DataMember]
-        int AuthorID { get; }
+        UserInfo Author { get; }
 
         [DataMember]
         int ID { get; }
+
+        [DataMember]
+        DateTime DatePosted { get; }
     }
 }

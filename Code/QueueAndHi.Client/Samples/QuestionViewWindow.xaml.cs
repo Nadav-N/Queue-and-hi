@@ -37,7 +37,7 @@ namespace QueueAndHi.Client.Samples
                         },
                 Answers = new ObservableCollection<AnswerModel> 
                 {
-                    new AnswerModel
+                    new AnswerModel(0)
                     {
                         Author = "Nadav",
                         Content = "Look into writing a custom inverter, that way you can do it anything you'd like.",
@@ -45,7 +45,7 @@ namespace QueueAndHi.Client.Samples
                         VotesCount = 47,
                         Answered= false
                     },
-                    new AnswerModel
+                    new AnswerModel(0)
                     {
                         Author = "Danni",
                         Content = "There's an example in the course book. check it out.",

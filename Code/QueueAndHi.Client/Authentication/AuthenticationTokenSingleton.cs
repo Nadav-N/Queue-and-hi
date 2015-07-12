@@ -25,6 +25,6 @@ namespace QueueAndHi.Client.Authentication
             }
         }
 
-        public AuthenticationToken AuthenticationToken { get; set; }
+        public AuthenticatedUser AuthenticatedUser { get; set; }
     }
 }

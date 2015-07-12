@@ -17,20 +17,17 @@ namespace QueueAndHi.Client
         private string author;
         private bool isRecommended;
         private ObservableCollection<string> tags;
-
-        public QuestionInfo()
-        {
-
-        }
+        private int id;
 
         public QuestionInfo(Question question)
         {
-
-        }
-
-        public Question ToExternal()
-        {
-            return null;
+            AnswersCount = question.AnswerCount;
+            VotesCount = question.Ranking;
+            Title = question.Title;
+            Author = question.Author;
+            IsRecommended = question.IsRecommended;
+            Tags = new ObservableCollection<string>(question.Tags);
+            this.id = question.ID;
         }
 
         public int AnswersCount

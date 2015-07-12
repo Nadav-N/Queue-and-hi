@@ -13,6 +13,7 @@ namespace QueueAndHi.Client
         private int votesCount;
         private string author;
         private string content;
+        protected int id;
 
         public DateTime DatePosted
         {

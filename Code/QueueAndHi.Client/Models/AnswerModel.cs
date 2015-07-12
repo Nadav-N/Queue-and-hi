@@ -1,4 +1,5 @@
-﻿using QueueAndHi.Common;
+﻿using QueueAndHi.Client.Authentication;
+using QueueAndHi.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +11,38 @@ namespace QueueAndHi.Client
     public class AnswerModel : AbstractPost
     {
         private bool answered;
+        private int relatedQuestionId;
 
-        public AnswerModel()
+        public AnswerModel(int relatedQuestionId)
         {
-
+            this.relatedQuestionId = relatedQuestionId;
         }
 
-        public AnswerModel(Answer answer)
+        public AnswerModel(Question question, Answer answer)
         {
-
+            this.answered = question.RightAnswerId.HasValue && question.RightAnswerId.Value == answer.ID;
+            this.relatedQuestionId = answer.RelatedQuestionId;
+            this.id = answer.ID;
+            Author = answer.Author.Username;
+            Content = answer.Content;
+            DatePosted = answer.DatePosted;
+            VotesCount = answer.Ranking;
         }
 
         public Answer ToExternal()
         {
-            return null;
+            return new Answer
+            {
+                Content = Content,
+                Ranking = VotesCount,
+                Author = new UserInfo
+                {
+                    ID = AuthenticationTokenSingleton.Instance.AuthenticatedUser.User.ID
+                },
+                RelatedQuestionId = this.relatedQuestionId,
+                DatePosted = DatePosted,
+                ID = this.id
+            };
         }
 
         public bool Answered
@@ -35,6 +54,5 @@ namespace QueueAndHi.Client
                 base.OnPropertyChanged("Answered");
             }
         }
-
     }
 }
