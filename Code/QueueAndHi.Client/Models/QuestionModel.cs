@@ -47,7 +47,7 @@ namespace QueueAndHi.Client
                 IsRecommended = Recommended,
                 Tags = Tags.ToList(),
                 AnswerCount = AnswerCount
-            }
+            };
         }
 
         public string Title
