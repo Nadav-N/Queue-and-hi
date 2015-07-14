@@ -8,9 +8,9 @@ namespace QueueAndHi.BL.Authentication
 {
     public class AuthTokenCache
     {
-        ConcurrentBag<string> tokenCache = new ConcurrentBag<string>();
+        ConcurrentDictionary<string, int> tokenCache = new ConcurrentDictionary<string, int>();
 
-        public ConcurrentBag<string> TokenCache
+        public ConcurrentDictionary<string, int> TokenCache
         {
             get
             {

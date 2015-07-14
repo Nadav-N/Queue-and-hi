@@ -97,6 +97,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{8c656854-6006-417b-80bd-850fde467247}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QueueAndHi.Common.Logic\QueueAndHi.Common.Logic.csproj">
       <Project>{4c334eec-8138-4773-9b21-93fc8049c9cc}</Project>
       <Name>QueueAndHi.Common.Logic</Name>

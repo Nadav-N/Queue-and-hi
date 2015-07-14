@@ -14,7 +14,7 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        public bool Login(UserCredentials userCredentials)
+        public bool TryLogin(UserCredentials userCredentials, out UserInfo userInfo)
         {
             throw new NotImplementedException();
         }

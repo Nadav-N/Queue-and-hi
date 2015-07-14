@@ -9,7 +9,7 @@ namespace QueueAndHi.BL.Authentication
 {
     public interface IAuthTokenSerializer
     {
-        AuthenticationToken Serialize(UserCredentials userCredentials);
-        UserCredentials Deserialize(AuthenticationToken authToken);
+        AuthenticatedUser Serialize(UserCredentials userCredentials);
+        int Deserialize(AuthenticationToken authToken);
     }
 }

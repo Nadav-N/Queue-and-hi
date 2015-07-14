@@ -8,7 +8,7 @@ namespace QueueAndHi.Common
 {
     public class AuthenticatedUser
     {
-        public UserInfo User { get; set; }
+        public int UserID { get; set; }
         public AuthenticationToken Token { get; set; }
     }
 }

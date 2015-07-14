@@ -37,7 +37,7 @@ namespace QueueAndHi.Client
                 Ranking = VotesCount,
                 Author = new UserInfo
                 {
-                    ID = AuthenticationTokenSingleton.Instance.AuthenticatedUser.User.ID
+                    ID = AuthenticationTokenSingleton.Instance.AuthenticatedUser.UserID
                 },
                 RelatedQuestionId = this.relatedQuestionId,
                 DatePosted = DatePosted,

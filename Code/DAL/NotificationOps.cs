@@ -14,7 +14,7 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Notification> GetNotifications(int userId, DateTime since)
+        public IEnumerable<Notification> GetNotifications(int userId)
         {
             throw new NotImplementedException();
         }
