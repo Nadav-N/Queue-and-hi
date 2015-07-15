@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows.Input;
 
 namespace QueueAndHi.Client.ViewModels
 {
     public class AnswerViewModel : INotifyPropertyChanged
     {
+        public AnswerViewModel()
+        {
+                
+        }
+
         public AnswerModel Answer
         {
             get;
-            private set;
+            set;
         }
 
         public ICommand RankUp { get; set; }
@@ -22,6 +21,14 @@ namespace QueueAndHi.Client.ViewModels
         public ICommand RankDown { get; set; }
 
         public ICommand Delete { get; set; }
+
+        public ICommand MarkAsRight { get; set; }
+
+        public ICommand UnmarkAsRight { get; set; }
+
+        public bool IsMarkAsRightVisible { get; set; }
+
+        public bool IsUnmarkAsRightVisible { get; set; }
 
         internal void OnPropertyChanged(string propName)
         {
