@@ -32,7 +32,7 @@ namespace QueueAndHi.BL
             return validationResult;
         }
 
-        public OperationResult<AuthenticatedUser> LogIn(UserCredentials userCredentials)
+        public OperationResult<AuthenticatedIdentity> LogIn(UserCredentials userCredentials)
         {
             throw new System.NotImplementedException();
         }

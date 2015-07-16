@@ -14,7 +14,7 @@ namespace QueueAndHi.BL.Authentication
         /// </summary>
         /// <param name="userCredentials">Credentials of the user</param>
         /// <returns>Auth Token with user ID</returns>
-        AuthenticatedUser Serialize(UserCredentials userCredentials);
+        AuthenticatedIdentity Serialize(UserCredentials userCredentials);
 
         /// <summary>
         /// Deserializes authentication token into the user ID of the relevant user

@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="Answer.cs" />
     <Compile Include="AuthenticatedOperation.cs" />
-    <Compile Include="AuthenticatedUser.cs" />
+    <Compile Include="AuthenticatedIdentity.cs" />
     <Compile Include="AuthenticationToken.cs" />
     <Compile Include="DiscussionThread.cs" />
     <Compile Include="IPost.cs" />

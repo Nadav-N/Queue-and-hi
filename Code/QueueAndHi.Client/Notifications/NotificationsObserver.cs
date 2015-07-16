@@ -24,7 +24,7 @@ namespace QueueAndHi.Client.Notifications
 
         private void CheckForNotifications(object state)
         {
-            AuthenticationToken authToken = AuthenticationTokenSingleton.Instance.AuthenticatedUser.Token;
+            AuthenticationToken authToken = AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token;
             IEnumerable<Notification> newNotifications = this.notificationService.GetNotifications(authToken);
 
             if (newNotifications != null && newNotifications.Count() > 0)

@@ -20,7 +20,7 @@ namespace QueueAndHi.BL.Authentication
             this.userOps = userOps;
         }
 
-        public AuthenticatedUser Serialize(UserCredentials userCredentials)
+        public AuthenticatedIdentity Serialize(UserCredentials userCredentials)
         {
             UserInfo loggedUser;
             if (userOps.TryLogin(userCredentials, out loggedUser))
@@ -31,7 +31,7 @@ namespace QueueAndHi.BL.Authentication
                 int userId = loggedUser.ID;
                 this.tokenCache.TokenCache.TryAdd(tokenString, userId);
                 
-                AuthenticatedUser authenticatedUser = new AuthenticatedUser
+                AuthenticatedIdentity authenticatedUser = new AuthenticatedIdentity
                     {
                         Token = new AuthenticationToken(tokenString),
                         UserID = userId

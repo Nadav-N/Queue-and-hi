@@ -13,7 +13,7 @@ namespace QueueAndHi.Client
         private int votesCount;
         private string author;
         private string content;
-        protected int id;
+        private int id;
 
         public DateTime DatePosted
         {
@@ -59,6 +59,19 @@ namespace QueueAndHi.Client
             {
                 this.content = value;
                 OnPropertyChanged("Content");
+            }
+        }
+
+        public int ID
+        {
+            get
+            {
+                return this.id;
+            }
+            set
+            {
+                this.id = value;
+                OnPropertyChanged("ID");
             }
         }
 

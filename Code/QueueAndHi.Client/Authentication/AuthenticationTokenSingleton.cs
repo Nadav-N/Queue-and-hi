@@ -25,6 +25,18 @@ namespace QueueAndHi.Client.Authentication
             }
         }
 
-        public AuthenticatedUser AuthenticatedUser { get; set; }
+        public AuthenticatedIdentity AuthenticatedIdentity { get; set; }
+
+        public UserInfo AuthenticatedUser { get; set; }
+
+        public bool IsLoggedIn()
+        {
+            return AuthenticatedIdentity != null && AuthenticatedIdentity.Token != null;
+        }
+
+        public AuthenticatedOperation<T> CreateAuthenticatedOperation<T>(T input)
+        {
+            return new AuthenticatedOperation<T>(AuthenticatedIdentity.Token, input);
+        }
     }
 }
