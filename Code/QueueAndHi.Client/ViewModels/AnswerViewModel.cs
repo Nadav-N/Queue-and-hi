@@ -13,7 +13,9 @@ namespace QueueAndHi.Client.ViewModels
         public AnswerViewModel(IPostServices postServices)
         {
             this.postServices = postServices;
-            RankUp = new DelegateCommand(s => ExecuteRankUp(), s => CanExecuteRankUp());
+            RankUp = new DelegateCommand(s => ExecuteRankUp(), s => CheckIsUserAuthorOfAnswer());
+            RankDown = new DelegateCommand(s => ExecuteRankDown(), s => CheckIsUserAuthorOfAnswer());
+            Delete
         }
 
         public AnswerModel Answer
@@ -36,13 +38,7 @@ namespace QueueAndHi.Client.ViewModels
 
         public bool IsUnmarkAsRightVisible { get; set; }
 
-        private void ExecuteRankUp()
-        {
-            AuthenticatedOperation<int> authenticatedOperation = AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation<int>(Answer.ID);
-            this.postServices.VoteUpAnswer(authenticatedOperation);
-        }
-
-        private bool CanExecuteRankUp()
+        private bool CheckIsUserAuthorOfAnswer()
         {
             if (AuthenticationTokenSingleton.Instance.IsLoggedIn())
             {
@@ -51,6 +47,19 @@ namespace QueueAndHi.Client.ViewModels
             }
 
             return false;
+        }
+
+        private void ExecuteRankUp()
+        {
+            AuthenticatedOperation<int> authenticatedOperation = AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation<int>(Answer.ID);
+            this.postServices.VoteUpAnswer(authenticatedOperation);
+            this.Answer.Ranking++;
+        }
+
+        private void ExecuteRankDown()
+        {
+            AuthenticatedOperation<int> authenticatedOperation = AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation<int>(Answer.ID);
+            this.postServices.VoteDownAnswer(authenticatedOperation);
         }
 
         internal void OnPropertyChanged(string propName)

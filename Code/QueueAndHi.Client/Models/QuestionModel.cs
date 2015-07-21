@@ -26,7 +26,7 @@ namespace QueueAndHi.Client
         {
             Author = question.Question.Author;
             DatePosted = question.Question.DatePosted;
-            VotesCount = question.Question.Ranking;
+            Ranking = question.Question.Ranking;
             Content = question.Question.Content;
             Title = question.Question.Title;
             Recommended = question.Question.IsRecommended;
@@ -41,7 +41,7 @@ namespace QueueAndHi.Client
             {
                 Author = Author,
                 DatePosted = DatePosted,
-                Ranking = VotesCount,
+                Ranking = Ranking,
                 Content = Content,
                 Title = Title,
                 IsRecommended = Recommended,

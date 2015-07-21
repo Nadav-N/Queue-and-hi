@@ -26,7 +26,7 @@ namespace QueueAndHi.Client
             Author = answer.Author.Username;
             Content = answer.Content;
             DatePosted = answer.DatePosted;
-            VotesCount = answer.Ranking;
+            Ranking = answer.Ranking;
         }
 
         public Answer ToExternal()
@@ -34,7 +34,7 @@ namespace QueueAndHi.Client
             return new Answer
             {
                 Content = Content,
-                Ranking = VotesCount,
+                Ranking = Ranking,
                 Author = new UserInfo
                 {
                     ID = AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.UserID

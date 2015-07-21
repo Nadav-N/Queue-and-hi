@@ -13,9 +13,6 @@ namespace QueueAndHi.Common
         string Content { get; }
 
         [DataMember]
-        int Ranking { get; set; }
-
-        [DataMember]
         UserInfo Author { get; }
 
         [DataMember]
@@ -23,5 +20,8 @@ namespace QueueAndHi.Common
 
         [DataMember]
         DateTime DatePosted { get; }
+
+        [DataMember]
+        RankingHistory RankingHistory { get; set; }
     }
 }

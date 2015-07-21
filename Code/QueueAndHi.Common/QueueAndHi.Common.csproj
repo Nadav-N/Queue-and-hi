@@ -54,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Question.cs" />
     <Compile Include="Notifications\INotificationService.cs" />
+    <Compile Include="RankingHistory.cs" />
     <Compile Include="Services\IPostQueries.cs" />
     <Compile Include="Services\IPostServices.cs" />
     <Compile Include="Services\IUserServices.cs" />

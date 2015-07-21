@@ -29,7 +29,7 @@ namespace QueueAndHi.Client.Samples
                 Content = "How can I use the inverted value of a BooleanToVisibilityConverter\n\nFor Example, I want to be able to Show one image if the Value is true, but hide it and show another if the value is false",
                 DatePosted = new DateTime(2015, 02, 15),
                 Title = "Inverting BooleanToVisibilityConverter",
-                VotesCount = 365,
+                Ranking = 365,
                 Recommended = false,
                 Tags = new ObservableCollection<string>
                         {
@@ -42,7 +42,7 @@ namespace QueueAndHi.Client.Samples
                         Author = "Nadav",
                         Content = "Look into writing a custom inverter, that way you can do it anything you'd like.",
                         DatePosted = new DateTime(2015, 02, 16),
-                        VotesCount = 47,
+                        Ranking = 47,
                         Answered= false
                     },
                     new AnswerModel(0)
@@ -50,7 +50,7 @@ namespace QueueAndHi.Client.Samples
                         Author = "Danni",
                         Content = "There's an example in the course book. check it out.",
                         DatePosted = new DateTime(2015, 02, 17),
-                        VotesCount = 153,
+                        Ranking = 153,
                         Answered= true
                     }
                 }

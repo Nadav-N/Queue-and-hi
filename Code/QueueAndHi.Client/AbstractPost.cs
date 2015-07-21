@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QueueAndHi.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace QueueAndHi.Client
     public abstract class AbstractPost : INotifyPropertyChanged
     {
         private DateTime datePosted;
-        private int votesCount;
+        private int ranking;
         private string author;
         private string content;
         private int id;
@@ -26,15 +27,15 @@ namespace QueueAndHi.Client
         }
 
 
-        public int VotesCount
+        public RankingHistory Ranking
         {
             get
             {
-                return this.votesCount;
+                return this.ranking;
             }
             set
             {
-                this.votesCount = value;
+                this.ranking = value;
                 OnPropertyChanged("VotesCount");
             }
         }

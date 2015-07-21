@@ -17,7 +17,7 @@ namespace QueueAndHi.Common
         public string Content { get; set; }
 
         [DataMember]
-        public int Ranking { get; set; }
+        public RankingHistory Ranking { get; set; }
 
         [DataMember]
         public UserInfo Author { get; set; }
