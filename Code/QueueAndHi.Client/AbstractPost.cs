@@ -11,10 +11,10 @@ namespace QueueAndHi.Client
     public abstract class AbstractPost : INotifyPropertyChanged
     {
         private DateTime datePosted;
-        private int ranking;
+        private RankingHistory ranking;
         private string author;
         private string content;
-        private int id;
+        protected int id;
 
         public DateTime DatePosted
         {

@@ -22,6 +22,6 @@ namespace QueueAndHi.Common
         DateTime DatePosted { get; }
 
         [DataMember]
-        RankingHistory RankingHistory { get; set; }
+        RankingHistory Ranking { get; set; }
     }
 }

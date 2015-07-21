@@ -15,7 +15,6 @@ namespace QueueAndHi.Client.ViewModels
             this.postServices = postServices;
             RankUp = new DelegateCommand(s => ExecuteRankUp(), s => CheckIsUserAuthorOfAnswer());
             RankDown = new DelegateCommand(s => ExecuteRankDown(), s => CheckIsUserAuthorOfAnswer());
-            Delete
         }
 
         public AnswerModel Answer
@@ -26,13 +25,23 @@ namespace QueueAndHi.Client.ViewModels
 
         public ICommand RankUp { get; private set; }
 
+        public ICommand CancelRankUp { get; private set; }
+
         public ICommand RankDown { get; set; }
+
+        public ICommand CancelRankDown { get; private set; }
 
         public ICommand Delete { get; set; }
 
         public ICommand MarkAsRight { get; set; }
 
         public ICommand UnmarkAsRight { get; set; }
+
+        public bool IsAuthor { get; set; }
+
+        public bool IsRankedUp { get; set; }
+
+        public bool IsRankedDown { get; set; }
 
         public bool IsMarkAsRightVisible { get; set; }
 
@@ -53,7 +62,9 @@ namespace QueueAndHi.Client.ViewModels
         {
             AuthenticatedOperation<int> authenticatedOperation = AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation<int>(Answer.ID);
             this.postServices.VoteUpAnswer(authenticatedOperation);
-            this.Answer.Ranking++;
+            int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
+            Answer.Ranking.RemoveAll(entry => entry.UserID == userId);
+            Answer.Ranking.Add(new RankingHistoryEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Up));
         }
 
         private void ExecuteRankDown()

@@ -13,7 +13,7 @@ namespace QueueAndHi.Common
         {
             get
             {
-                return Count(entry => entry.RankingType == RankingType.Up) - Count(entry => entry.RankingType == RankingType.Down);
+                return this.Count(entry => entry.RankingType == RankingType.Up) - this.Count(entry => entry.RankingType == RankingType.Down);
             }
         }
     }
