@@ -16,6 +16,8 @@ namespace QueueAndHi.Client.ViewModels
             RankUp = new DelegateCommand(s => ExecuteRankUp());
             CancelRankUp = new DelegateCommand(s => ExecuteCancelRankUp());
             RankDown = new DelegateCommand(s => ExecuteRankDown());
+            CancelRankDown = new DelegateCommand(s => ExecuteCancelRankDown());
+            Delete = new DelegateCommand(s => ExecuteDelete());
         }
 
         public AnswerModel Answer
@@ -47,6 +49,15 @@ namespace QueueAndHi.Client.ViewModels
         public bool IsMarkAsRightVisible { get; set; }
 
         public bool IsUnmarkAsRightVisible { get; set; }
+
+        public bool CanDeleteAnswer
+        {
+            get
+            {
+                return AuthenticationTokenSingleton.Instance.AuthenticatedUser.IsAdmin ||
+                       Answer.Author.ID == AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.UserID;
+            }
+        }
 
         private AuthenticatedOperation<int> GetAuthenticatedOperation()
         {
@@ -96,6 +107,12 @@ namespace QueueAndHi.Client.ViewModels
             int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
             Answer.Ranking.RemoveAll(entry => entry.UserID == userId && entry.RankingType == RankingType.Down);
             Answer.OnPropertyChanged("Ranking");
+        }
+
+        private void ExecuteDelete()
+        {
+            this.postServices.DeleteAnswer(GetAuthenticatedOperation());
+            // Notify DiscussionThread that the answer was deleted
         }
 
         internal void OnPropertyChanged(string propName)

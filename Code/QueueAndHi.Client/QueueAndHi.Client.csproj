@@ -86,7 +86,6 @@
     <Compile Include="Samples\QuestionViewWindow.xaml.cs">
       <DependentUpon>QuestionViewWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\RankingHistoryEntry.cs" />
     <Compile Include="Samples\SearchResults.xaml.cs">
       <DependentUpon>SearchResults.xaml</DependentUpon>
     </Compile>
