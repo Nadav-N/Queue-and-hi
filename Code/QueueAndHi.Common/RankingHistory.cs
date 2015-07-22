@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace QueueAndHi.Common
 {
-    public class RankingHistory : List<RankingHistoryEntry>
+    public class RankingHistory : List<RankingEntry>
     {
-        public int Ranking
+        public int OverallRanking
         {
             get
             {
@@ -18,15 +18,15 @@ namespace QueueAndHi.Common
         }
     }
 
-    public class RankingHistoryEntry
+    public class RankingEntry
     {
-        public RankingHistoryEntry (int userId, RankingType rankingType)
-	{
+        public RankingEntry(int userId, RankingType rankingType)
+        {
             UserID = userId;
             RankingType = rankingType;
-	}
+        }
         public int UserID { get; private set; }
-        public RankingType RankingType {get; private set;}
+        public RankingType RankingType { get; private set; }
     }
 
     public enum RankingType

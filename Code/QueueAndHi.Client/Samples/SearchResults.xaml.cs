@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QueueAndHi.Common;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace QueueAndHi.Client
         {
             Questions = new ObservableCollection<QuestionInfo>
                 {
-                    new QuestionInfo
+                    new QuestionInfo(new Question())
                     {
                         Author = "Noffar",
                         AnswersCount = 1,
@@ -35,7 +36,7 @@ namespace QueueAndHi.Client
                             "WPF", "textbox"
                         }
                     },
-                    new QuestionInfo
+                    new QuestionInfo(new Question())
                     {
                         Author = "Itsik",
                         AnswersCount = 3,
@@ -47,7 +48,7 @@ namespace QueueAndHi.Client
                         },
                         IsRecommended = true
                     },
-                    new QuestionInfo                    
+                    new QuestionInfo(new Question())             
                     {
                         Author = "Idan",
                         AnswersCount = 0,
@@ -59,7 +60,7 @@ namespace QueueAndHi.Client
                         },
                         IsRecommended = true
                     },
-                    new QuestionInfo                    
+                    new QuestionInfo(new Question())                
                     {
                         Author = "Michal",
                         AnswersCount = 1,

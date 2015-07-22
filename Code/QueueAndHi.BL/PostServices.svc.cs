@@ -57,5 +57,26 @@ namespace QueueAndHi.BL
         {
             throw new NotImplementedException();
         }
+
+
+        public void CancelVoteUpQuestion(AuthenticatedOperation<int> questionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CancelVoteDownQuestion(AuthenticatedOperation<int> questionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CancelVoteUpAnswer(AuthenticatedOperation<int> answerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CancelVoteDownAnswer(AuthenticatedOperation<int> answerId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

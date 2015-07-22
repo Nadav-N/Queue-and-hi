@@ -13,8 +13,9 @@ namespace QueueAndHi.Client.ViewModels
         public AnswerViewModel(IPostServices postServices)
         {
             this.postServices = postServices;
-            RankUp = new DelegateCommand(s => ExecuteRankUp(), s => CheckIsUserAuthorOfAnswer());
-            RankDown = new DelegateCommand(s => ExecuteRankDown(), s => CheckIsUserAuthorOfAnswer());
+            RankUp = new DelegateCommand(s => ExecuteRankUp());
+            CancelRankUp = new DelegateCommand(s => ExecuteCancelRankUp());
+            RankDown = new DelegateCommand(s => ExecuteRankDown());
         }
 
         public AnswerModel Answer
@@ -47,11 +48,16 @@ namespace QueueAndHi.Client.ViewModels
 
         public bool IsUnmarkAsRightVisible { get; set; }
 
+        private AuthenticatedOperation<int> GetAuthenticatedOperation()
+        {
+            return AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation<int>(Answer.ID);
+        }
+
         private bool CheckIsUserAuthorOfAnswer()
         {
             if (AuthenticationTokenSingleton.Instance.IsLoggedIn())
             {
-                bool AuthorIsLoggedInUser = AuthenticationTokenSingleton.Instance.AuthenticatedUser.Username == Answer.Author;
+                bool AuthorIsLoggedInUser = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID == Answer.Author.ID;
                 return AuthorIsLoggedInUser;
             }
 
@@ -60,17 +66,36 @@ namespace QueueAndHi.Client.ViewModels
 
         private void ExecuteRankUp()
         {
-            AuthenticatedOperation<int> authenticatedOperation = AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation<int>(Answer.ID);
-            this.postServices.VoteUpAnswer(authenticatedOperation);
+            this.postServices.VoteUpAnswer(GetAuthenticatedOperation());
             int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
             Answer.Ranking.RemoveAll(entry => entry.UserID == userId);
-            Answer.Ranking.Add(new RankingHistoryEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Up));
+            Answer.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Up));
+            Answer.OnPropertyChanged("Ranking");
+        }
+
+        private void ExecuteCancelRankUp()
+        {
+            this.postServices.CancelVoteUpAnswer(GetAuthenticatedOperation());
+            int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
+            Answer.Ranking.RemoveAll(entry => entry.UserID == userId && entry.RankingType == RankingType.Up);
+            Answer.OnPropertyChanged("Ranking");
         }
 
         private void ExecuteRankDown()
         {
-            AuthenticatedOperation<int> authenticatedOperation = AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation<int>(Answer.ID);
-            this.postServices.VoteDownAnswer(authenticatedOperation);
+            this.postServices.VoteDownAnswer(GetAuthenticatedOperation());
+            int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
+            Answer.Ranking.RemoveAll(entry => entry.UserID == userId);
+            Answer.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Down));
+            Answer.OnPropertyChanged("Ranking");
+        }
+
+        private void ExecuteCancelRankDown()
+        {
+            this.postServices.CancelVoteDownAnswer(GetAuthenticatedOperation());
+            int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
+            Answer.Ranking.RemoveAll(entry => entry.UserID == userId && entry.RankingType == RankingType.Down);
+            Answer.OnPropertyChanged("Ranking");
         }
 
         internal void OnPropertyChanged(string propName)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QueueAndHi.Common;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace QueueAndHi.Client.Samples
         {
             Questions = new ObservableCollection<QuestionInfo>
             {
-                    new QuestionInfo
+                    new QuestionInfo(new Question())
                     {
                         Author = "Yoram",
                         AnswersCount = 0,
@@ -35,14 +36,14 @@ namespace QueueAndHi.Client.Samples
                             "WPF", "animation"
                         }
                     },
-                    new QuestionInfo
+                    new QuestionInfo(new Question())
                     {
                         Author = "Yoram",
                         AnswersCount = 2,
                         VotesCount = 2,
                         Title = "Play a specific notification sound"
                     },
-                    new QuestionInfo                    
+                    new QuestionInfo(new Question())    
                     {
                         Author = "Yoram",
                         AnswersCount = 1,

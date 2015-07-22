@@ -12,7 +12,7 @@ namespace QueueAndHi.Client
     {
         private DateTime datePosted;
         private RankingHistory ranking;
-        private string author;
+        private UserInfo author;
         private string content;
         protected int id;
 
@@ -40,7 +40,7 @@ namespace QueueAndHi.Client
             }
         }
 
-        public string Author
+        public UserInfo Author
         {
             get
             {

@@ -31,7 +31,7 @@ namespace QueueAndHi.Client
             Title = question.Question.Title;
             Recommended = question.Question.IsRecommended;
             Tags = new ObservableCollection<string>(question.Question.Tags);
-            Answers = new ObservableCollection<AnswerModel>(question.Answers);
+            Answers = new ObservableCollection<AnswerModel>(question.Answers.Select(answer => new AnswerModel(question.Question, answer)));
             AnswerCount = question.Answers.Count();
         }
 

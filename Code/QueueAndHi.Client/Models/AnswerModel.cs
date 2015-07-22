@@ -23,7 +23,7 @@ namespace QueueAndHi.Client
             this.answered = question.RightAnswerId.HasValue && question.RightAnswerId.Value == answer.ID;
             this.relatedQuestionId = answer.RelatedQuestionId;
             this.id = answer.ID;
-            Author = answer.Author.Username;
+            Author = answer.Author;
             Content = answer.Content;
             DatePosted = answer.DatePosted;
             Ranking = answer.Ranking;

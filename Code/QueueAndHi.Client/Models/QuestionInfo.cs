@@ -22,9 +22,9 @@ namespace QueueAndHi.Client
         public QuestionInfo(Question question)
         {
             AnswersCount = question.AnswerCount;
-            VotesCount = question.Ranking;
+            VotesCount = question.Ranking.OverallRanking;
             Title = question.Title;
-            Author = question.Author;
+            Author = question.Author.Username;
             IsRecommended = question.IsRecommended;
             Tags = new ObservableCollection<string>(question.Tags);
             this.id = question.ID;
