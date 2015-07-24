@@ -36,7 +36,7 @@ namespace QueueAndHi.Client
             set
             {
                 this.ranking = value;
-                OnPropertyChanged("VotesCount");
+                OnPropertyChanged("Ranking");
             }
         }
 

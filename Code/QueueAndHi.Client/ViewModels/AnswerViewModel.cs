@@ -1,129 +1,93 @@
 ﻿using QueueAndHi.Client.Authentication;
 using QueueAndHi.Common;
 using QueueAndHi.Common.Services;
+using System;
 using System.ComponentModel;
 using System.Windows.Input;
 
 namespace QueueAndHi.Client.ViewModels
 {
-    public class AnswerViewModel : INotifyPropertyChanged
+    public class AnswerViewModel : PostViewModel<AnswerModel>
     {
         IPostServices postServices;
 
-        public AnswerViewModel(IPostServices postServices)
+        public AnswerViewModel(DiscussionThread thread, Answer currentAnswer, IPostServices postServices)
+            : base(thread)
         {
             this.postServices = postServices;
-            RankUp = new DelegateCommand(s => ExecuteRankUp());
-            CancelRankUp = new DelegateCommand(s => ExecuteCancelRankUp());
-            RankDown = new DelegateCommand(s => ExecuteRankDown());
-            CancelRankDown = new DelegateCommand(s => ExecuteCancelRankDown());
-            Delete = new DelegateCommand(s => ExecuteDelete());
+            Post = new AnswerModel(discussionThread.Question, currentAnswer);
+            MarkAsRight = new DelegateCommand(s => ExecuteMarkAsRight());
+            UnmarkAsRight = new DelegateCommand(s => ExecuteUnmarkAsRight());
         }
-
-        public AnswerModel Answer
-        {
-            get;
-            set;
-        }
-
-        public ICommand RankUp { get; private set; }
-
-        public ICommand CancelRankUp { get; private set; }
-
-        public ICommand RankDown { get; set; }
-
-        public ICommand CancelRankDown { get; private set; }
-
-        public ICommand Delete { get; set; }
 
         public ICommand MarkAsRight { get; set; }
 
         public ICommand UnmarkAsRight { get; set; }
 
-        public bool IsAuthor { get; set; }
-
-        public bool IsRankedUp { get; set; }
-
-        public bool IsRankedDown { get; set; }
-
-        public bool IsMarkAsRightVisible { get; set; }
-
-        public bool IsUnmarkAsRightVisible { get; set; }
-
-        public bool CanDeleteAnswer
+        public bool IsQuestionAuthorOrAdmin
         {
             get
             {
                 return AuthenticationTokenSingleton.Instance.AuthenticatedUser.IsAdmin ||
-                       Answer.Author.ID == AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.UserID;
+                    this.discussionThread.Question.Author.ID == AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.UserID;
             }
         }
 
-        private AuthenticatedOperation<int> GetAuthenticatedOperation()
+        private void ExecuteMarkAsRight()
         {
-            return AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation<int>(Answer.ID);
+            this.postServices.MarkAsRightAnswer(GetAuthenticatedOperation());
+            Post.Answered = true;
         }
 
-        private bool CheckIsUserAuthorOfAnswer()
+        private void ExecuteUnmarkAsRight()
         {
-            if (AuthenticationTokenSingleton.Instance.IsLoggedIn())
-            {
-                bool AuthorIsLoggedInUser = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID == Answer.Author.ID;
-                return AuthorIsLoggedInUser;
-            }
-
-            return false;
+            this.postServices.UnmarkAsRightAnswer(GetAuthenticatedOperation());
+            Post.Answered = false;
         }
 
-        private void ExecuteRankUp()
+        protected override void ExecuteRankUp()
         {
             this.postServices.VoteUpAnswer(GetAuthenticatedOperation());
             int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
-            Answer.Ranking.RemoveAll(entry => entry.UserID == userId);
-            Answer.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Up));
-            Answer.OnPropertyChanged("Ranking");
+            Post.Ranking.RemoveAll(entry => entry.UserID == userId);
+            Post.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Up));
+            Post.OnPropertyChanged("Ranking");
         }
 
-        private void ExecuteCancelRankUp()
+        protected override void ExecuteCancelRankUp()
         {
             this.postServices.CancelVoteUpAnswer(GetAuthenticatedOperation());
             int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
-            Answer.Ranking.RemoveAll(entry => entry.UserID == userId && entry.RankingType == RankingType.Up);
-            Answer.OnPropertyChanged("Ranking");
+            Post.Ranking.RemoveAll(entry => entry.UserID == userId && entry.RankingType == RankingType.Up);
+            Post.OnPropertyChanged("Ranking");
         }
 
-        private void ExecuteRankDown()
+        protected override void ExecuteRankDown()
         {
             this.postServices.VoteDownAnswer(GetAuthenticatedOperation());
             int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
-            Answer.Ranking.RemoveAll(entry => entry.UserID == userId);
-            Answer.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Down));
-            Answer.OnPropertyChanged("Ranking");
+            Post.Ranking.RemoveAll(entry => entry.UserID == userId);
+            Post.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Down));
+            Post.OnPropertyChanged("Ranking");
         }
 
-        private void ExecuteCancelRankDown()
+        protected override void ExecuteCancelRankDown()
         {
             this.postServices.CancelVoteDownAnswer(GetAuthenticatedOperation());
             int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
-            Answer.Ranking.RemoveAll(entry => entry.UserID == userId && entry.RankingType == RankingType.Down);
-            Answer.OnPropertyChanged("Ranking");
+            Post.Ranking.RemoveAll(entry => entry.UserID == userId && entry.RankingType == RankingType.Down);
+            Post.OnPropertyChanged("Ranking");
         }
 
-        private void ExecuteDelete()
+        protected override void ExecuteDelete()
         {
             this.postServices.DeleteAnswer(GetAuthenticatedOperation());
-            // Notify DiscussionThread that the answer was deleted
-        }
-
-        internal void OnPropertyChanged(string propName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
+            if (AnswerDeleted != null)
             {
-                handler(this, new PropertyChangedEventArgs(propName));
+                AnswerDeleted(this, EventArgs.Empty);
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public EventHandler<EventArgs> AnswerDeleted;
     }
 }

@@ -123,6 +123,7 @@
     <Compile Include="ViewModels\NewAnswerViewModel.cs" />
     <Compile Include="ViewModels\NewQuestionViewModel.cs" />
     <Compile Include="ViewModels\NotificationsViewModel.cs" />
+    <Compile Include="ViewModels\PostViewModel.cs" />
     <Compile Include="ViewModels\QuestionListViewModel.cs" />
     <Compile Include="ViewModels\QuestionViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />

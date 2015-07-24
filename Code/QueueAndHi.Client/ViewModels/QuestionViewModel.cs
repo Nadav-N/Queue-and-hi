@@ -10,31 +10,45 @@ using System.Windows.Input;
 
 namespace QueueAndHi.Client.ViewModels
 {
-    public class QuestionViewModel : INotifyPropertyChanged
+    public class QuestionViewModel : PostViewModel<QuestionModel>
     {
+        public QuestionViewModel(DiscussionThread discussionThread)
+            : base(discussionThread)
+        {
+
+        }
+
         public QuestionModel Question
         {
             get;
             set;
         }
 
-        public ICommand RankUp { get; set; }
-
-        public ICommand RankDown { get; set; }
-
-        public ICommand Delete { get; set; }
-
         public ICommand AddAnswer { get; set; }
 
-        internal void OnPropertyChanged(string propName)
+        protected override void ExecuteRankUp()
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propName));
-            }
+            throw new NotImplementedException();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        protected override void ExecuteCancelRankUp()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void ExecuteRankDown()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void ExecuteCancelRankDown()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void ExecuteDelete()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

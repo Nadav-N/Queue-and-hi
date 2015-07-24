@@ -20,8 +20,9 @@ namespace QueueAndHi.BL.Authentication
             this.userOps = userOps;
         }
 
-        public AuthenticatedIdentity Serialize(UserCredentials userCredentials)
+        public bool ValidateAndSerialize(UserCredentials userCredentials, out AuthenticatedIdentity serializedIdentity)
         {
+            serializedIdentity = null;
             UserInfo loggedUser;
             if (userOps.TryLogin(userCredentials, out loggedUser))
             {
@@ -30,15 +31,16 @@ namespace QueueAndHi.BL.Authentication
                 string tokenString = String.Format(tokenSerializationFormat, encryptedUsername, encryptedPassword);
                 int userId = loggedUser.ID;
                 this.tokenCache.TokenCache.TryAdd(tokenString, userId);
-                
-                AuthenticatedIdentity authenticatedUser = new AuthenticatedIdentity
+
+                serializedIdentity = new AuthenticatedIdentity
                     {
                         Token = new AuthenticationToken(tokenString),
                         UserID = userId
                     };
-
-                return authenticatedUser;
+                return true;
             }
+
+            return false;
         }
 
         public int Deserialize(AuthenticationToken authToken)
