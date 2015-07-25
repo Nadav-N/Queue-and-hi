@@ -10,7 +10,7 @@ namespace QueueAndHi.Client
 {
     public class QuestionModel : AbstractPost
     {
-        private bool recommended;
+        private bool isRecommended;
         private ObservableCollection<string> tags;
         private ObservableCollection<AnswerModel> answers;
         private string title;
@@ -29,7 +29,7 @@ namespace QueueAndHi.Client
             Ranking = question.Question.Ranking;
             Content = question.Question.Content;
             Title = question.Question.Title;
-            Recommended = question.Question.IsRecommended;
+            IsRecommended = question.Question.IsRecommended;
             Tags = new ObservableCollection<string>(question.Question.Tags);
             Answers = new ObservableCollection<AnswerModel>(question.Answers.Select(answer => new AnswerModel(question.Question, answer)));
             AnswerCount = question.Answers.Count();
@@ -44,7 +44,7 @@ namespace QueueAndHi.Client
                 Ranking = Ranking,
                 Content = Content,
                 Title = Title,
-                IsRecommended = Recommended,
+                IsRecommended = IsRecommended,
                 Tags = Tags.ToList(),
                 AnswerCount = AnswerCount
             };
@@ -60,13 +60,13 @@ namespace QueueAndHi.Client
             }
         }
 
-        public bool Recommended
+        public bool IsRecommended
         {
-            get { return this.recommended; }
+            get { return this.isRecommended; }
             set
             {
-                this.recommended = value;
-                OnPropertyChanged("Recommended");
+                this.isRecommended = value;
+                OnPropertyChanged("IsRecommended");
             }
         }
 
@@ -92,8 +92,8 @@ namespace QueueAndHi.Client
             set
             {
                 this.answers = value;
-                AnswerCount = this.answers.Count;
                 OnPropertyChanged("Answers");
+                AnswerCount = this.answers.Count;
             }
         }
 

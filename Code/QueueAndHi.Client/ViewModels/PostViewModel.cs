@@ -1,5 +1,6 @@
 ﻿using QueueAndHi.Client.Authentication;
 using QueueAndHi.Common;
+using QueueAndHi.Common.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,10 +14,12 @@ namespace QueueAndHi.Client.ViewModels
     public abstract class PostViewModel<T> : INotifyPropertyChanged where T : AbstractPost
     {
         protected DiscussionThread discussionThread;
+        protected IPostServices postServices;
 
-        public PostViewModel(DiscussionThread discussionThread)
+        public PostViewModel(DiscussionThread discussionThread, IPostServices postServices)
         {
             this.discussionThread = discussionThread;
+            this.postServices = postServices;
             RankUp = new DelegateCommand(s => ExecuteRankUp());
             CancelRankUp = new DelegateCommand(s => ExecuteCancelRankUp());
             RankDown = new DelegateCommand(s => ExecuteRankDown());
@@ -73,15 +76,46 @@ namespace QueueAndHi.Client.ViewModels
             }
         }
 
-        protected abstract void ExecuteRankUp();
+        protected virtual void ExecuteRankUp()
+        {
+            int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
+            Post.Ranking.RemoveAll(entry => entry.UserID == userId);
+            Post.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Up));
+            Post.OnPropertyChanged("Ranking");
+            OnPropertyChanged("IsRankedUp");
+            OnPropertyChanged("IsRankedDown");
+        }
 
-        protected abstract void ExecuteCancelRankUp();
+        protected virtual void ExecuteCancelRankUp()
+        {
+            int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
+            Post.Ranking.RemoveAll(entry => entry.UserID == userId && entry.RankingType == RankingType.Up);
+            Post.OnPropertyChanged("Ranking");
+            OnPropertyChanged("IsRankedUp");
+        }
 
-        protected abstract void ExecuteRankDown();
+        protected virtual void ExecuteRankDown()
+        {
+            int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
+            Post.Ranking.RemoveAll(entry => entry.UserID == userId);
+            Post.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Down));
+            Post.OnPropertyChanged("Ranking");
+            OnPropertyChanged("IsRankedUp");
+            OnPropertyChanged("IsRankedDown");
+        }
 
-        protected abstract void ExecuteCancelRankDown();
+        protected virtual void ExecuteCancelRankDown()
+        {
+            int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
+            Post.Ranking.RemoveAll(entry => entry.UserID == userId && entry.RankingType == RankingType.Down);
+            Post.OnPropertyChanged("Ranking");
+            OnPropertyChanged("IsRankedDown");
+        }
 
-        protected abstract void ExecuteDelete();
+        protected virtual void ExecuteDelete()
+        {
+            OnPostDeleted();
+        }
 
         protected AuthenticatedOperation<int> GetAuthenticatedOperation()
         {
@@ -98,5 +132,15 @@ namespace QueueAndHi.Client.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public EventHandler<EventArgs> PostDeleted;
+
+        protected void OnPostDeleted()
+        {
+            if (PostDeleted != null)
+            {
+                PostDeleted(this, EventArgs.Empty);
+            }
+        }
     }
 }

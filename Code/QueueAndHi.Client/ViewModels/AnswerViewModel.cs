@@ -9,12 +9,10 @@ namespace QueueAndHi.Client.ViewModels
 {
     public class AnswerViewModel : PostViewModel<AnswerModel>
     {
-        IPostServices postServices;
 
         public AnswerViewModel(DiscussionThread thread, Answer currentAnswer, IPostServices postServices)
-            : base(thread)
+            : base(thread, postServices)
         {
-            this.postServices = postServices;
             Post = new AnswerModel(discussionThread.Question, currentAnswer);
             MarkAsRight = new DelegateCommand(s => ExecuteMarkAsRight());
             UnmarkAsRight = new DelegateCommand(s => ExecuteUnmarkAsRight());
@@ -48,46 +46,31 @@ namespace QueueAndHi.Client.ViewModels
         protected override void ExecuteRankUp()
         {
             this.postServices.VoteUpAnswer(GetAuthenticatedOperation());
-            int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
-            Post.Ranking.RemoveAll(entry => entry.UserID == userId);
-            Post.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Up));
-            Post.OnPropertyChanged("Ranking");
+            base.ExecuteRankUp();
         }
 
         protected override void ExecuteCancelRankUp()
         {
             this.postServices.CancelVoteUpAnswer(GetAuthenticatedOperation());
-            int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
-            Post.Ranking.RemoveAll(entry => entry.UserID == userId && entry.RankingType == RankingType.Up);
-            Post.OnPropertyChanged("Ranking");
+            base.ExecuteCancelRankUp();
         }
 
         protected override void ExecuteRankDown()
         {
             this.postServices.VoteDownAnswer(GetAuthenticatedOperation());
-            int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
-            Post.Ranking.RemoveAll(entry => entry.UserID == userId);
-            Post.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Down));
-            Post.OnPropertyChanged("Ranking");
+            base.ExecuteRankDown();
         }
 
         protected override void ExecuteCancelRankDown()
         {
             this.postServices.CancelVoteDownAnswer(GetAuthenticatedOperation());
-            int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
-            Post.Ranking.RemoveAll(entry => entry.UserID == userId && entry.RankingType == RankingType.Down);
-            Post.OnPropertyChanged("Ranking");
+            base.ExecuteRankDown();
         }
 
         protected override void ExecuteDelete()
         {
             this.postServices.DeleteAnswer(GetAuthenticatedOperation());
-            if (AnswerDeleted != null)
-            {
-                AnswerDeleted(this, EventArgs.Empty);
-            }
+            base.ExecuteDelete();
         }
-
-        public EventHandler<EventArgs> AnswerDeleted;
     }
 }

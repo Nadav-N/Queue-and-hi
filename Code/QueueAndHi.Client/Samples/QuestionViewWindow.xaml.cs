@@ -31,7 +31,7 @@ namespace QueueAndHi.Client.Samples
                 DatePosted = new DateTime(2015, 02, 15),
                 Title = "Inverting BooleanToVisibilityConverter",
                 Ranking = new RankingHistory { new RankingEntry(12, RankingType.Up), new RankingEntry(1, RankingType.Up) },
-                Recommended = false,
+                IsRecommended = false,
                 Tags = new ObservableCollection<string>
                         {
                             "WPF", "animation", "programming", "homework", "gui", "code", "bll", "dll"

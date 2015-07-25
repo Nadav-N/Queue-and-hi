@@ -64,8 +64,8 @@
             <ToggleButton HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
                  Grid.Column="0" Grid.Row="0" Grid.RowSpan="1"
                  Width="33" Name="btnUpVote" ToolTip="Click to add positive rating for a helpful answer"
-                Style="{DynamicResource NoMouseOverImageButton}" IsChecked="{Binding IsRankedUp, Mode=OneWay}"
-                          Visibility="{Binding IsAuthor, Converter={StaticResource InvBool2VisConverter}}">
+                 Style="{DynamicResource NoMouseOverImageButton}" IsChecked="{Binding IsRankedUp, Mode=OneWay}"
+                 Visibility="{Binding IsAuthor, Converter={StaticResource InvBool2VisConverter}}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Checked">
                         <i:InvokeCommandAction Command="{Binding RankUp}"/>

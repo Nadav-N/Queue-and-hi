@@ -38,6 +38,11 @@ namespace QueueAndHi.BL
             throw new NotImplementedException();
         }
 
+        public void UnrecommendQuestion(AuthenticatedOperation<int> questionId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void VoteUpQuestion(AuthenticatedOperation<int> questionId)
         {
             throw new NotImplementedException();

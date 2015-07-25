@@ -1,4 +1,5 @@
 ﻿using QueueAndHi.Common;
+using QueueAndHi.Common.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,43 +13,68 @@ namespace QueueAndHi.Client.ViewModels
 {
     public class QuestionViewModel : PostViewModel<QuestionModel>
     {
-        public QuestionViewModel(DiscussionThread discussionThread)
-            : base(discussionThread)
-        {
+        private NavigationManager navigationManager;
 
+        public QuestionViewModel(DiscussionThread discussionThread, IPostServices postServices, NavigationManager navigationManager)
+            : base(discussionThread, postServices)
+        {
+            this.navigationManager = navigationManager;
+            RecommendQuestion = new DelegateCommand(s => ExecuteRecommendQuestion(), s => !Post.IsRecommended);
+            UnrecommendQuestion = new DelegateCommand(s => ExecuteUnrecommendQuestion(), s => Post.IsRecommended);
+            AddAnswer = new DelegateCommand(s => ExecuteAddAnswer());
         }
 
-        public QuestionModel Question
+        private void ExecuteAddAnswer()
         {
-            get;
-            set;
+            this.navigationManager.RequestNavigation(new NewAnswerViewModel());
         }
+
+        private void ExecuteRecommendQuestion()
+        {
+            this.postServices.RecommendQuestion(GetAuthenticatedOperation());
+            Post.IsRecommended = true;
+        }
+
+        private void ExecuteUnrecommendQuestion()
+        {
+            this.postServices.UnrecommendQuestion(GetAuthenticatedOperation());
+            Post.IsRecommended = false;
+        }
+
+        public ICommand RecommendQuestion { get; set; }
+
+        public ICommand UnrecommendQuestion { get; set; }
 
         public ICommand AddAnswer { get; set; }
 
         protected override void ExecuteRankUp()
         {
-            throw new NotImplementedException();
+            this.postServices.VoteUpQuestion(GetAuthenticatedOperation());
+            base.ExecuteRankUp();
         }
 
         protected override void ExecuteCancelRankUp()
         {
-            throw new NotImplementedException();
+            this.postServices.CancelVoteUpQuestion(GetAuthenticatedOperation());
+            base.ExecuteCancelRankUp();
         }
 
         protected override void ExecuteRankDown()
         {
-            throw new NotImplementedException();
+            this.postServices.VoteDownQuestion(GetAuthenticatedOperation());
+            base.ExecuteRankDown();
         }
 
         protected override void ExecuteCancelRankDown()
         {
-            throw new NotImplementedException();
+            this.postServices.CancelVoteDownQuestion(GetAuthenticatedOperation());
+            base.ExecuteCancelRankDown();
         }
 
         protected override void ExecuteDelete()
         {
-            throw new NotImplementedException();
+            this.postServices.DeleteQuestion(GetAuthenticatedOperation());
+            base.ExecuteDelete();
         }
     }
 }

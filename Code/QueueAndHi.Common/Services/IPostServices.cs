@@ -50,6 +50,9 @@ namespace QueueAndHi.Common.Services
         void RecommendQuestion(AuthenticatedOperation<int> questionId);
 
         [OperationContract]
+        void UnrecommendQuestion(AuthenticatedOperation<int> questionId);
+
+        [OperationContract]
         void MarkAsRightAnswer(AuthenticatedOperation<int> answerId);
 
         [OperationContract]
