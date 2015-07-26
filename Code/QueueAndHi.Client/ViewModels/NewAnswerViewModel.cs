@@ -1,4 +1,6 @@
-﻿using System;
+﻿using QueueAndHi.Common;
+using QueueAndHi.Common.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -11,12 +13,25 @@ namespace QueueAndHi.Client.ViewModels
 {
     public class NewAnswerViewModel : INotifyPropertyChanged
     {
-        public ICommand PublishAnswer { get; set; }
+        private IPostServices postServices;
+
+        public NewAnswerViewModel(IPostServices postServices)
+        {
+            this.postServices = postServices;
+            SubmitAnswer = new DelegateCommand(s => this.postServices.AddAnswer(GetAuthenticatedOperation());
+        }
 
         public AnswerModel Answer
         {
             get;
             set;
+        }
+
+        public ICommand SubmitAnswer { get; set; }
+
+        protected AuthenticatedOperation<Answer> GetAuthenticatedOperation()
+        {
+            return AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation(Answer.ToExternal());
         }
 
         internal void OnPropertyChanged(string propName)
