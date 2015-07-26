@@ -1,4 +1,5 @@
-﻿using QueueAndHi.Common;
+﻿using QueueAndHi.Client.Authentication;
+using QueueAndHi.Common;
 using QueueAndHi.Common.Services;
 using System;
 using System.Collections.Generic;
@@ -18,15 +19,16 @@ namespace QueueAndHi.Client.ViewModels
         public QuestionViewModel(DiscussionThread discussionThread, IPostServices postServices, NavigationManager navigationManager)
             : base(discussionThread, postServices)
         {
+            Post = new QuestionModel(discussionThread);
             this.navigationManager = navigationManager;
             RecommendQuestion = new DelegateCommand(s => ExecuteRecommendQuestion(), s => !Post.IsRecommended);
             UnrecommendQuestion = new DelegateCommand(s => ExecuteUnrecommendQuestion(), s => Post.IsRecommended);
-            AddAnswer = new DelegateCommand(s => ExecuteAddAnswer());
+            AddAnswer = new DelegateCommand(s => ExecuteAddAnswer(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn());
         }
 
         private void ExecuteAddAnswer()
         {
-            this.navigationManager.RequestNavigation(new NewAnswerViewModel());
+            this.navigationManager.RequestNavigation(new NewAnswerViewModel(Post.ID, this.postServices));
         }
 
         private void ExecuteRecommendQuestion()

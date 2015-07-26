@@ -23,7 +23,7 @@ namespace QueueAndHi.BL
             throw new NotImplementedException();
         }
 
-        public void AddAnswer(AuthenticatedOperation<Answer> answer)
+        public void AddAnswer(AuthenticationToken token, int questionId, string content)
         {
             throw new NotImplementedException();
         }
