@@ -1,4 +1,6 @@
-﻿using System;
+﻿using QueueAndHi.Client.Authentication;
+using QueueAndHi.Common.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -11,6 +13,16 @@ namespace QueueAndHi.Client.ViewModels
 {
     public class NewQuestionViewModel : INotifyPropertyChanged
     {
+        private IPostServices postServices;
+
+        public NewQuestionViewModel(IPostServices postServices)
+        {
+            this.postServices = postServices;
+            Question = new QuestionModel();
+            PublishQuestion = new DelegateCommand(s =>
+                postServices.AddQuestion(AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation(Question.ToExternal()));
+        }
+
         public ICommand PublishQuestion { get; set; }
 
         public QuestionModel Question { get; set; }

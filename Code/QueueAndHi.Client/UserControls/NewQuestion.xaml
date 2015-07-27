@@ -23,15 +23,16 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" VerticalAlignment="Center" FontWeight="Bold">Title</TextBlock>
-            <TextBox Grid.Column="1" Margin="15,0,0,0" Tag="What's your programming question? Be specific." Style="{DynamicResource WatermarkedTextBox}" />
+            <TextBox Grid.Column="1" Margin="15,0,0,0" Tag="What's your programming question? Be specific." Style="{DynamicResource WatermarkedTextBox}" 
+                     Text="{Binding Question.Title}"/>
         </Grid>
-        <TextBox Margin="0,40,0,0" Height="180" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True"/>
+        <TextBox Margin="0,40,0,0" Height="180" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Question.Content}"/>
         <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,20,0,0">
             <TextBlock FontWeight="Bold">Tags</TextBlock>
             <TextBox Margin="0,5,0,0" Tag="at least one tag such as (entity-framework C# WCF), max 5 tags" Style="{DynamicResource WatermarkedTextBox}"></TextBox>
             <!-- here i put the tags -->
         </StackPanel>
-        <Button HorizontalAlignment="Left" Margin="0,30,0,0" Grid.Row="3" Width="120" Height="25">
+        <Button HorizontalAlignment="Left" Margin="0,30,0,0" Grid.Row="3" Width="120" Height="25" Command="{Binding PublishQuestion}">
             Post Your Quetion
         </Button>
     </Grid>
