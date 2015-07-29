@@ -273,6 +273,10 @@
     <Resource Include="Resources\unstarred.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\QueueAndHi.BL\QueueAndHi.BL.csproj">
+      <Project>{b8d4b72d-16a3-4520-90f7-4cb8e5a3aa1d}</Project>
+      <Name>QueueAndHi.BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QueueAndHi.Common.Logic\QueueAndHi.Common.Logic.csproj">
       <Project>{4c334eec-8138-4773-9b21-93fc8049c9cc}</Project>
       <Name>QueueAndHi.Common.Logic</Name>

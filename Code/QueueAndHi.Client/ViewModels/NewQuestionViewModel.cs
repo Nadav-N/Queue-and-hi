@@ -1,4 +1,7 @@
 ﻿using QueueAndHi.Client.Authentication;
+using QueueAndHi.Common;
+using QueueAndHi.Common.Logic.Validations.Question;
+using QueueAndHi.Common.Logic.Validators;
 using QueueAndHi.Common.Services;
 using System;
 using System.Collections.Generic;
@@ -14,19 +17,32 @@ namespace QueueAndHi.Client.ViewModels
     public class NewQuestionViewModel : INotifyPropertyChanged
     {
         private IPostServices postServices;
+        private IValidator<Question> validator;
 
         public NewQuestionViewModel(IPostServices postServices)
         {
             this.postServices = postServices;
             Question = new QuestionModel();
-            PublishQuestion = new DelegateCommand(s =>
-                postServices.AddQuestion(AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation(Question.ToExternal()));
+            PublishQuestion = new DelegateCommand(s => ValidateAndSubmitQuestion());
+            AddNewTag = new DelegateCommand(tag => Question.Tags.Add(tag.ToString()));
+            RemoveTag = new DelegateCommand(tag => Question.Tags.Remove(tag.ToString()));
+
+            this.validator = new ContentValidator();
+            this.validator = new TitleValidator(this.validator);
         }
+
+        public ICommand AddNewTag { get; set; }
+
+        public ICommand RemoveTag { get; set; }
 
         public ICommand PublishQuestion { get; set; }
 
         public QuestionModel Question { get; set; }
 
+        public void ValidateAndSubmitQuestion()
+        {
+            postServices.AddQuestion(AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation(Question.ToExternal()));
+        }
         internal void OnPropertyChanged(string propName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;

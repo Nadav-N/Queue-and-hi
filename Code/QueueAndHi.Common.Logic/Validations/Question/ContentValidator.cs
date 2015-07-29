@@ -9,6 +9,12 @@ namespace QueueAndHi.Common.Logic.Validations.Question
 {
     public class ContentValidator : ValidatorDecorator<IPost>
     {
+        public ContentValidator()
+        {}
+
+        public ContentValidator(IValidator<IPost> validator) : base(validator)
+        {}
+
         public override OperationResult IsValidInternal(IPost userInfo)
         {
             throw new NotImplementedException();

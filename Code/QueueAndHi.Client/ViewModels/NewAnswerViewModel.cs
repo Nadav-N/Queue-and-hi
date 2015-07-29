@@ -22,7 +22,7 @@ namespace QueueAndHi.Client.ViewModels
             this.questionId = questionId;
             this.postServices = postServices;
             SubmitAnswer = new DelegateCommand(s =>
-                this.postServices.AddAnswer(AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token, this.questionId, AnswerContent);
+                this.postServices.AddAnswer(AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token, this.questionId, AnswerContent));
         }
 
         public string AnswerContent

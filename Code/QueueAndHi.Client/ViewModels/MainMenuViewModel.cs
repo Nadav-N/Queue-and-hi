@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QueueAndHi.Common.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -11,9 +12,9 @@ namespace QueueAndHi.Client.ViewModels
 {
     public class MainMenuViewModel : INotifyPropertyChanged
     {
-        public MainMenuViewModel(NavigationManager navigationManager)
+        public MainMenuViewModel(NavigationManager navigationManager, IPostServices postServices)
         {
-            NavigateNewQuestion = new DelegateCommand(obj => navigationManager.RequestNavigation(new NewQuestionViewModel()));
+            NavigateNewQuestion = new DelegateCommand(obj => navigationManager.RequestNavigation(new NewQuestionViewModel(postServices)));
         }
 
         public bool IsUserAdmin { get; set; }

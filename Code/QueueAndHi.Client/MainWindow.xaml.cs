@@ -1,4 +1,5 @@
-﻿using QueueAndHi.Client.ViewModels;
+﻿using QueueAndHi.BL;
+using QueueAndHi.Client.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,7 +27,7 @@ namespace QueueAndHi.Client
         public MainWindow()
         {
             NavigationManager navigationManager = new NavigationManager();
-            MainMenuVM = new MainMenuViewModel(navigationManager);
+            MainMenuVM = new MainMenuViewModel(navigationManager, new PostServices());
             MainToolbarVM = new MainToolbarViewModel(navigationManager);
             MainVM = new QuestionListViewModel(navigationManager);
             NotificationsVM = new NotificationsViewModel();
