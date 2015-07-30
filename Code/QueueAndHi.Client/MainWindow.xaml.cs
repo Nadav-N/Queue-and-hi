@@ -29,7 +29,8 @@ namespace QueueAndHi.Client
             NavigationManager navigationManager = new NavigationManager();
             MainMenuVM = new MainMenuViewModel(navigationManager, new PostServices());
             MainToolbarVM = new MainToolbarViewModel(navigationManager);
-            MainVM = new QuestionListViewModel(navigationManager);
+            //MainVM = new QuestionListViewModel(navigationManager);
+            MainVM = new NewQuestionViewModel(new PostServices());
             NotificationsVM = new NotificationsViewModel();
 
             navigationManager.NavigationRequested += navigationManager_NavigationRequested;
@@ -43,7 +44,7 @@ namespace QueueAndHi.Client
             MainVM = e.ViewModelToNavigate;
             IDisposable disposableVM = oldVM as IDisposable;
 
-            if(disposableVM != null)
+            if (disposableVM != null)
             {
                 disposableVM.Dispose();
             }

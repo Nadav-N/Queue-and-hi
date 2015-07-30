@@ -29,7 +29,7 @@ namespace QueueAndHi.Client
                     {
                         Author = "Noffar",
                         AnswersCount = 1,
-                        VotesCount = 2,
+                        Ranking = 2,
                         Title = "Hint text in wpf textbox",
                         Tags = new ObservableCollection<string>
                         {
@@ -40,7 +40,7 @@ namespace QueueAndHi.Client
                     {
                         Author = "Itsik",
                         AnswersCount = 3,
-                        VotesCount = 1,
+                        Ranking = 1,
                         Title = "TwoWay data binding in WPF",
                         Tags = new ObservableCollection<string>
                         {
@@ -52,7 +52,7 @@ namespace QueueAndHi.Client
                     {
                         Author = "Idan",
                         AnswersCount = 0,
-                        VotesCount = 0,
+                        Ranking = 0,
                         Title = "WPF advantages over HTML5?",
                         Tags = new ObservableCollection<string>
                         {
@@ -64,7 +64,7 @@ namespace QueueAndHi.Client
                     {
                         Author = "Michal",
                         AnswersCount = 1,
-                        VotesCount = 5,
+                        Ranking = 5,
                         Title = "Async operations in WPF UI",
                         Tags = new ObservableCollection<string>
                         {

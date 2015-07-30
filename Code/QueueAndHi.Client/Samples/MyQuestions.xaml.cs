@@ -29,7 +29,7 @@ namespace QueueAndHi.Client.Samples
                     {
                         Author = "Yoram",
                         AnswersCount = 0,
-                        VotesCount = 1,
+                        Ranking = 1,
                         Title = "Create a search animation sliding the text input part from the right to left",
                         Tags = new ObservableCollection<string>
                         {
@@ -40,14 +40,14 @@ namespace QueueAndHi.Client.Samples
                     {
                         Author = "Yoram",
                         AnswersCount = 2,
-                        VotesCount = 2,
+                        Ranking = 2,
                         Title = "Play a specific notification sound"
                     },
                     new QuestionInfo(new Question())    
                     {
                         Author = "Yoram",
                         AnswersCount = 1,
-                        VotesCount = 2,
+                        Ranking = 2,
                         Title = "Stopwatch count up set time",
                         Tags = new ObservableCollection<string>
                         {

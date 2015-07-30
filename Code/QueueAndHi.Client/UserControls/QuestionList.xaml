@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="QueueAndHi.Client.QuestionList"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:QueueAndHi.Client"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:qa="clr-namespace:QueueAndHi.Client"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -23,7 +24,7 @@
                         <Image Source="..\Resources\star.png" Height="40" Width="40" RenderOptions.BitmapScalingMode="NearestNeighbor"
        RenderOptions.EdgeMode="Aliased" Visibility="{Binding IsRecommended, Converter={StaticResource BoolToVis}}" />
                         <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
-                            <TextBlock TextAlignment="Center" Text="{Binding VotesCount}" />
+                            <TextBlock TextAlignment="Center" Text="{Binding Ranking}" />
                             <TextBlock TextAlignment="Center">votes</TextBlock>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Grid.Column="2" VerticalAlignment="Center">
@@ -36,7 +37,9 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" VerticalAlignment="Center" Margin="20,0,0,0">
-                <Hyperlink FontSize="18" TextDecorations="{x:Null}">
+                <Hyperlink FontSize="18" TextDecorations="{x:Null}" Command="{Binding DataContext.NavigateToQuestion, 
+         RelativeSource={RelativeSource FindAncestor, 
+                         AncestorType={x:Type local:QuestionList}}}" CommandParameter="{Binding}">
                     <TextBlock Text="{Binding Title}" />
                 </Hyperlink>
                             </TextBlock>

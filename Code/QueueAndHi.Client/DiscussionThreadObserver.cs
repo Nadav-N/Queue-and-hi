@@ -13,7 +13,7 @@ namespace QueueAndHi.Client
     {
         //subscribing to the event is the attach method.
         //unsubscribing from it is the detach method.
-        public event EventHandler<EventArgs> NewDiscussionThreadVersion;
+        public event EventHandler<NewDiscussionThreadVersionEventArgs> NewDiscussionThreadVersion;
 
         //this is not needed, it should be passed in the NewDiscussionThreadEventArgs
         //public DiscussionThread LatestDiscussionThread { get; set; }

@@ -12,7 +12,7 @@ namespace QueueAndHi.Client
     public class QuestionInfo : INotifyPropertyChanged
     {
         private int answersCount;
-        private int votesCount;
+        private int ranking;
         private string title;
         private string author;
         private bool isRecommended;
@@ -22,12 +22,20 @@ namespace QueueAndHi.Client
         public QuestionInfo(Question question)
         {
             AnswersCount = question.AnswerCount;
-            VotesCount = question.Ranking.OverallRanking;
+            Ranking = question.Ranking.OverallRanking;
             Title = question.Title;
             Author = question.Author.Username;
             IsRecommended = question.IsRecommended;
             Tags = new ObservableCollection<string>(question.Tags);
             this.id = question.ID;
+        }
+
+        public int ID
+        {
+            get
+            {
+                return this.id;
+            }
         }
 
         public int AnswersCount
@@ -43,15 +51,15 @@ namespace QueueAndHi.Client
             }
         }
 
-        public int VotesCount
+        public int Ranking
         {
             get
             {
-                return this.votesCount;
+                return this.ranking;
             }
             set
             {
-                this.votesCount = value;
+                this.ranking = value;
                 OnPropertyChanged("VotesCount");
             }
         }

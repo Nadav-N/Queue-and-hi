@@ -15,6 +15,7 @@ namespace QueueAndHi.Client.ViewModels
     {
         protected DiscussionThread discussionThread;
         protected IPostServices postServices;
+        protected T post;
 
         public PostViewModel(DiscussionThread discussionThread, IPostServices postServices)
         {
@@ -29,8 +30,15 @@ namespace QueueAndHi.Client.ViewModels
 
         public T Post
         {
-            get;
-            set;
+            get
+            {
+                return this.post;
+            }
+            set
+            {
+                this.post = value;
+                OnPropertyChanged("Post");
+            }
         }
 
 

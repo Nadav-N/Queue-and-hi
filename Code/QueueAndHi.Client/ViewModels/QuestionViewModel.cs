@@ -12,18 +12,30 @@ using System.Windows.Input;
 
 namespace QueueAndHi.Client.ViewModels
 {
-    public class QuestionViewModel : PostViewModel<QuestionModel>
+    public class QuestionViewModel : PostViewModel<QuestionModel>, IDisposable
     {
         private NavigationManager navigationManager;
+        private DiscussionThreadObserver threadObserver;
 
-        public QuestionViewModel(DiscussionThread discussionThread, IPostServices postServices, NavigationManager navigationManager)
+        public QuestionViewModel(DiscussionThread discussionThread, IPostServices postServices, NavigationManager navigationManager, IPostQueries postQueries)
             : base(discussionThread, postServices)
         {
             Post = new QuestionModel(discussionThread);
+            this.threadObserver = new DiscussionThreadObserver(postQueries);
+            this.threadObserver.StartObservingDiscussionThread(discussionThread.Question.ID);
+            this.threadObserver.NewDiscussionThreadVersion += OnNewDiscussionThreadVersion;
             this.navigationManager = navigationManager;
             RecommendQuestion = new DelegateCommand(s => ExecuteRecommendQuestion(), s => !Post.IsRecommended);
             UnrecommendQuestion = new DelegateCommand(s => ExecuteUnrecommendQuestion(), s => Post.IsRecommended);
             AddAnswer = new DelegateCommand(s => ExecuteAddAnswer(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn());
+        }
+
+        private void OnNewDiscussionThreadVersion(object sender, NewDiscussionThreadVersionEventArgs e)
+        {
+            this.discussionThread = e.NewDiscussionThread;
+            // not sure if this is needed
+            OnPropertyChanged("Post.Answers");
+
         }
 
         private void ExecuteAddAnswer()
@@ -77,6 +89,11 @@ namespace QueueAndHi.Client.ViewModels
         {
             this.postServices.DeleteQuestion(GetAuthenticatedOperation());
             base.ExecuteDelete();
+        }
+
+        public void Dispose()
+        {
+            this.threadObserver.Dispose();
         }
     }
 }
