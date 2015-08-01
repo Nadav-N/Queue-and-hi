@@ -16,7 +16,24 @@ namespace DAL
 
         public bool TryLogin(UserCredentials userCredentials, out UserInfo userInfo)
         {
-            throw new NotImplementedException();
+            user tmpUser;
+            UserInfo result = new UserInfo();
+
+            using (var db = new qnhdb())
+            {
+                tmpUser = db.users.Where(x => x.name == userCredentials.Username && x.pwd == userCredentials.Password).SingleOrDefault<user>();
+            }
+            userInfo = null;
+
+            if (tmpUser != null)
+            {
+                userInfo = Converter.toExtUser(tmpUser, out userCredentials);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public IEnumerable<UserInfo> GetAllUsers()

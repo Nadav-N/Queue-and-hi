@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QueueAndHi.BL.Authentication;
 
 namespace QueueAndHi.Client
 {
@@ -26,9 +27,11 @@ namespace QueueAndHi.Client
     {
         public MainWindow()
         {
+            AuthTokenCache tokenCache = new AuthTokenCache();
+            IAuthTokenSerializer authTokenSerializer = new AuthTokenSerializer();
             NavigationManager navigationManager = new NavigationManager();
             MainMenuVM = new MainMenuViewModel(navigationManager, new PostServices());
-            MainToolbarVM = new MainToolbarViewModel(navigationManager);
+            MainToolbarVM = new MainToolbarViewModel(navigationManager, new UserServices(authTokenSerializer));
             //MainVM = new QuestionListViewModel(navigationManager);
             MainVM = new NewQuestionViewModel(new PostServices());
             NotificationsVM = new NotificationsViewModel();

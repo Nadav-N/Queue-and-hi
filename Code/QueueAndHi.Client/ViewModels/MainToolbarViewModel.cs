@@ -6,14 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using QueueAndHi.Common.Services;
 
 namespace QueueAndHi.Client.ViewModels
 {
     public class MainToolbarViewModel : INotifyPropertyChanged
     {
-        public MainToolbarViewModel(NavigationManager navigationManager)
+        public MainToolbarViewModel(NavigationManager navigationManager, IUserServices userServices)
         {
-            DoLogin = new DelegateCommand(obj => navigationManager.RequestNavigation(new LoginViewModel()));
+            DoLogin = new DelegateCommand(obj => navigationManager.RequestNavigation(new LoginViewModel(navigationManager, userServices)));
             DoRegister = new DelegateCommand(obj => navigationManager.RequestNavigation(new RegistrationViewModel()));
         }
 
