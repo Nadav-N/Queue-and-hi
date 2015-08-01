@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace QueueAndHi.Common.Services
 {
+    [ServiceContract]
     public interface IPostQueries
     {
         [OperationContract]
