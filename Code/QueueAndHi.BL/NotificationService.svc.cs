@@ -15,7 +15,7 @@ namespace QueueAndHi.BL
 
         public NotificationService()
         {
-            this.authTokenSerializer = new AuthTokenSerializer(new UserOps());
+            this.authTokenSerializer = new AuthTokenSerializer();
             this.notificationAggregator = new NotificationAggregator();
             this.notificationOps = new NotificationOps();
         }
