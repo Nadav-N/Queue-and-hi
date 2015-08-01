@@ -13,18 +13,19 @@ namespace QueueAndHi.Client.ViewModels
     {
         public MainToolbarViewModel(NavigationManager navigationManager)
         {
-
+            DoLogin = new DelegateCommand(obj => navigationManager.RequestNavigation(new LoginViewModel()));
+            DoRegister = new DelegateCommand(obj => navigationManager.RequestNavigation(new RegistrationViewModel()));
         }
 
         public string SearchText { get; set; }
 
-        public ICommand Search { get; set; }
+        public ICommand DoSearch { get; set; }
 
-        public ICommand Login { get; set; }
+        public ICommand DoLogin { get; set; }
 
-        public ICommand Register { get; set; }
+        public ICommand DoRegister { get; set; }
 
-        public ICommand Logout { get; set; }
+        public ICommand DoLogout { get; set; }
 
         internal void OnPropertyChanged(string propName)
         {
