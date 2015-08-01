@@ -19,16 +19,37 @@ namespace QueueAndHi.Client.ViewModels
         private IPostServices postServices;
         private IValidator<Question> validator;
 
+        private string tagsText;
+
         public NewQuestionViewModel(IPostServices postServices)
         {
             this.postServices = postServices;
             Question = new QuestionModel();
             PublishQuestion = new DelegateCommand(s => ValidateAndSubmitQuestion());
-            AddNewTag = new DelegateCommand(tag => Question.Tags.Add(tag.ToString()));
+            AddNewTag = new DelegateCommand(AddTag);
             RemoveTag = new DelegateCommand(tag => Question.Tags.Remove(tag.ToString()));
 
             this.validator = new ContentValidator();
             this.validator = new TitleValidator(this.validator);
+        }
+
+        private void AddTag(object tag)
+        {
+            Question.Tags.Add(tag.ToString());
+            TagsText = String.Empty;
+        }
+
+        public string TagsText
+        {
+            get
+            {
+                return this.tagsText;
+            }
+            set
+            {
+                this.tagsText = value;
+                OnPropertyChanged("TagsText");
+            }
         }
 
         public ICommand AddNewTag { get; set; }
