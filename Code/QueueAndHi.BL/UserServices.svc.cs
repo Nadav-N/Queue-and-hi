@@ -3,15 +3,20 @@ using QueueAndHi.Common.Logic.Validators;
 using QueueAndHi.Common.Logic.Validators.User;
 using QueueAndHi.Common.Services;
 using System.Collections.Generic;
+using QueueAndHi.BL.Authentication;
 
 namespace QueueAndHi.BL
 {
     public class UserServices : IUserServices
     {
+
+        private DAL.UserOps userOps = new DAL.UserOps();
+        private IAuthTokenSerializer authTokenSerializer;
         private IValidator<UserInfo> userValidator;
 
-        public UserServices()
+        public UserServices(IAuthTokenSerializer authTokenSerializer)
         {
+            this.authTokenSerializer = authTokenSerializer;
             this.userValidator = new EmailAddressValidator();
             // userValidator = new DecoratedValidator(userValidator);
         }
@@ -34,7 +39,21 @@ namespace QueueAndHi.BL
 
         public OperationResult<AuthenticatedIdentity> LogIn(UserCredentials userCredentials)
         {
-            throw new System.NotImplementedException();
+            List<string> errorMsg = new List<string>() { "User or password incorrect, please try again." };
+            OperationResult<AuthenticatedIdentity> or = new OperationResult<AuthenticatedIdentity>(errorMsg);
+
+            //do login with the credentials against the db using the DAL
+            AuthenticatedIdentity ai = new AuthenticatedIdentity();
+            bool loginResult = authTokenSerializer.ValidateAndSerialize(userCredentials, out ai);
+            if (loginResult == false)//login failure
+            {
+                return or;
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine(ai.UserID);
+                return new OperationResult<AuthenticatedIdentity>(ai);
+            }
         }
 
         public IEnumerable<UserInfo> GetAllUsersData(AuthenticationToken authToken)

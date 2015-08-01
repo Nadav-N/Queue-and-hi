@@ -39,15 +39,16 @@
             
             <Label Content="Password: " Name="lblPwd" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right"/>
             
-
+            
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0" HorizontalAlignment="Left">
-                <TextBox Margin="5" Name="txtUserName"  Width="210">
+                <TextBox Margin="5" Name="txtUserName"  Text="{Binding UserName}" Width="210">
 
                 </TextBox>
 
             </StackPanel>
-            <PasswordBox Margin="5" Name="txtPwd" Width="210" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left"/>
-            <Button Name="btnLogin" Margin="5" Grid.Row="5" Grid.Column="1">Login</Button>
+            <PasswordBox Margin="5" Name="txtPwd" Width="210" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" PasswordChanged="PasswordBox_PasswordChanged"/>
+            <Label Content="{Binding LoginResult}" Name="lblResult" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" HorizontalAlignment="Center"/>
+            <Button Name="btnLogin" Margin="5" Grid.Row="5" Grid.Column="1" Command="{Binding LoginUser}">Login</Button>
         </Grid>
     </Grid>
 </UserControl>
