@@ -13,6 +13,11 @@ namespace QueueAndHi.BL
     // NOTE: In order to launch WCF Test Client for testing this service, please select PostServices.svc or PostServices.svc.cs at the Solution Explorer and start debugging.
     public class PostServices : IPostServices
     {
+        public PostServices()
+        {
+
+        }
+
         public void AddQuestion(AuthenticatedOperation<Question> question)
         {
             throw new NotImplementedException();
