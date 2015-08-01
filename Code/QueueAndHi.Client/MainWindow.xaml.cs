@@ -28,7 +28,7 @@ namespace QueueAndHi.Client
         public MainWindow()
         {
             AuthTokenCache tokenCache = new AuthTokenCache();
-            IAuthTokenSerializer authTokenSerializer = new AuthTokenSerializer(tokenCache);
+            IAuthTokenSerializer authTokenSerializer = new AuthTokenSerializer();
             NavigationManager navigationManager = new NavigationManager();
             MainMenuVM = new MainMenuViewModel(navigationManager, new PostServices());
             MainToolbarVM = new MainToolbarViewModel(navigationManager, new UserServices(authTokenSerializer));

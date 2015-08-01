@@ -13,6 +13,11 @@ namespace QueueAndHi.BL
     // NOTE: In order to launch WCF Test Client for testing this service, please select PostQueries.svc or PostQueries.svc.cs at the Solution Explorer and start debugging.
     public class PostQueries : IPostQueries
     {
+        public PostQueries()
+        {
+
+        }
+
         public IEnumerable<Question> FreeSearch(AuthenticatedOperation<string> searchString)
         {
             throw new NotImplementedException();

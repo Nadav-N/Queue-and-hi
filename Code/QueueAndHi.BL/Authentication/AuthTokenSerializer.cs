@@ -14,10 +14,17 @@ namespace QueueAndHi.BL.Authentication
         private readonly AuthTokenCache tokenCache;
         private readonly UserOps userOps;
 
-        public AuthTokenSerializer(AuthTokenCache tokenCache)
+
+        public AuthTokenSerializer()
         {
-            this.tokenCache = tokenCache;
+            this.tokenCache = AuthTokenCache.Instance;
             this.userOps = new UserOps();
+        }
+        
+        public AuthTokenSerializer(UserOps userOps)
+        {
+            this.tokenCache = AuthTokenCache.Instance;
+            this.userOps = userOps;
         }
 
         public bool ValidateAndSerialize(UserCredentials userCredentials, out AuthenticatedIdentity serializedIdentity)

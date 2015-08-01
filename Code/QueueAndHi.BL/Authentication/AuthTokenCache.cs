@@ -8,7 +8,21 @@ namespace QueueAndHi.BL.Authentication
 {
     public class AuthTokenCache
     {
-        ConcurrentDictionary<string, int> tokenCache = new ConcurrentDictionary<string, int>();
+        private static AuthTokenCache instance;
+
+        private ConcurrentDictionary<string, int> tokenCache = new ConcurrentDictionary<string, int>();
+
+        public static AuthTokenCache Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new AuthTokenCache();
+                }
+                return instance;
+            }
+       } 
 
         public ConcurrentDictionary<string, int> TokenCache
         {

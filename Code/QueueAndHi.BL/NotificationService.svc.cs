@@ -13,11 +13,11 @@ namespace QueueAndHi.BL
         private INotificationAggregator notificationAggregator;
         private NotificationOps notificationOps;
 
-        public NotificationService(IAuthTokenSerializer authTokenSerializer, INotificationAggregator notificationsAggregator, NotificationOps notificationOps)
+        public NotificationService()
         {
-            this.authTokenSerializer = authTokenSerializer;
-            this.notificationAggregator = notificationsAggregator;
-            this.notificationOps = notificationOps;
+            this.authTokenSerializer = new AuthTokenSerializer(new UserOps());
+            this.notificationAggregator = new NotificationAggregator();
+            this.notificationOps = new NotificationOps();
         }
 
         public IEnumerable<Notification> GetNotifications(AuthenticationToken authToken)
