@@ -15,6 +15,7 @@ namespace QueueAndHi.Client.ViewModels
         public MainMenuViewModel(NavigationManager navigationManager, IPostServices postServices)
         {
             NavigateNewQuestion = new DelegateCommand(obj => navigationManager.RequestNavigation(new NewQuestionViewModel(postServices)));
+            NavigateUserManagement = new DelegateCommand(obj => navigationManager.RequestNavigation(new UserManagementViewModel()));
         }
 
         public bool IsUserAdmin { get; set; }

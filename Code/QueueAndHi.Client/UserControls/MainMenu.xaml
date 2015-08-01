@@ -33,7 +33,7 @@
             <Button>Home</Button>
             <Button>My Questions</Button>
             <Button Command="{Binding NavigateNewQuestion}">New Question</Button>
-            <Button>User Management</Button>
+            <Button Command="{Binding NavigateUserManagement}">User Management</Button>
         </StackPanel>
         
     </Grid>

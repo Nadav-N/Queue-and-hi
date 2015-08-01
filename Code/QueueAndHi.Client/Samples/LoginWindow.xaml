@@ -1,0 +1,11 @@
+﻿<Window x:Class="QueueAndHi.Client.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:qa="clr-namespace:QueueAndHi.Client"
+        Title="Queue &amp; Hi - Login" WindowState="Maximized">
+    <StackPanel x:Name="screen" Orientation="Vertical">
+        <qa:MainToolbar/>
+        <qa:MainMenu Margin="100,30,100,0" HorizontalAlignment="Stretch"/>
+        <qa:LoginControl  HorizontalAlignment="Center"/>
+    </StackPanel>
+</Window>
