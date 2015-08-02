@@ -3,6 +3,7 @@ using QueueAndHi.Common;
 using QueueAndHi.Common.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -21,13 +22,37 @@ namespace QueueAndHi.Client.ViewModels
             : base(discussionThread, postServices)
         {
             Post = new QuestionModel(discussionThread);
+            FillAnswers(discussionThread);
             this.threadObserver = new DiscussionThreadObserver(postQueries);
             this.threadObserver.StartObservingDiscussionThread(discussionThread.Question.ID);
             this.threadObserver.NewDiscussionThreadVersion += OnNewDiscussionThreadVersion;
             this.navigationManager = navigationManager;
-            RecommendQuestion = new DelegateCommand(s => ExecuteRecommendQuestion(), s => !Post.IsRecommended);
-            UnrecommendQuestion = new DelegateCommand(s => ExecuteUnrecommendQuestion(), s => Post.IsRecommended);
+            RecommendQuestion = new DelegateCommand(s => ExecuteRecommendQuestion());
+            UnrecommendQuestion = new DelegateCommand(s => ExecuteUnrecommendQuestion());
             AddAnswer = new DelegateCommand(s => ExecuteAddAnswer(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn());
+        }
+
+        private void FillAnswers(DiscussionThread discussionThread)
+        {
+            Answers = new ObservableCollection<AnswerViewModel>();
+            foreach (Answer answer in discussionThread.Answers)
+            {
+                Answers.Add(new AnswerViewModel(discussionThread, answer, this.postServices));
+            }
+        }
+
+        public QuestionModel Question
+        {
+            get
+            {
+                return Post;
+            }
+        }
+
+        public ObservableCollection<AnswerViewModel> Answers
+        {
+            get;
+            set;
         }
 
         private void OnNewDiscussionThreadVersion(object sender, NewDiscussionThreadVersionEventArgs e)

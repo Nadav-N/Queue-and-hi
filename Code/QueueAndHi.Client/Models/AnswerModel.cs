@@ -1,4 +1,5 @@
 ﻿using QueueAndHi.Client.Authentication;
+using QueueAndHi.Client.Models;
 using QueueAndHi.Common;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace QueueAndHi.Client
             Author = answer.Author;
             Content = answer.Content;
             DatePosted = answer.DatePosted;
-            Ranking = answer.Ranking;
+            Ranking = new RankingHistoryModel(answer.Ranking);
         }
 
         public Answer ToExternal()
@@ -34,7 +35,7 @@ namespace QueueAndHi.Client
             return new Answer
             {
                 Content = Content,
-                Ranking = Ranking,
+                Ranking = new RankingHistory(Ranking),
                 Author = new UserInfo
                 {
                     ID = AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.UserID

@@ -36,7 +36,6 @@ namespace QueueAndHi.Client
         public void Dispose()
         {
             //dispose will kill the polling thread
-            throw new NotImplementedException();
         }
     }
 }

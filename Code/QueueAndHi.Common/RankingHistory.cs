@@ -11,6 +11,15 @@ namespace QueueAndHi.Common
     [DataContract]
     public class RankingHistory : List<RankingEntry>
     {
+        public RankingHistory()
+        {
+
+        }
+
+        public RankingHistory(IEnumerable<RankingEntry> collection) : base(collection)
+        {
+        }
+
         [IgnoreDataMember]
         public int OverallRanking
         {

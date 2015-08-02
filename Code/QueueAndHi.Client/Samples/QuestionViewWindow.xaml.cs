@@ -1,4 +1,5 @@
-﻿using QueueAndHi.Common;
+﻿using QueueAndHi.Client.Models;
+using QueueAndHi.Common;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,7 +31,7 @@ namespace QueueAndHi.Client.Samples
                 Content = "How can I use the inverted value of a BooleanToVisibilityConverter\n\nFor Example, I want to be able to Show one image if the Value is true, but hide it and show another if the value is false",
                 DatePosted = new DateTime(2015, 02, 15),
                 Title = "Inverting BooleanToVisibilityConverter",
-                Ranking = new RankingHistory { new RankingEntry(12, RankingType.Up), new RankingEntry(1, RankingType.Up) },
+                Ranking = new RankingHistoryModel { new RankingEntry(12, RankingType.Up), new RankingEntry(1, RankingType.Up) },
                 IsRecommended = false,
                 Tags = new ObservableCollection<string>
                         {
@@ -43,7 +44,7 @@ namespace QueueAndHi.Client.Samples
                         Author = new UserInfo {Username = "Nadav"},
                         Content = "Look into writing a custom inverter, that way you can do it anything you'd like.",
                         DatePosted = new DateTime(2015, 02, 16),
-                        Ranking = new RankingHistory { new RankingEntry(12, RankingType.Down), new RankingEntry(1, RankingType.Up) },
+                        Ranking = new RankingHistoryModel { new RankingEntry(12, RankingType.Down), new RankingEntry(1, RankingType.Up) },
                         Answered= false
                     },
                     new AnswerModel(0)
@@ -51,7 +52,7 @@ namespace QueueAndHi.Client.Samples
                         Author = new UserInfo {Username = "Dani"},
                         Content = "There's an example in the course book. check it out.",
                         DatePosted = new DateTime(2015, 02, 17),
-                        Ranking =  new RankingHistory { new RankingEntry(12, RankingType.Down), new RankingEntry(1, RankingType.Down) },
+                        Ranking =  new RankingHistoryModel { new RankingEntry(12, RankingType.Down), new RankingEntry(1, RankingType.Down) },
                         Answered= true
                     }
                 }

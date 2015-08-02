@@ -9,13 +9,20 @@ namespace QueueAndHi.Client.ViewModels
 {
     public class AnswerViewModel : PostViewModel<AnswerModel>
     {
-
         public AnswerViewModel(DiscussionThread thread, Answer currentAnswer, IPostServices postServices)
             : base(thread, postServices)
         {
             Post = new AnswerModel(discussionThread.Question, currentAnswer);
             MarkAsRight = new DelegateCommand(s => ExecuteMarkAsRight());
             UnmarkAsRight = new DelegateCommand(s => ExecuteUnmarkAsRight());
+        }
+
+        public AnswerModel Answer
+        {
+            get
+            {
+                return Post;
+            }
         }
 
         public ICommand MarkAsRight { get; set; }

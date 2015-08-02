@@ -32,7 +32,7 @@ namespace QueueAndHi.Common
         public int? RightAnswerId { get; set; }
 
         [DataMember]
-        public int ID { get; private set; }
+        public int ID { get; set; }
 
         [DataMember]
         public DateTime DatePosted { get; set; }

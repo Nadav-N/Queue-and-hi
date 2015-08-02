@@ -87,7 +87,7 @@ namespace QueueAndHi.Client.ViewModels
         protected virtual void ExecuteRankUp()
         {
             int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
-            Post.Ranking.RemoveAll(entry => entry.UserID == userId);
+            Post.Ranking.Remove(entry => entry.UserID == userId);
             Post.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Up));
             Post.OnPropertyChanged("Ranking");
             OnPropertyChanged("IsRankedUp");
@@ -97,7 +97,7 @@ namespace QueueAndHi.Client.ViewModels
         protected virtual void ExecuteCancelRankUp()
         {
             int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
-            Post.Ranking.RemoveAll(entry => entry.UserID == userId && entry.RankingType == RankingType.Up);
+            Post.Ranking.Remove(entry => entry.UserID == userId && entry.RankingType == RankingType.Up);
             Post.OnPropertyChanged("Ranking");
             OnPropertyChanged("IsRankedUp");
         }
@@ -105,7 +105,7 @@ namespace QueueAndHi.Client.ViewModels
         protected virtual void ExecuteRankDown()
         {
             int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
-            Post.Ranking.RemoveAll(entry => entry.UserID == userId);
+            Post.Ranking.Remove(entry => entry.UserID == userId);
             Post.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Down));
             Post.OnPropertyChanged("Ranking");
             OnPropertyChanged("IsRankedUp");
@@ -115,7 +115,7 @@ namespace QueueAndHi.Client.ViewModels
         protected virtual void ExecuteCancelRankDown()
         {
             int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
-            Post.Ranking.RemoveAll(entry => entry.UserID == userId && entry.RankingType == RankingType.Down);
+            Post.Ranking.Remove(entry => entry.UserID == userId && entry.RankingType == RankingType.Down);
             Post.OnPropertyChanged("Ranking");
             OnPropertyChanged("IsRankedDown");
         }

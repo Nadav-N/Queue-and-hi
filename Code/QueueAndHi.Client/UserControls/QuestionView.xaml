@@ -43,35 +43,32 @@
                Margin="5,20,5,0" VerticalAlignment="Center"
                Grid.Row="0" Grid.Column="1"
                />
-        <Button  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
+        <ToggleButton HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
                  Width="30" Name="btnNotFavorite" ToolTip="Click to mark as favorite question"
                  Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
-                 Style="{DynamicResource NoMouseOverImageButton}"
-                 Command="{Binding RecommendQuestion}">
-            <StackPanel>
-                <Image Source="..\resources\unstarred.png" Visibility="{Binding Post.IsRecommended, Converter={StaticResource InvBool2VisConverter}}"/>
-            </StackPanel>
-        </Button>
-
-        <Button  HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
-                 Width="30" Name="btnFavorite" ToolTip="Click to clear favorite marking"
-                 Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
-                 Style="{DynamicResource NoMouseOverImageButton}"
-                 Command="{Binding UnrecommendQuestion}"
-                 >
+                 Style="{DynamicResource NoMouseOverImageButton}" IsChecked="{Binding Post.IsRecommended}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Checked">
+                    <i:InvokeCommandAction Command="{Binding RecommendQuestion}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="Unchecked">
+                    <i:InvokeCommandAction Command="{Binding UnrecommendQuestion}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <StackPanel>
                 <Image Source="..\resources\star.png" Visibility="{Binding Post.IsRecommended, Converter={StaticResource Bool2VisConverter}}"/>
+                <Image Source="..\resources\unstarred.png" Visibility="{Binding Post.IsRecommended, Converter={StaticResource InvBool2VisConverter}}"/>
             </StackPanel>
-        </Button>
+        </ToggleButton>
         <TextBlock Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,5,0">
-            <Run Text="{Binding Post.Author}" Style="{DynamicResource bolder}"/>
+            <Run Text="{Binding Post.Author.Username}" Style="{DynamicResource bolder}"/>
             <Run Text=" first asked this on "/>
             <Run Text="{Binding Post.DatePosted}" Style="{DynamicResource bolder}"/>
         </TextBlock>
 
         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="0,0,0,10">
             <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left" Style="{DynamicResource commandLinks}">
-                <Hyperlink Command="{Binding Delete}">Delete Answer</Hyperlink>
+                <Hyperlink Command="{Binding Delete}">Delete Question</Hyperlink>
             </TextBlock>
             <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left" Style="{DynamicResource commandLinks}">
                 <Hyperlink Command="{Binding AddAnswer}">Add Answer</Hyperlink>
@@ -145,7 +142,7 @@
                 <Run Text="{Binding Post.AnswerCount}"/>
                 <Run Text=" Answers"/>
             </TextBlock>
-            <ItemsControl Background="Transparent" VerticalAlignment="Center" ItemsSource="{Binding Post.Answers}">
+            <ItemsControl Background="Transparent" VerticalAlignment="Center" ItemsSource="{Binding Answers}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical"/>

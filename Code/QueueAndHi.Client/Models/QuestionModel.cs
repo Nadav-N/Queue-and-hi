@@ -1,4 +1,5 @@
-﻿using QueueAndHi.Common;
+﻿using QueueAndHi.Client.Models;
+using QueueAndHi.Common;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,7 +27,7 @@ namespace QueueAndHi.Client
         {
             Author = question.Question.Author;
             DatePosted = question.Question.DatePosted;
-            Ranking = question.Question.Ranking;
+            Ranking = new RankingHistoryModel(question.Question.Ranking);
             Content = question.Question.Content;
             Title = question.Question.Title;
             IsRecommended = question.Question.IsRecommended;
@@ -41,7 +42,7 @@ namespace QueueAndHi.Client
             {
                 Author = Author,
                 DatePosted = DatePosted,
-                Ranking = Ranking,
+                Ranking = new RankingHistory(Ranking),
                 Content = Content,
                 Title = Title,
                 IsRecommended = IsRecommended,

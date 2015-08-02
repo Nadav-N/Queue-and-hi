@@ -60,11 +60,13 @@
     </ApplicationDefinition>
     <Compile Include="AbstractPost.cs" />
     <Compile Include="DelegateCommand.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Models\AnswerModel.cs" />
     <Compile Include="Authentication\AuthenticationTokenSingleton.cs" />
     <Compile Include="Converters\BooleanConverter.cs" />
     <Compile Include="Converters\Bool2VisConverter.cs" />
     <Compile Include="DiscussionThreadObserver.cs" />
+    <Compile Include="Models\RankingHistoryModel.cs" />
     <Compile Include="NavigationManager.cs" />
     <Compile Include="NewDiscussionThreadVersionEventArgs.cs" />
     <Compile Include="Notifications\NewNotificationsEventArgs.cs" />

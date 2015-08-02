@@ -17,6 +17,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using QueueAndHi.BL.Authentication;
+using QueueAndHi.Common;
+using QueueAndHi.Client.Authentication;
 
 namespace QueueAndHi.Client
 {
@@ -32,8 +34,66 @@ namespace QueueAndHi.Client
             NavigationManager navigationManager = new NavigationManager();
             MainMenuVM = new MainMenuViewModel(navigationManager, new PostServices());
             MainToolbarVM = new MainToolbarViewModel(navigationManager, new UserServices(authTokenSerializer));
-            //MainVM = new QuestionListViewModel(navigationManager);
-            MainVM = new NewQuestionViewModel(new PostServices());
+
+            /*UserInfo currentUser = new UserInfo
+            {
+                ID = 123,
+                IsAdmin = false,
+                Ranking = 4,
+                Username = "Nadav"
+            };
+
+            AuthenticationTokenSingleton.Instance.AuthenticatedIdentity = new AuthenticatedIdentity
+            {
+                Token = new AuthenticationToken("1"),
+                UserID = 123
+            };
+            AuthenticationTokenSingleton.Instance.AuthenticatedUser = currentUser;
+
+            DiscussionThread dt = new DiscussionThread();
+            dt.Question = new Question()
+            {
+                AnswerCount = 2,
+                Content = "What is this question?",
+                Author = currentUser,
+                DatePosted = DateTime.Now,
+                ID = 11,
+                IsRecommended = true,
+                RightAnswerId = 12,
+                Tags = new List<string> { "C#", ".NET" },
+                Title = "Hello World",
+                Ranking = new RankingHistory { new RankingEntry(531, RankingType.Down) }
+            };
+            dt.Answers = new List<Answer>
+            {
+                new Answer
+                {
+                    ID = 183,
+                    Author = currentUser,
+                    DatePosted = DateTime.UtcNow,
+                    Content = "This is not a right answer :(",
+                    Ranking = new RankingHistory()
+                },
+                new Answer
+                {
+                    ID = 12,
+                    Author = new UserInfo()
+                    {
+                        ID = 125,
+                        IsAdmin = true,
+                        IsMuted = false,
+                        Ranking = 10,
+                        Username = "IAmAdmin"
+                    },
+                    Content = "This is the right answer",
+                    DatePosted = DateTime.Now,
+                    RelatedQuestionId = 11,
+                    Ranking = new RankingHistory { new RankingEntry(123, RankingType.Up) }
+                }
+            };
+
+            MainVM = new QuestionViewModel(dt, new PostServices(), navigationManager, new PostQueries());*/
+            MainVM = new NewAnswerViewModel(12, new PostServices());
             NotificationsVM = new NotificationsViewModel();
 
             navigationManager.NavigationRequested += navigationManager_NavigationRequested;

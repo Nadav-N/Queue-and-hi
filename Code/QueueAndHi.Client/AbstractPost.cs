@@ -1,4 +1,5 @@
-﻿using QueueAndHi.Common;
+﻿using QueueAndHi.Client.Models;
+using QueueAndHi.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +12,7 @@ namespace QueueAndHi.Client
     public abstract class AbstractPost : INotifyPropertyChanged
     {
         private DateTime datePosted;
-        private RankingHistory ranking;
+        private RankingHistoryModel ranking;
         private UserInfo author;
         private string content;
         protected int id;
@@ -27,7 +28,7 @@ namespace QueueAndHi.Client
         }
 
 
-        public RankingHistory Ranking
+        public RankingHistoryModel Ranking
         {
             get
             {
