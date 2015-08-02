@@ -10,12 +10,17 @@ namespace QueueAndHi.Common
     [DataContract]
     public class AuthenticationToken
     {
+        public AuthenticationToken()
+        {
+
+        }
+
         public AuthenticationToken(string tokenString)
         {
             TokenString = tokenString;
         }
 
        [DataMember]
-       public string TokenString { get; private set; }
+       public string TokenString { get; set; }
     }
 }
