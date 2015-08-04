@@ -112,7 +112,8 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <StackPanel>
-                    <Image Source="..\resources\upvote.png"/>
+                    <Image Source="..\resources\upvote.png"  Visibility="{Binding ElementName=btnUpVote, Path=IsChecked, Converter={StaticResource InvBool2VisConverter}}" />
+                    <Image Source="..\resources\upvoteApplied.png"  Visibility="{Binding ElementName=btnUpVote, Path=IsChecked, Converter={StaticResource Bool2VisConverter}}" />
                 </StackPanel>
             </ToggleButton>
             <Label Content="{Binding Post.Ranking.OverallRanking}" HorizontalAlignment="Center"
@@ -120,7 +121,7 @@
                Margin="5,0,5,0" VerticalAlignment="Center" Name="lblRating"/>
             <ToggleButton HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
                  Grid.Row="2" Grid.Column="0"
-                 Width="33" Name="btnDownVote" ToolTip="Click to add negative rating for a bad question"
+                 Width="33" x:Name="btnDownVote" ToolTip="Click to add negative rating for a bad question"
                  Style="{DynamicResource NoMouseOverImageButton}" IsChecked="{Binding IsRankedDown, Mode=OneWay}"
                  Visibility="{Binding IsAuthor, Converter={StaticResource InvBool2VisConverter}}">
                 <i:Interaction.Triggers>
@@ -132,7 +133,8 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <StackPanel>
-                    <Image Source="..\resources\downvote.png"/>
+                    <Image Source="..\resources\downvote.png" Visibility="{Binding ElementName=btnDownVote, Path=IsChecked, Converter={StaticResource InvBool2VisConverter}}"/>
+                    <Image Source="..\resources\downvoteApplied.png"  Visibility="{Binding ElementName=btnDownVote, Path=IsChecked, Converter={StaticResource Bool2VisConverter}}" />
                 </StackPanel>
             </ToggleButton>
 

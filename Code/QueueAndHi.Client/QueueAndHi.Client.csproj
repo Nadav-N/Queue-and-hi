@@ -277,10 +277,16 @@
     <Resource Include="Resources\upvote.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\upvoteApplied.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Resources\answered.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\downvote.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\downvoteApplied.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\unanswered.png" />

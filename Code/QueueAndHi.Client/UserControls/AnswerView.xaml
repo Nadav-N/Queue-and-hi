@@ -75,7 +75,8 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <StackPanel>
-                    <Image Source="..\resources\upvote.png"/>
+                    <Image Source="..\resources\upvote.png" Visibility="{Binding ElementName=btnUpVote, Path=IsChecked, Converter={StaticResource InvBool2VisConverter}}"/>
+                    <Image Source="..\resources\upvoteApplied.png"  Visibility="{Binding ElementName=btnUpVote, Path=IsChecked, Converter={StaticResource Bool2VisConverter}}" />
                 </StackPanel>
             </ToggleButton>
             <TextBlock Text="{Binding Post.Ranking.OverallRanking}" HorizontalAlignment="Center"
@@ -95,7 +96,8 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <StackPanel>
-                    <Image Source="..\resources\downvote.png"/>
+                    <Image Source="..\resources\downvote.png" Visibility="{Binding ElementName=btnDownVote, Path=IsChecked, Converter={StaticResource InvBool2VisConverter}}"/>
+                    <Image Source="..\resources\downvoteApplied.png"  Visibility="{Binding ElementName=btnDownVote, Path=IsChecked, Converter={StaticResource Bool2VisConverter}}" />
                 </StackPanel>
             </ToggleButton>
             <ToggleButton HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
