@@ -10,6 +10,13 @@
     <StackPanel x:Name="screen" Orientation="Vertical">
         <ContentControl Content="{Binding MainToolbarVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
         <ContentControl Margin="100,30,0,0" Content="{Binding MainMenuVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
-        <ContentControl Margin="100,40,100,0" Content="{Binding MainVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+        <Grid Margin="0,40,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <ContentControl Content="{Binding NotificationsVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+            <ContentControl Grid.Column="1" Margin="0,0,100,0" Content="{Binding MainVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+        </Grid>
     </StackPanel>
 </Window>

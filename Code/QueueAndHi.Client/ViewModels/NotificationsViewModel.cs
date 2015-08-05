@@ -10,6 +10,15 @@ namespace QueueAndHi.Client.ViewModels
 {
     public class NotificationsViewModel
     {
-        public ObservableCollection<Notification> Notifications;
+        public NotificationsViewModel()
+        {
+            Notifications = new ObservableCollection<Notification>();
+        }
+
+        public ObservableCollection<Notification> Notifications
+        {
+            get;
+            set;
+        }
     }
 }

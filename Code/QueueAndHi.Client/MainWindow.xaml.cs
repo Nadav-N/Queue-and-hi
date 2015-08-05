@@ -34,6 +34,7 @@ namespace QueueAndHi.Client
             NavigationManager navigationManager = new NavigationManager();
             MainMenuVM = new MainMenuViewModel(navigationManager, new PostServices());
             MainToolbarVM = new MainToolbarViewModel(navigationManager, new UserServices(authTokenSerializer));
+            NotificationsVM = new NotificationsViewModel();
 
             UserInfo currentUser = new UserInfo
             {
@@ -114,8 +115,6 @@ namespace QueueAndHi.Client
                 }
             };
             MainVM = new QuestionListViewModel(navigationManager, new PostQueries(), new PostServices(), questions);
-
-            NotificationsVM = new NotificationsViewModel();
 
             navigationManager.NavigationRequested += navigationManager_NavigationRequested;
 
