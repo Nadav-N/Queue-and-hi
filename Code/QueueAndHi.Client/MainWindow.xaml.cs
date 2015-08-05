@@ -35,7 +35,7 @@ namespace QueueAndHi.Client
             MainMenuVM = new MainMenuViewModel(navigationManager, new PostServices());
             MainToolbarVM = new MainToolbarViewModel(navigationManager, new UserServices(authTokenSerializer));
 
-            /*UserInfo currentUser = new UserInfo
+            UserInfo currentUser = new UserInfo
             {
                 ID = 123,
                 IsAdmin = false,
@@ -92,8 +92,29 @@ namespace QueueAndHi.Client
                 }
             };
 
-            MainVM = new QuestionViewModel(dt, new PostServices(), navigationManager, new PostQueries());*/
-            MainVM = new NewAnswerViewModel(12, new PostServices());
+            //MainVM = new QuestionViewModel(dt, new PostServices(), navigationManager, new PostQueries());
+            //MainVM = new NewAnswerViewModel(12, new PostServices());
+            var questions = new List<QuestionInfo> {
+                new QuestionInfo
+            {
+                    AnswersCount = 2,
+                    Author = "Yoav",
+                    IsRecommended = false,
+                    Ranking = 1,
+                    Tags = new ObservableCollection<string> { "tag2", "tag12" },
+                    Title = "What is the meaning of life?"
+            },
+                new QuestionInfo
+                {
+                                        AnswersCount = 0,
+                    Author = "Nahum",
+                    IsRecommended = true,
+                    Ranking = -1,
+                    Title = "Multi binding question"
+                }
+            };
+            MainVM = new QuestionListViewModel(navigationManager, new PostQueries(), new PostServices(), questions);
+
             NotificationsVM = new NotificationsViewModel();
 
             navigationManager.NavigationRequested += navigationManager_NavigationRequested;

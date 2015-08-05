@@ -19,6 +19,11 @@ namespace QueueAndHi.Client
         private ObservableCollection<string> tags;
         private int id;
 
+        public QuestionInfo()
+        {
+            Tags = new ObservableCollection<string>();
+        }
+
         public QuestionInfo(Question question)
         {
             AnswersCount = question.AnswerCount;
@@ -60,7 +65,7 @@ namespace QueueAndHi.Client
             set
             {
                 this.ranking = value;
-                OnPropertyChanged("VotesCount");
+                OnPropertyChanged("Ranking");
             }
         }
 

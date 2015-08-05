@@ -19,12 +19,12 @@ namespace QueueAndHi.Client.ViewModels
         private IPostServices postServices;
         private NavigationManager navigationManager;
 
-        public QuestionListViewModel(NavigationManager navigationManager, IPostQueries postQueries, IPostServices postServices)
+        public QuestionListViewModel(NavigationManager navigationManager, IPostQueries postQueries, IPostServices postServices, IEnumerable<QuestionInfo> questions)
         {
             this.postQueries = postQueries;
             this.postServices = postServices;
             this.navigationManager = navigationManager;
-            Questions = new ObservableCollection<QuestionInfo>();
+            Questions = new ObservableCollection<QuestionInfo>(questions);
             NavigateToQuestion = new DelegateCommand(questionInfo => ExecuteNavigateToQuestion(questionInfo));
         }
 
