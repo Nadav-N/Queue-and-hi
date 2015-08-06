@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using QueueAndHi.BL.Authentication;
 using QueueAndHi.Common;
 using QueueAndHi.Client.Authentication;
+using QueueAndHi.Common.Notifications;
 
 namespace QueueAndHi.Client
 {
@@ -35,6 +36,10 @@ namespace QueueAndHi.Client
             MainMenuVM = new MainMenuViewModel(navigationManager, new PostServices());
             MainToolbarVM = new MainToolbarViewModel(navigationManager, new UserServices(authTokenSerializer));
             NotificationsVM = new NotificationsViewModel();
+            NotificationsVM.Notifications = new ObservableCollection<Common.Notifications.Notification>
+            {
+                new Notification { Message = "Hello World", TimeStamp = DateTime.Now }
+            };
 
             UserInfo currentUser = new UserInfo
             {
@@ -44,12 +49,11 @@ namespace QueueAndHi.Client
                 Username = "Nadav"
             };
 
-            AuthenticationTokenSingleton.Instance.AuthenticatedIdentity = new AuthenticatedIdentity
+            /*AuthenticationTokenSingleton.Instance.LogIn(new AuthenticatedIdentity
             {
                 Token = new AuthenticationToken("1"),
                 UserID = 123
-            };
-            AuthenticationTokenSingleton.Instance.AuthenticatedUser = currentUser;
+            }, currentUser);*/
 
             DiscussionThread dt = new DiscussionThread();
             dt.Question = new Question()
@@ -114,7 +118,7 @@ namespace QueueAndHi.Client
                     Title = "Multi binding question"
                 }
             };
-            MainVM = new QuestionListViewModel(navigationManager, new PostQueries(), new PostServices(), questions);
+            //MainVM = new QuestionListViewModel(navigationManager, new PostQueries(), new PostServices(), questions);
 
             navigationManager.NavigationRequested += navigationManager_NavigationRequested;
 

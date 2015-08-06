@@ -58,7 +58,7 @@ namespace QueueAndHi.Client.ViewModels
         {
             foreach (Notification notification in newNotifications)
             {
-                Notifications.Add(notification);
+                Notifications.Insert(0, notification);
             }
         }
 
