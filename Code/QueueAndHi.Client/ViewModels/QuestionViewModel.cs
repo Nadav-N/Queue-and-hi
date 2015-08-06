@@ -29,7 +29,7 @@ namespace QueueAndHi.Client.ViewModels
             this.navigationManager = navigationManager;
             RecommendQuestion = new DelegateCommand(s => ExecuteRecommendQuestion());
             UnrecommendQuestion = new DelegateCommand(s => ExecuteUnrecommendQuestion());
-            AddAnswer = new DelegateCommand(s => ExecuteAddAnswer(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn());
+            AddAnswer = new DelegateCommand(s => ExecuteAddAnswer(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn);
         }
 
         private void FillAnswers(DiscussionThread discussionThread)

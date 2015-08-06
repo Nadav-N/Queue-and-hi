@@ -25,18 +25,57 @@ namespace QueueAndHi.Client.Authentication
             }
         }
 
-        public AuthenticatedIdentity AuthenticatedIdentity { get; set; }
+        public AuthenticatedIdentity AuthenticatedIdentity { get; private set; }
 
-        public UserInfo AuthenticatedUser { get; set; }
+        public UserInfo AuthenticatedUser { get; private set; }
 
-        public bool IsLoggedIn()
+        public void LogIn(AuthenticatedIdentity authenticatedIdentity, UserInfo authenticatedUser)
         {
-            return AuthenticatedIdentity != null && AuthenticatedIdentity.Token != null;
+            AuthenticatedIdentity = authenticatedIdentity;
+            AuthenticatedUser = authenticatedUser;
+
+            OnLogIn();
+        }
+
+        public void LogOut()
+        {
+            OnLogOut();
+
+            AuthenticatedIdentity = null;
+            AuthenticatedUser = null;
+        }
+
+        public bool IsLoggedIn
+        {
+            get
+            {
+                return AuthenticatedIdentity != null && AuthenticatedIdentity.Token != null;
+            }
         }
 
         public AuthenticatedOperation<T> CreateAuthenticatedOperation<T>(T input)
         {
             return new AuthenticatedOperation<T>(AuthenticatedIdentity.Token, input);
         }
+
+        private void OnLogOut()
+        {
+            if (UserLoggedOut != null)
+            {
+                UserLoggedOut(this, EventArgs.Empty);
+            }
+        }
+
+        public EventHandler<EventArgs> UserLoggedOut;
+
+        private void OnLogIn()
+        {
+            if (UserLoggedIn != null)
+            {
+                UserLoggedIn(this, EventArgs.Empty);
+            }
+        }
+
+        public event EventHandler<EventArgs> UserLoggedIn;
     }
 }

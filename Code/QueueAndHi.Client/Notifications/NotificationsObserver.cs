@@ -1,4 +1,5 @@
-﻿using QueueAndHi.Client.Authentication;
+﻿using QueueAndHi.BL;
+using QueueAndHi.Client.Authentication;
 using QueueAndHi.Common;
 using QueueAndHi.Common.Notifications;
 using System;
@@ -24,12 +25,15 @@ namespace QueueAndHi.Client.Notifications
 
         private void CheckForNotifications(object state)
         {
-            AuthenticationToken authToken = AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token;
-            IEnumerable<Notification> newNotifications = this.notificationService.GetNotifications(authToken);
-
-            if (newNotifications != null && newNotifications.Count() > 0)
+            if (AuthenticationTokenSingleton.Instance.IsLoggedIn)
             {
-                OnNewNotifications(newNotifications);
+                AuthenticationToken authToken = AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token;
+                IEnumerable<Notification> newNotifications = this.notificationService.GetNotifications(authToken);
+
+                if (newNotifications != null && newNotifications.Count() > 0)
+                {
+                    OnNewNotifications(newNotifications);
+                }
             }
 
             this.timer.Change(timerDueTime, Timeout.Infinite);
