@@ -47,7 +47,6 @@ namespace QueueAndHi.BL
         public IEnumerable<Question> GetLatestQuestions()
         {
             return postOps.GetLatestQuestions();
-            return null;
         }
     }
 }

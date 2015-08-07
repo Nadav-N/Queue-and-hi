@@ -38,9 +38,22 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        internal static Question toExtQuestion(question question)
+        internal static Question toExtQuestion(question question, UserInfo userInfo, RankingHistory rankingHistory, IEnumerable<string> tags)
         {
-            throw new NotImplementedException();
+            Question extQuestion = new Question()
+            {
+                Author = userInfo,
+                Content = question.contents,
+                DatePosted = question.created,
+                ID = question.id,
+                IsRecommended = Convert.ToBoolean(question.recommended),
+                Ranking = rankingHistory,
+                RightAnswerId = question.right_answer_id,
+                Tags = tags,
+                Title = question.title,
+                AnswerCount = 0
+            };
+            return extQuestion;
         }
 
         internal static answer toAnswer(Answer answer)

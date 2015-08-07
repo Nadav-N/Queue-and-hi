@@ -9,6 +9,8 @@ namespace DAL
 {
     public class PostOps
     {
+        private UserOps userOps = new UserOps();
+        
         public Question AddQuestion(Question question)
         {
             throw new NotImplementedException();
@@ -79,7 +81,17 @@ namespace DAL
                 tmpResult = db.questions.OrderByDescending(x => x.created).Take(10);
                 foreach (question q in tmpResult)
                 {
-                    result.Add(Converter.toExtQuestion(q));
+                    //get members
+                    UserInfo ui = userOps.GetUserInfo(q.author_id);
+
+                    result.Add(
+                        Converter.toExtQuestion(
+                            q, 
+                            ui,
+                            new RankingHistory(),//GetQuestionRankingHistory(q.id, q.author_id), 
+                            getTags(q.id)
+                            )
+                        );
                 }
             }
             return result;
@@ -96,7 +108,16 @@ namespace DAL
 
                 foreach (question q in tmpResult)
                 {
-                    result.Add(Converter.toExtQuestion(q));
+                    //get members
+                    UserInfo ui = userOps.GetUserInfo(q.author_id);
+
+                    result.Add(Converter.toExtQuestion(
+                            q,
+                            ui,
+                            new RankingHistory(),//GetQuestionRankingHistory(q.id, q.author_id), 
+                            getTags(q.id)
+                            )
+                       );
                 }
             }
             return result;
@@ -137,6 +158,12 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-
+        private IEnumerable<string> getTags(int questionId)
+        {
+            using (var db = new qnhdb())
+            {
+                return db.tags.Where(x => x.question_id == questionId).Select(row => row.tag1).ToList<String>();
+            }
+        }
     }
 }
