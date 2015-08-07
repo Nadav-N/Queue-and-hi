@@ -35,7 +35,7 @@ namespace QueueAndHi.Client
             NavigationManager navigationManager = new NavigationManager();
             MainMenuVM = new MainMenuViewModel(navigationManager, new PostQueries(), new PostServices());
             MainToolbarVM = new MainToolbarViewModel(navigationManager, new UserServices(authTokenSerializer));
-            MainVM = new QuestionListViewModel(navigationManager, new PostQueries().GetLatestQuestions());
+            MainVM = new QuestionListViewModel(navigationManager, new List<Question>()); //new PostQueries().GetLatestQuestions());
 
             navigationManager.NavigationRequested += navigationManager_NavigationRequested;
 
