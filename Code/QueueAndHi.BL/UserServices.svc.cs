@@ -51,6 +51,7 @@ namespace QueueAndHi.BL
             }
             else
             {
+                
                 System.Diagnostics.Debug.WriteLine(ai.UserID);
                 return new OperationResult<AuthenticatedIdentity>(ai);
             }
@@ -69,7 +70,10 @@ namespace QueueAndHi.BL
 
         public OperationResult<UserInfo> GetUserInfo(AuthenticationToken authToken)
         {
-            throw new System.NotImplementedException();
+            int userid = authTokenSerializer.Deserialize(authToken);
+            UserInfo ui = userOps.GetUserInfo(userid);
+            return new OperationResult<UserInfo>(ui);
+            
         }
     }
 }

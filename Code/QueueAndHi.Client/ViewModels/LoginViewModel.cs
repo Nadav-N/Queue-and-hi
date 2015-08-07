@@ -9,15 +9,17 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using QueueAndHi.Common.Services;
 using System.Security;
+using QueueAndHi.Client.Authentication;
 
 namespace QueueAndHi.Client.ViewModels
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
         IUserServices userServices;
-
+        NavigationManager navManager;
         public LoginViewModel(NavigationManager navigationManager, IUserServices userServices)
         {
+            this.navManager = navigationManager;
             this.userServices = userServices;
             LoginUser = new DelegateCommand(s => ExecuteLogin()); 
         }
@@ -35,8 +37,14 @@ namespace QueueAndHi.Client.ViewModels
             OperationResult loginResult = this.userServices.LogIn(new UserCredentials(UserName, Password));
             if (loginResult.IsSuccessful)
             {
+                OperationResult<AuthenticatedIdentity> orai = loginResult as OperationResult<AuthenticatedIdentity>;
+                UserInfo loggedInUser = userServices.GetUserInfo(orai.Payload.Token).Payload;
+
+
+                AuthenticationTokenSingleton.Instance.LogIn(orai.Payload, loggedInUser);
                 LoginResult = "Welcome, " + UserName;
                 OnPropertyChanged("LoginResult");
+                
                 return true;
             }
             else
