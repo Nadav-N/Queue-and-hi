@@ -44,28 +44,29 @@ namespace QueueAndHi.Client.ViewModels
 
         private void OnUserLoggedOut(object sender, EventArgs e)
         {
-            IsUserAdmin = false;
-            NavigateNewQuestion.RaiseCanExecuteChanged();
-            NavigateMyQuestions.RaiseCanExecuteChanged();
+            OnPropertyChanged("IsUserAdmin");
+            OnPropertyChanged("IsLoggedIn");
         }
 
         private void OnUserLoggedIn(object sender, EventArgs e)
         {
-            IsUserAdmin = AuthenticationTokenSingleton.Instance.AuthenticatedUser.IsAdmin;
-            NavigateNewQuestion.RaiseCanExecuteChanged();
-            NavigateMyQuestions.RaiseCanExecuteChanged();
+            OnPropertyChanged("IsUserAdmin");
+            OnPropertyChanged("IsLoggedIn");
+        }
+
+        public bool IsLoggedIn
+        {
+            get
+            {
+                return AuthenticationTokenSingleton.Instance.IsLoggedIn;
+            }
         }
 
         public bool IsUserAdmin
         {
             get
             {
-                return this.isUserAdmin;
-            }
-            set
-            {
-                this.isUserAdmin = value;
-                OnPropertyChanged("IsUserAdmin");
+                return AuthenticationTokenSingleton.Instance.IsLoggedIn && AuthenticationTokenSingleton.Instance.AuthenticatedUser.IsAdmin;
             }
         }
 

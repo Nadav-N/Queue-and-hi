@@ -38,8 +38,8 @@
             </StackPanel.Resources>
             
             <Button Command="{Binding NavigateHome}">Home</Button>
-            <Button Command="{Binding NavigateMyQuestions}">My Questions</Button>
-            <Button Command="{Binding NavigateNewQuestion}">New Question</Button>
+            <Button Command="{Binding NavigateMyQuestions}" Visibility="{Binding IsLoggedIn, Converter={StaticResource Bool2VisConverter}}">My Questions</Button>
+            <Button Command="{Binding NavigateNewQuestion}" Visibility="{Binding IsLoggedIn, Converter={StaticResource Bool2VisConverter}}">New Question</Button>
             <Button Command="{Binding NavigateUserManagement}" Visibility="{Binding IsUserAdmin, Converter={StaticResource Bool2VisConverter}}">User Management</Button>
         </StackPanel>
         

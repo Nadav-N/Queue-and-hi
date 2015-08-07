@@ -14,14 +14,16 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ContentControl Grid.Row="0" Content="{Binding MainToolbarVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
-        <ContentControl Grid.Row="1" Margin="100,30,0,0" Content="{Binding MainMenuVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+        <ContentControl Grid.Row="1" Margin="100,30,100,0" Content="{Binding MainMenuVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
         <Grid Grid.Row="2" Margin="20,40,20,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions>
             <ContentControl Content="{Binding NotificationsVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
-            <ContentControl Grid.Column="1" Margin="0,0,100,0" Content="{Binding MainVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+            <StackPanel Grid.Column="1" HorizontalAlignment="Left">
+                <ContentControl Margin="0,0,100,0" Content="{Binding MainVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>
