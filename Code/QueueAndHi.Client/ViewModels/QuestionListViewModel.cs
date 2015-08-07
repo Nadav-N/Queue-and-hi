@@ -1,4 +1,5 @@
-﻿using QueueAndHi.Client.Authentication;
+﻿using QueueAndHi.BL;
+using QueueAndHi.Client.Authentication;
 using QueueAndHi.Common;
 using QueueAndHi.Common.Services;
 using System;
@@ -19,20 +20,19 @@ namespace QueueAndHi.Client.ViewModels
         private IPostServices postServices;
         private NavigationManager navigationManager;
 
-        public QuestionListViewModel(NavigationManager navigationManager, IPostQueries postQueries, IPostServices postServices, IEnumerable<QuestionInfo> questions)
+        public QuestionListViewModel(NavigationManager navigationManager, IEnumerable<Question> questions)
         {
-            this.postQueries = postQueries;
-            this.postServices = postServices;
+            this.postQueries = new PostQueries();
+            this.postServices = new PostServices();
             this.navigationManager = navigationManager;
-            Questions = new ObservableCollection<QuestionInfo>(questions);
+            Questions = new ObservableCollection<QuestionInfo>(questions.Select(q => new QuestionInfo(q)));
             NavigateToQuestion = new DelegateCommand(questionInfo => ExecuteNavigateToQuestion(questionInfo));
         }
 
         private void ExecuteNavigateToQuestion(object questionInfo)
         {
             int questionId = ((QuestionInfo)questionInfo).ID;
-            AuthenticatedOperation<int> authOperation = AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation(questionId);
-            DiscussionThread selectedThread = this.postQueries.GetDiscussionThreadById(authOperation);
+            DiscussionThread selectedThread = this.postQueries.GetDiscussionThreadById(questionId);
             QuestionViewModel questionVM = new QuestionViewModel(selectedThread, this.postServices, this.navigationManager, this.postQueries);
             this.navigationManager.RequestNavigation(questionVM);
         }

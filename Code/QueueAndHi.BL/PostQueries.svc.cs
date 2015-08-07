@@ -18,12 +18,12 @@ namespace QueueAndHi.BL
 
         }
 
-        public IEnumerable<Question> FreeSearch(AuthenticatedOperation<string> searchString)
+        public IEnumerable<Question> FreeSearch(string searchString)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Question> TagsSearch(AuthenticatedOperation<IEnumerable<string>> tags)
+        public IEnumerable<Question> TagsSearch(string tag)
         {
             throw new NotImplementedException();
         }
@@ -33,7 +33,12 @@ namespace QueueAndHi.BL
             throw new NotImplementedException();
         }
 
-        public DiscussionThread GetDiscussionThreadById(AuthenticatedOperation<int> id)
+        public DiscussionThread GetDiscussionThreadById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Question> GetLatestQuestions()
         {
             throw new NotImplementedException();
         }

@@ -33,93 +33,9 @@ namespace QueueAndHi.Client
             AuthTokenCache tokenCache = new AuthTokenCache();
             IAuthTokenSerializer authTokenSerializer = new AuthTokenSerializer();
             NavigationManager navigationManager = new NavigationManager();
-            MainMenuVM = new MainMenuViewModel(navigationManager, new PostServices());
+            MainMenuVM = new MainMenuViewModel(navigationManager, new PostQueries(), new PostServices());
             MainToolbarVM = new MainToolbarViewModel(navigationManager, new UserServices(authTokenSerializer));
-            NotificationsVM = new NotificationsViewModel();
-            /*NotificationsVM.Notifications = new ObservableCollection<Common.Notifications.Notification>
-            {
-                new Notification { Message = "Hello World", TimeStamp = DateTime.Now },
-                new Notification { Message = "HEy", TimeStamp = DateTime.Now }
-            };*/
-
-            UserInfo currentUser = new UserInfo
-            {
-                ID = 123,
-                IsAdmin = false,
-                Ranking = 4,
-                Username = "Nadav"
-            };
-
-            AuthenticationTokenSingleton.Instance.LogIn(new AuthenticatedIdentity
-            {
-                Token = new AuthenticationToken("1"),
-                UserID = 123
-            }, currentUser);
-
-            DiscussionThread dt = new DiscussionThread();
-            dt.Question = new Question()
-            {
-                AnswerCount = 2,
-                Content = "What is this question?",
-                Author = currentUser,
-                DatePosted = DateTime.Now,
-                ID = 11,
-                IsRecommended = true,
-                RightAnswerId = 12,
-                Tags = new List<string> { "C#", ".NET" },
-                Title = "Hello World",
-                Ranking = new RankingHistory { new RankingEntry(531, RankingType.Down) }
-            };
-            dt.Answers = new List<Answer>
-            {
-                new Answer
-                {
-                    ID = 183,
-                    Author = currentUser,
-                    DatePosted = DateTime.UtcNow,
-                    Content = "This is not a right answer :(",
-                    Ranking = new RankingHistory()
-                },
-                new Answer
-                {
-                    ID = 12,
-                    Author = new UserInfo()
-                    {
-                        ID = 125,
-                        IsAdmin = true,
-                        IsMuted = false,
-                        Ranking = 10,
-                        Username = "IAmAdmin"
-                    },
-                    Content = "This is the right answer",
-                    DatePosted = DateTime.Now,
-                    RelatedQuestionId = 11,
-                    Ranking = new RankingHistory { new RankingEntry(123, RankingType.Up) }
-                }
-            };
-
-            //MainVM = new QuestionViewModel(dt, new PostServices(), navigationManager, new PostQueries());
-            //MainVM = new NewAnswerViewModel(12, new PostServices());
-            var questions = new List<QuestionInfo> {
-                new QuestionInfo
-            {
-                    AnswersCount = 2,
-                    Author = "Yoav",
-                    IsRecommended = false,
-                    Ranking = 1,
-                    Tags = new ObservableCollection<string> { "tag2", "tag12" },
-                    Title = "What is the meaning of life?"
-            },
-                new QuestionInfo
-                {
-                                        AnswersCount = 0,
-                    Author = "Nahum",
-                    IsRecommended = true,
-                    Ranking = -1,
-                    Title = "Multi binding question"
-                }
-            };
-            MainVM = new QuestionListViewModel(navigationManager, new PostQueries(), new PostServices(), questions);
+            MainVM = new QuestionListViewModel(navigationManager, new PostQueries().GetLatestQuestions());
 
             navigationManager.NavigationRequested += navigationManager_NavigationRequested;
 

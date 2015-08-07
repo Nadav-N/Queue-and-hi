@@ -66,7 +66,7 @@ namespace QueueAndHi.Client.Authentication
             }
         }
 
-        public EventHandler<EventArgs> UserLoggedOut;
+        public event EventHandler<EventArgs> UserLoggedOut;
 
         private void OnLogIn()
         {
