@@ -16,11 +16,17 @@ namespace QueueAndHi.Client.ViewModels
     public class LoginViewModel : INotifyPropertyChanged
     {
         IUserServices userServices;
+        IPostQueries postQueries;
+        IPostServices postServices;
+
         NavigationManager navManager;
-        public LoginViewModel(NavigationManager navigationManager, IUserServices userServices)
+        public LoginViewModel(NavigationManager navigationManager, IUserServices userServices, IPostQueries postQueries, IPostServices postServices)
         {
+
             this.navManager = navigationManager;
             this.userServices = userServices;
+            this.postQueries = postQueries;
+            this.postServices = postServices;
             LoginUser = new DelegateCommand(s => ExecuteLogin()); 
         }
 
@@ -44,7 +50,7 @@ namespace QueueAndHi.Client.ViewModels
                 AuthenticationTokenSingleton.Instance.LogIn(orai.Payload, loggedInUser);
                 LoginResult = "Welcome, " + UserName;
                 OnPropertyChanged("LoginResult");
-                
+                navManager.RequestNavigation(new QuestionListViewModel(navManager, postQueries, postServices));
                 return true;
             }
             else

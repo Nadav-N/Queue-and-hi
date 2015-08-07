@@ -69,9 +69,37 @@ namespace DAL
             throw new NotImplementedException();
         }
 
+        public IEnumerable<Question> GetLatestQuestions()
+        {
+            List<Question> result = new List<Question>();
+            IEnumerable<question> tmpResult;
+
+            using (var db = new qnhdb())
+            {
+                tmpResult = db.questions.OrderByDescending(x => x.created).Take(10);
+                foreach (question q in tmpResult)
+                {
+                    result.Add(Converter.toExtQuestion(q));
+                }
+            }
+            return result;
+        }
         public IEnumerable<Question> GetQuestionsByUser(int userId)
         {
-            throw new NotImplementedException();
+            List<Question> result = new List<Question>();
+            IEnumerable<question> tmpResult;
+
+            using (var db = new qnhdb())
+            {
+                tmpResult = db.questions.Where(x => x.author_id == userId);
+
+
+                foreach (question q in tmpResult)
+                {
+                    result.Add(Converter.toExtQuestion(q));
+                }
+            }
+            return result;
         }
 
         public DiscussionThread GetDiscussionThreadById(int id)

@@ -17,11 +17,13 @@ namespace QueueAndHi.Client.ViewModels
         private bool isUserAdmin;
         NavigationManager navigationManager;
         IPostQueries postQueries;
+        IPostServices postServices;
 
         public MainMenuViewModel(NavigationManager navigationManager, IPostQueries postQueries, IPostServices postServices)
         {
             this.navigationManager = navigationManager;
             this.postQueries = postQueries;
+            this.postServices = postServices;
             NavigateNewQuestion = new DelegateCommand(obj => navigationManager.RequestNavigation(new NewQuestionViewModel(postServices)), s => AuthenticationTokenSingleton.Instance.IsLoggedIn);
             NavigateMyQuestions = new DelegateCommand(obj => ExecuteNavigateMyQuestions(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn);
             NavigateUserManagement = new DelegateCommand(obj => navigationManager.RequestNavigation(new UserManagementViewModel()));
@@ -33,13 +35,13 @@ namespace QueueAndHi.Client.ViewModels
         private void ExecuteNavigateMyQuestions()
         {
             IEnumerable<Question> myQuestions = this.postQueries.GetMyQuestions(AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token);
-            this.navigationManager.RequestNavigation(new QuestionListViewModel(this.navigationManager, myQuestions));
+            this.navigationManager.RequestNavigation(new QuestionListViewModel(this.navigationManager,this.postQueries,this.postServices, myQuestions));
         }
 
         private void ExecuteNavigateHome()
         {
             IEnumerable<Question> latestQuestion = this.postQueries.GetLatestQuestions();
-            this.navigationManager.RequestNavigation(new QuestionListViewModel(this.navigationManager, latestQuestion));
+            this.navigationManager.RequestNavigation(new QuestionListViewModel(this.navigationManager, this.postQueries, this.postServices, latestQuestion));
         }
 
         private void OnUserLoggedOut(object sender, EventArgs e)

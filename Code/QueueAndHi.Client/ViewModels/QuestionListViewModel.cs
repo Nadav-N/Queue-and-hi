@@ -20,12 +20,34 @@ namespace QueueAndHi.Client.ViewModels
         private IPostServices postServices;
         private NavigationManager navigationManager;
 
-        public QuestionListViewModel(NavigationManager navigationManager, IEnumerable<Question> questions)
+        /// <summary>
+        /// loads the page with the provided question list
+        /// </summary>
+        /// <param name="navigationManager"></param>
+        /// <param name="questions"></param>
+        public QuestionListViewModel(NavigationManager navigationManager, IPostQueries postQueries, IPostServices postServices, IEnumerable<Question> questions)
         {
-            this.postQueries = new PostQueries();
-            this.postServices = new PostServices();
+            this.postQueries = postQueries;
+            this.postServices = postServices;
             this.navigationManager = navigationManager;
             Questions = new ObservableCollection<QuestionInfo>(questions.Select(q => new QuestionInfo(q)));
+            NavigateToQuestion = new DelegateCommand(questionInfo => ExecuteNavigateToQuestion(questionInfo));
+        }
+
+        /// <summary>
+        /// loads the page. the page will load the user's latest questions
+        /// </summary>
+        /// <param name="navigationManager"></param>
+
+        public QuestionListViewModel(NavigationManager navigationManager, IPostQueries postQueries, IPostServices postServices)
+        {
+            this.postQueries = postQueries;
+            this.postServices = postServices;
+            this.navigationManager = navigationManager;
+
+            //get the logged in user token, then get his questions
+            IEnumerable<Question> myQuestions = this.postQueries.GetMyQuestions(AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token);
+            Questions = new ObservableCollection<QuestionInfo>(myQuestions.Select(q => new QuestionInfo(q)));
             NavigateToQuestion = new DelegateCommand(questionInfo => ExecuteNavigateToQuestion(questionInfo));
         }
 

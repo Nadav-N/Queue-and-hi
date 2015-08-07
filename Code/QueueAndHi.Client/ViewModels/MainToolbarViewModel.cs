@@ -12,9 +12,9 @@ namespace QueueAndHi.Client.ViewModels
 {
     public class MainToolbarViewModel : INotifyPropertyChanged
     {
-        public MainToolbarViewModel(NavigationManager navigationManager, IUserServices userServices)
+        public MainToolbarViewModel(NavigationManager navigationManager, IUserServices userServices, IPostQueries postQueries, IPostServices postServices)
         {
-            DoLogin = new DelegateCommand(obj => navigationManager.RequestNavigation(new LoginViewModel(navigationManager, userServices)));
+            DoLogin = new DelegateCommand(obj => navigationManager.RequestNavigation(new LoginViewModel(navigationManager, userServices, postQueries, postServices)));
             DoRegister = new DelegateCommand(obj => navigationManager.RequestNavigation(new RegistrationViewModel()));
         }
 

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using QueueAndHi.BL.Authentication;
+using DAL;
 
 namespace QueueAndHi.BL
 {
@@ -13,9 +15,12 @@ namespace QueueAndHi.BL
     // NOTE: In order to launch WCF Test Client for testing this service, please select PostQueries.svc or PostQueries.svc.cs at the Solution Explorer and start debugging.
     public class PostQueries : IPostQueries
     {
-        public PostQueries()
-        {
+        private PostOps postOps = new PostOps();
+        private IAuthTokenSerializer authTokenSerializer;
 
+        public PostQueries(IAuthTokenSerializer authTokenSerializer)
+        {
+            this.authTokenSerializer = authTokenSerializer;
         }
 
         public IEnumerable<Question> FreeSearch(string searchString)
@@ -30,7 +35,8 @@ namespace QueueAndHi.BL
 
         public IEnumerable<Question> GetMyQuestions(AuthenticationToken authToken)
         {
-            throw new NotImplementedException();
+            int userid = authTokenSerializer.Deserialize(authToken);
+            return postOps.GetQuestionsByUser(userid);
         }
 
         public DiscussionThread GetDiscussionThreadById(int id)
@@ -40,7 +46,8 @@ namespace QueueAndHi.BL
 
         public IEnumerable<Question> GetLatestQuestions()
         {
-            throw new NotImplementedException();
+            return postOps.GetLatestQuestions();
+            return null;
         }
     }
 }
