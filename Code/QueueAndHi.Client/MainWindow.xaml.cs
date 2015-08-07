@@ -36,10 +36,11 @@ namespace QueueAndHi.Client
             MainMenuVM = new MainMenuViewModel(navigationManager, new PostServices());
             MainToolbarVM = new MainToolbarViewModel(navigationManager, new UserServices(authTokenSerializer));
             NotificationsVM = new NotificationsViewModel();
-            NotificationsVM.Notifications = new ObservableCollection<Common.Notifications.Notification>
+            /*NotificationsVM.Notifications = new ObservableCollection<Common.Notifications.Notification>
             {
-                new Notification { Message = "Hello World", TimeStamp = DateTime.Now }
-            };
+                new Notification { Message = "Hello World", TimeStamp = DateTime.Now },
+                new Notification { Message = "HEy", TimeStamp = DateTime.Now }
+            };*/
 
             UserInfo currentUser = new UserInfo
             {
@@ -49,11 +50,11 @@ namespace QueueAndHi.Client
                 Username = "Nadav"
             };
 
-            /*AuthenticationTokenSingleton.Instance.LogIn(new AuthenticatedIdentity
+            AuthenticationTokenSingleton.Instance.LogIn(new AuthenticatedIdentity
             {
                 Token = new AuthenticationToken("1"),
                 UserID = 123
-            }, currentUser);*/
+            }, currentUser);
 
             DiscussionThread dt = new DiscussionThread();
             dt.Question = new Question()
@@ -118,7 +119,7 @@ namespace QueueAndHi.Client
                     Title = "Multi binding question"
                 }
             };
-            //MainVM = new QuestionListViewModel(navigationManager, new PostQueries(), new PostServices(), questions);
+            MainVM = new QuestionListViewModel(navigationManager, new PostQueries(), new PostServices(), questions);
 
             navigationManager.NavigationRequested += navigationManager_NavigationRequested;
 
