@@ -14,7 +14,7 @@ namespace QueueAndHi.Client
         private bool isRecommended;
         private ObservableCollection<string> tags;
         private ObservableCollection<AnswerModel> answers;
-        private string title;
+        private string title = "";
         private int answerCount;
 
         public QuestionModel()

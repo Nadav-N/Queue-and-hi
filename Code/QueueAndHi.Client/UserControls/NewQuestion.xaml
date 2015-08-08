@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:QueueAndHi.Client"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" Width="500">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -15,6 +15,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -52,7 +53,8 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </StackPanel>
-        <Button HorizontalAlignment="Left" Margin="0,30,0,0" Grid.Row="3" Width="120" Height="25" Command="{Binding PublishQuestion}">
+        <TextBlock Grid.Row="3" Text="{Binding ErrorMessages, Mode=TwoWay}" Foreground="Red" FontWeight="Bold" />
+        <Button HorizontalAlignment="Left" Margin="0,30,0,0" Grid.Row="4" Width="120" Height="25" Command="{Binding PublishQuestion}">
             Post Your Quetion
         </Button>
     </Grid>

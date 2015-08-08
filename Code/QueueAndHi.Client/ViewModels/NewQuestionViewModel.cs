@@ -52,6 +52,12 @@ namespace QueueAndHi.Client.ViewModels
             }
         }
 
+        public string ErrorMessages
+        {
+            get;
+            set;
+        }
+
         public ICommand AddNewTag { get; set; }
 
         public ICommand RemoveTag { get; set; }
@@ -62,8 +68,19 @@ namespace QueueAndHi.Client.ViewModels
 
         public void ValidateAndSubmitQuestion()
         {
-            postServices.AddQuestion(AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation(Question.ToExternal()));
+            Question question = Question.ToExternal();
+            OperationResult validationResult = this.validator.IsValid(question);
+            if (validationResult.IsSuccessful)
+            {
+                postServices.AddQuestion(AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation(question));
+            }
+            else
+            {
+                ErrorMessages = String.Join("\n", validationResult.ErrorMessages);
+                OnPropertyChanged("ErrorMessages");
+            }
         }
+
         internal void OnPropertyChanged(string propName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;

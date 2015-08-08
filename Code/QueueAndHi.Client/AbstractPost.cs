@@ -12,7 +12,7 @@ namespace QueueAndHi.Client
     public abstract class AbstractPost : INotifyPropertyChanged
     {
         private DateTime datePosted;
-        private RankingHistoryModel ranking;
+        private RankingHistoryModel ranking = new RankingHistoryModel();
         private UserInfo author;
         private string content = "";
         protected int id;
