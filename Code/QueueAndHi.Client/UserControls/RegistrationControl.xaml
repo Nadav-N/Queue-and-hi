@@ -58,7 +58,7 @@
             </TextBox>
             <PasswordBox Margin="5" Name="txtPwd" Width="210" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" PasswordChanged="PasswordBox_PasswordChanged"/>
             <PasswordBox Margin="5" Name="txtPwd2" Width="210" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" PasswordChanged="PasswordBox_ConfirmationChanged"/>
-            <Button Name="btnRegister" Margin="5" Grid.Row="5" Grid.Column="1" Command="{Binding RegisterUser}">Sign Up</Button>
+            <Button IsDefault="True" Name="btnRegister" Margin="5" Grid.Row="5" Grid.Column="1" Command="{Binding RegisterUser}">Sign Up</Button>
         </Grid>
     </Grid>
 </UserControl>

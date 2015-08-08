@@ -23,7 +23,7 @@
                 <DataGridCheckBoxColumn Header="Admin" Width="175" Binding="{Binding IsAdmin}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Width="90" Height="30" Margin="0,50,0,0" Grid.Row="1" Command="{Binding ApplyChanges}">Save</Button>
+        <Button IsDefault="True" Width="90" Height="30" Margin="0,50,0,0" Grid.Row="1" Command="{Binding ApplyChanges}">Save</Button>
         <Label HorizontalAlignment="Center" Name="lblMessages" Grid.Row="3" Content="{Binding ApplyResult}"/>
     </Grid>
 </UserControl>
