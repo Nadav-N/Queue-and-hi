@@ -12,7 +12,23 @@ namespace DAL
     {
         internal static user toUser(UserInfo userInfo, UserCredentials userCredentials)
         {
-            throw new NotImplementedException();
+            user u = new user()
+            {
+                isadmin = Convert.ToByte(userInfo.IsMuted),
+                answer_rankings = null,
+                answers = null,
+                created = DateTime.Now,
+                email = userInfo.EmailAddress,
+                ismuted = 0,
+                isowner = 0,
+                name = userInfo.Username,
+                notifications = null,
+                pwd = userCredentials.Password,
+                question_rankings = null,
+                questions = null,
+                ranking = 0
+            };
+            return u;
         }
 
         internal static UserInfo toExtUser(user user, out UserCredentials userCredentials)

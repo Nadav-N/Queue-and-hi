@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +14,44 @@ namespace DAL
     {
         public UserInfo CreateNewUser(UserInfo userInfo, UserCredentials userCredentials)
         {
-            throw new NotImplementedException();
+            try
+            {
+                user tmpUser = Converter.toUser(userInfo, userCredentials);
+
+
+                using (var db = new qnhdb())
+                {
+                    db.users.Add(tmpUser);
+                    db.SaveChanges();
+                }
+                return Converter.toExtUser(tmpUser, out userCredentials);
+            }
+            catch (DbUpdateException due)
+            {
+                UpdateException uex = due.InnerException as UpdateException;
+                if (uex != null)
+                {
+
+                    SqlException sex = uex.InnerException as SqlException;
+                    if (sex != null && sex.Errors.OfType<SqlError>().Any(se => se.Number == 2601 || se.Number == 2627 /* PK/UKC violation */))
+                    {
+                        throw new DAL.Exceptions.DALDuplicateKeyError("Duplicate key error");
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                throw ex;
+            }
         }
 
         public bool TryLogin(UserCredentials userCredentials, out UserInfo userInfo)

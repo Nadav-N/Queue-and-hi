@@ -26,5 +26,17 @@ namespace QueueAndHi.Client
         {
             InitializeComponent();
         }
+
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.DataContext != null)
+            { ((dynamic)this.DataContext).Password = ((PasswordBox)sender).Password; }
+        }
+
+        private void PasswordBox_ConfirmationChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.DataContext != null)
+            { ((dynamic)this.DataContext).Confirmation = ((PasswordBox)sender).Password; }
+        }
     }
 }

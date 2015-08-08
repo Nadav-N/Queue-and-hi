@@ -4,6 +4,7 @@ using QueueAndHi.Common.Logic.Validators.User;
 using QueueAndHi.Common.Services;
 using System.Collections.Generic;
 using QueueAndHi.BL.Authentication;
+using System;
 
 namespace QueueAndHi.BL
 {
@@ -26,15 +27,33 @@ namespace QueueAndHi.BL
             newUser.Ranking = 0;
             newUser.IsMuted = false;
             newUser.IsAdmin = false;
-            OperationResult validationResult = userValidator.IsValid(newUser);
+            //OperationResult validationResult = userValidator.IsValid(newUser);
 
-            if (validationResult.IsSuccessful)
-            {
+            //if (validationResult.IsSuccessful)
+            //{
                 // call DAL to create new user
-                return new OperationResult();
+              //  return new OperationResult();
+            //}
+
+            //return validationResult;
+            List<string> errorMsgs = new List<string>();
+            OperationResult or = new OperationResult(errorMsgs);
+            try
+            {
+                UserInfo newu = userOps.CreateNewUser(newUser, userCredentials);
+                return new OperationResult<UserInfo>(newu);
+            }
+            catch (DAL.Exceptions.DALDuplicateKeyError dke)
+            {
+                errorMsgs.Add("Failed to create new user.\nA user with this name or email already exists in the system");
+                return or;
+            }
+            catch (Exception ex)
+            {
+                errorMsgs.Add("Uknow error: " + ex.Message);
+                return or;
             }
 
-            return validationResult;
         }
 
         public OperationResult<AuthenticatedIdentity> LogIn(UserCredentials userCredentials)

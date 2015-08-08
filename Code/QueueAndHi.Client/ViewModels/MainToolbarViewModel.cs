@@ -15,7 +15,7 @@ namespace QueueAndHi.Client.ViewModels
         public MainToolbarViewModel(NavigationManager navigationManager, IUserServices userServices, IPostQueries postQueries, IPostServices postServices)
         {
             DoLogin = new DelegateCommand(obj => navigationManager.RequestNavigation(new LoginViewModel(navigationManager, userServices, postQueries, postServices)));
-            DoRegister = new DelegateCommand(obj => navigationManager.RequestNavigation(new RegistrationViewModel()));
+            DoRegister = new DelegateCommand(obj => navigationManager.RequestNavigation(new RegistrationViewModel(navigationManager, userServices, postQueries, postServices)));
         }
 
         public string SearchText { get; set; }
