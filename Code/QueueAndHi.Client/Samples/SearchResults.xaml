@@ -4,7 +4,7 @@
         xmlns:qa="clr-namespace:QueueAndHi.Client"
         Title="Queue &amp; Hi" WindowState="Maximized">
     <StackPanel x:Name="screen" Orientation="Vertical">
-        <qa:MainToolbar Text="WPF"/>
+        <qa:MainToolbar />
         <qa:MainMenu Margin="100,30,100,0"/>
         <qa:QuestionList Margin="0,40,0,0" DataContext="{Binding Questions, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
     </StackPanel>

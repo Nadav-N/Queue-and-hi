@@ -7,7 +7,7 @@
         <BitmapImage UriSource="..\Resources\virtual-queue.png" />
     </Window.Icon>
     <StackPanel x:Name="screen" Orientation="Vertical">
-        <qa:MainToolbar Text="WPF"/>
+        <qa:MainToolbar />
         <qa:MainMenu Margin="100,30,100,0"/>
         <qa:UserManagementView Margin="40" DataContext="{Binding Users, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
     </StackPanel>
