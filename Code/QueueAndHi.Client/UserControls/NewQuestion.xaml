@@ -25,9 +25,9 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" VerticalAlignment="Center" FontWeight="Bold">Title</TextBlock>
             <TextBox Grid.Column="1" Margin="15,0,0,0" Tag="What's your programming question? Be specific." Style="{DynamicResource WatermarkedTextBox}" 
-                     Text="{Binding Question.Title}"/>
+                     Text="{Binding Question.Title, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
-        <TextBox Margin="0,40,0,0" Height="180" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Question.Content}"/>
+        <TextBox Margin="0,40,0,0" Height="180" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Question.Content, UpdateSourceTrigger=PropertyChanged}"/>
         <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,20,0,0">
             <TextBlock FontWeight="Bold">Tags</TextBlock>
             <TextBox x:Name="tagsInput" Margin="0,5,0,0" Text="{Binding TagsText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">

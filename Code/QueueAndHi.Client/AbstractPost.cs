@@ -14,7 +14,7 @@ namespace QueueAndHi.Client
         private DateTime datePosted;
         private RankingHistoryModel ranking;
         private UserInfo author;
-        private string content;
+        private string content = "";
         protected int id;
 
         public DateTime DatePosted

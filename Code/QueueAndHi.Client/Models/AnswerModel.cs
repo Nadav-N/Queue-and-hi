@@ -17,6 +17,7 @@ namespace QueueAndHi.Client
         public AnswerModel(int relatedQuestionId)
         {
             this.relatedQuestionId = relatedQuestionId;
+            Ranking = new RankingHistoryModel();
         }
 
         public AnswerModel(Question question, Answer answer)

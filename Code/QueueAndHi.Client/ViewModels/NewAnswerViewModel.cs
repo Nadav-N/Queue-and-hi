@@ -1,13 +1,10 @@
 ﻿using QueueAndHi.Client.Authentication;
 using QueueAndHi.Common;
+using QueueAndHi.Common.Logic.Validations.Question;
+using QueueAndHi.Common.Logic.Validators;
 using QueueAndHi.Common.Services;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace QueueAndHi.Client.ViewModels
@@ -16,16 +13,39 @@ namespace QueueAndHi.Client.ViewModels
     {
         private IPostServices postServices;
         private int questionId;
+        private IValidator<Answer> validator;
 
         public NewAnswerViewModel(int questionId, IPostServices postServices)
         {
             this.questionId = questionId;
             this.postServices = postServices;
-            SubmitAnswer = new DelegateCommand(s =>
-                this.postServices.AddAnswer(AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token, this.questionId, AnswerContent));
+            Answer = new AnswerModel(questionId);
+            SubmitAnswer = new DelegateCommand(s => ExecuteAddAnswer());
+
+            this.validator = new ContentValidator();
         }
 
-        public string AnswerContent
+        public AnswerModel Answer
+        {
+            get;
+            set;
+        }
+
+        public void ExecuteAddAnswer()
+        {
+            OperationResult result = this.validator.IsValid(Answer.ToExternal());
+            if (result.IsSuccessful)
+            {
+                this.postServices.AddAnswer(AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token, this.questionId, Answer.Content);
+            }
+            else
+            {
+                ErrorMessages = String.Join("\n", result.ErrorMessages);
+                OnPropertyChanged("ErrorMessages");
+            }
+        }
+
+        public string ErrorMessages
         {
             get;
             set;

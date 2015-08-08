@@ -1,23 +1,31 @@
-﻿using QueueAndHi.Common.Logic.Validators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace QueueAndHi.Common.Logic.Validations.Question
+﻿namespace QueueAndHi.Common.Logic.Validations.Question
 {
-    public class TitleValidator : ValidatorDecorator<Common.Question>
+    using QueueAndHi.Common.Logic.Validators;
+    using System;
+    using QueueAndHi.Common;
+    using System.Collections.Generic;
+
+    public class TitleValidator : ValidatorDecorator<Question>
     {
         public TitleValidator()
         { }
 
-        public TitleValidator(IValidator<Common.Question> validator) : base(validator)
+        public TitleValidator(IValidator<Question> validator) : base(validator)
         { }
 
-        public override OperationResult IsValidInternal(Common.Question userInfo)
+        public override OperationResult IsValidInternal(Question question)
         {
-            throw new NotImplementedException();
+            if (question.Title.Length < 4)
+            {
+                return new OperationResult(new List<string> { "The title specified is too short and should be at least 4 characters long." });
+            }
+
+            if (question.Title.Length > 40)
+            {
+                return new OperationResult(new List<string> { "The title specified is too long and should be 40 characters at most." });
+            }
+
+            return new OperationResult();
         }
     }
 }

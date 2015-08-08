@@ -66,6 +66,14 @@ namespace QueueAndHi.Client.ViewModels
             }
         }
 
+        public bool IsMuted
+        {
+            get
+            {
+                return !IsLoggedIn || AuthenticationTokenSingleton.Instance.AuthenticatedUser.IsMuted;
+            }
+        }
+
         public bool IsUserAdmin
         {
             get

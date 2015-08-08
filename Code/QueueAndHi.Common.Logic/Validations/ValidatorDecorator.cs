@@ -22,7 +22,7 @@ namespace QueueAndHi.Common.Logic.Validators
 
         public virtual OperationResult IsValid(T data)
         {
-            OperationResult decoratedResult = this.decoratedValidator.IsValid(data);
+            OperationResult decoratedResult = this.decoratedValidator != null ? this.decoratedValidator.IsValid(data) : new OperationResult();
             OperationResult result = IsValidInternal(data);
             if (!result.IsSuccessful || !decoratedResult.IsSuccessful)
             {

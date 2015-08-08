@@ -25,7 +25,7 @@ namespace QueueAndHi.Client.ViewModels
             this.postServices = postServices;
             DoLogin = new DelegateCommand(obj => navigationManager.RequestNavigation(new LoginViewModel(navigationManager, userServices, postQueries, postServices)));
             DoRegister = new DelegateCommand(obj => navigationManager.RequestNavigation(new RegistrationViewModel(navigationManager, userServices, postQueries, postServices)));
-            DoLogout = new DelegateCommand(obj => AuthenticationTokenSingleton.Instance.LogOut());
+            DoLogout = new DelegateCommand(obj => ExecuteLogout());
             DoSearch = new DelegateCommand(obj => ExecuteSearch());
             AuthenticationTokenSingleton.Instance.UserLoggedIn += OnUserLogInChanged;
             AuthenticationTokenSingleton.Instance.UserLoggedOut += OnUserLogInChanged;
@@ -42,6 +42,12 @@ namespace QueueAndHi.Client.ViewModels
             {
                 return AuthenticationTokenSingleton.Instance.IsLoggedIn;
             }
+        }
+
+        public void ExecuteLogout()
+        {
+            AuthenticationTokenSingleton.Instance.LogOut();
+            this.navigationManager.RequestNavigation(new QuestionListViewModel(this.navigationManager, this.postQueries, this.postServices));
         }
 
         public void ExecuteSearch()
