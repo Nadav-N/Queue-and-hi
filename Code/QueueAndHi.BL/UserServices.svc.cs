@@ -78,12 +78,32 @@ namespace QueueAndHi.BL
 
         public IEnumerable<UserInfo> GetAllUsersData(AuthenticationToken authToken)
         {
-            throw new System.NotImplementedException();
+            int userid = authTokenSerializer.Deserialize(authToken);
+            UserInfo ui = userOps.GetUserInfo(userid);
+            if (ui.IsAdmin)
+            {
+                return userOps.GetAllUsers();
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         public OperationResult SaveUsersData(AuthenticatedOperation<IEnumerable<UserInfo>> usersData)
         {
-            throw new System.NotImplementedException();
+            int userid = authTokenSerializer.Deserialize(usersData.Token);
+            UserInfo ui = userOps.GetUserInfo(userid);
+            if (ui.IsAdmin)
+            {
+                userOps.SaveUsersData(usersData.Payload);
+                return new OperationResult<IEnumerable<UserInfo>>(usersData.Payload);
+            }
+            else
+            {
+                return new OperationResult(new List<string>() { "User is not admin and is not allowed to change other users" });
+            }
         }
 
 

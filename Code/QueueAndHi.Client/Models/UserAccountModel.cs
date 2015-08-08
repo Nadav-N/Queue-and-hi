@@ -14,6 +14,7 @@ namespace QueueAndHi.Client
         private int ranking;
         private bool isAdmin;
         public bool isMuted;
+        public int id;
 
         public UserAccountModel()
         {
@@ -26,6 +27,7 @@ namespace QueueAndHi.Client
             Ranking = userInfo.Ranking;
             IsAdmin = userInfo.IsAdmin;
             IsMuted = userInfo.IsMuted;
+            ID = userInfo.ID;
         }
 
         public UserInfo ToExternal()
@@ -35,8 +37,22 @@ namespace QueueAndHi.Client
                 Username = Username,
                 Ranking = Ranking,
                 IsAdmin = IsAdmin,
-                IsMuted = IsMuted
+                IsMuted = IsMuted,
+                ID = ID
             };
+        }
+
+        public int ID
+        {
+            get
+            {
+                return this.id;
+            }
+            set
+            {
+                this.id = value;
+                OnPropertyChanged("ID");
+            }
         }
 
         public string Username

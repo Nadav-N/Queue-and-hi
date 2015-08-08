@@ -33,7 +33,7 @@ namespace QueueAndHi.Client
             AuthTokenCache tokenCache = new AuthTokenCache();
             IAuthTokenSerializer authTokenSerializer = new AuthTokenSerializer();
             NavigationManager navigationManager = new NavigationManager();
-            MainMenuVM = new MainMenuViewModel(navigationManager, new PostQueries(authTokenSerializer), new PostServices());
+            MainMenuVM = new MainMenuViewModel(navigationManager, new UserServices(authTokenSerializer), new PostQueries(authTokenSerializer), new PostServices());
             MainToolbarVM = new MainToolbarViewModel(navigationManager, new UserServices(authTokenSerializer), new PostQueries(authTokenSerializer), new PostServices());
             MainVM = new QuestionListViewModel(navigationManager,new PostQueries(authTokenSerializer), new PostServices(), new List<Question>()); //new PostQueries().GetLatestQuestions());
             

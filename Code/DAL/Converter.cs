@@ -14,7 +14,7 @@ namespace DAL
         {
             user u = new user()
             {
-                isadmin = Convert.ToByte(userInfo.IsMuted),
+                isadmin = Convert.ToByte(userInfo.IsAdmin),
                 answer_rankings = null,
                 answers = null,
                 created = DateTime.Now,

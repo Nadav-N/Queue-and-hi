@@ -18,15 +18,17 @@ namespace QueueAndHi.Client.ViewModels
         NavigationManager navigationManager;
         IPostQueries postQueries;
         IPostServices postServices;
+        IUserServices userServices;
 
-        public MainMenuViewModel(NavigationManager navigationManager, IPostQueries postQueries, IPostServices postServices)
+        public MainMenuViewModel(NavigationManager navigationManager, IUserServices userServices,  IPostQueries postQueries, IPostServices postServices)
         {
             this.navigationManager = navigationManager;
             this.postQueries = postQueries;
             this.postServices = postServices;
+            this.userServices = userServices;
             NavigateNewQuestion = new DelegateCommand(obj => navigationManager.RequestNavigation(new NewQuestionViewModel(postServices)), s => AuthenticationTokenSingleton.Instance.IsLoggedIn);
             NavigateMyQuestions = new DelegateCommand(obj => ExecuteNavigateMyQuestions(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn);
-            NavigateUserManagement = new DelegateCommand(obj => navigationManager.RequestNavigation(new UserManagementViewModel()));
+            NavigateUserManagement = new DelegateCommand(obj => navigationManager.RequestNavigation(new UserManagementViewModel(navigationManager, userServices, postQueries, postServices)));
             NavigateHome = new DelegateCommand(obj => ExecuteNavigateHome());
             AuthenticationTokenSingleton.Instance.UserLoggedIn += OnUserLoggedIn;
             AuthenticationTokenSingleton.Instance.UserLoggedOut += OnUserLoggedOut;

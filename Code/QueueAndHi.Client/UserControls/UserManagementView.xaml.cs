@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QueueAndHi.BL;
 
 namespace QueueAndHi.Client
 {
@@ -22,9 +23,16 @@ namespace QueueAndHi.Client
     /// </summary>
     public partial class UserManagementView : UserControl
     {
+        UserServices usrSvc;
+
         public UserManagementView()
         {
             InitializeComponent();
+
+            //get the current user's authentication token.
+            //usrSvc = new UserServices();
+            
+            
         }
     }
 }

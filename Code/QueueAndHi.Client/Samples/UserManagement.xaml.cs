@@ -23,31 +23,6 @@ namespace QueueAndHi.Client.Samples
         public UserManagement()
         {
             InitializeComponent();
-            Users = new ObservableCollection<UserAccountModel>
-            {
-                new UserAccountModel
-                {
-                    Username = "Nadav",
-                    Ranking = 4
-                },
-                new UserAccountModel
-                {
-                    Username = "Danny",
-                    IsAdmin = true,
-                    Ranking = 134
-                },
-                new UserAccountModel
-                {
-                    Username = "Tomer",
-                    Ranking = 12
-                },
-                new UserAccountModel
-                {
-                    Username = "Dr. Evil",
-                    Ranking = -27,
-                    IsMuted = true
-                }
-            };
         }
 
         public ObservableCollection<UserAccountModel> Users { get; set; }

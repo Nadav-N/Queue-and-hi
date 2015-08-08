@@ -13,8 +13,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="False" SelectionUnit="FullRow" Grid.Row="0" CanUserAddRows="False" CanUserDeleteRows="False" Width="750">
+        <DataGrid ItemsSource="{Binding Users}" AutoGenerateColumns="False" SelectionUnit="FullRow" Grid.Row="0" CanUserAddRows="False" CanUserDeleteRows="False" Width="750">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Username" Width="175" Binding="{Binding Username}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Ranking" Width="175" Binding="{Binding Ranking}" IsReadOnly="True"/>
@@ -22,6 +23,7 @@
                 <DataGridCheckBoxColumn Header="Admin" Width="175" Binding="{Binding IsAdmin}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Width="90" Height="30" Margin="0,50,0,0" Grid.Row="1">Save</Button>
+        <Button Width="90" Height="30" Margin="0,50,0,0" Grid.Row="1" Command="{Binding ApplyChanges}">Save</Button>
+        <Label HorizontalAlignment="Center" Name="lblMessages" Grid.Row="3" Content="{Binding ApplyResult}"/>
     </Grid>
 </UserControl>

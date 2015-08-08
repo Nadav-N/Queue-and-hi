@@ -78,12 +78,38 @@ namespace DAL
 
         public IEnumerable<UserInfo> GetAllUsers()
         {
-            throw new NotImplementedException();
+            List<UserInfo> result = new List<UserInfo>();
+            IEnumerable<user> tmpUsers;
+            using (var db = new qnhdb())
+            {
+                tmpUsers = db.users.OrderBy(x => x.name).ToList<user>();
+            }
+
+            foreach (user u in tmpUsers)
+            {
+                UserInfo tmpUserInfo;
+                UserCredentials tmpUserCredentials;
+                tmpUserInfo = Converter.toExtUser(u, out tmpUserCredentials);
+                result.Add(tmpUserInfo);
+            }
+
+            
+            return result;
         }
 
         public void SaveUserData(UserInfo userinfo)
         {
-            throw new NotImplementedException();
+            //get the existing one from the db, change it and save back
+            using (var db = new qnhdb())
+            {
+                user tmpUser; 
+                tmpUser = db.users.Where(x => x.id == userinfo.ID).Single();
+
+                tmpUser.ismuted = Convert.ToByte(userinfo.IsMuted);
+                tmpUser.isadmin = Convert.ToByte(userinfo.IsAdmin);
+                db.SaveChanges();
+            }
+            
         }
 
         public void SaveUsersData(IEnumerable<UserInfo> usersInfo)
@@ -96,7 +122,7 @@ namespace DAL
 
         public UserInfo GetUserInfo(int userId)
         {
-            UserInfo result = new UserInfo();
+            
 
             user tmpUser = new user();
 
@@ -109,7 +135,7 @@ namespace DAL
             UserCredentials tmpUserCredentials;
             tmpUserInfo = Converter.toExtUser(tmpUser, out tmpUserCredentials);
                 
-            return result;
+            return tmpUserInfo;
         }
 
 
