@@ -35,20 +35,13 @@ namespace QueueAndHi.Client.ViewModels
         }
 
         /// <summary>
-        /// loads the page. the page will load the user's latest questions
+        /// loads the page. the page will load the latest questions
         /// </summary>
         /// <param name="navigationManager"></param>
 
         public QuestionListViewModel(NavigationManager navigationManager, IPostQueries postQueries, IPostServices postServices)
+            : this(navigationManager, postQueries, postServices, postQueries.GetLatestQuestions())
         {
-            this.postQueries = postQueries;
-            this.postServices = postServices;
-            this.navigationManager = navigationManager;
-
-            //get the logged in user token, then get his questions
-            IEnumerable<Question> myQuestions = this.postQueries.GetMyQuestions(AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token);
-            Questions = new ObservableCollection<QuestionInfo>(myQuestions.Select(q => new QuestionInfo(q)));
-            NavigateToQuestion = new DelegateCommand(questionInfo => ExecuteNavigateToQuestion(questionInfo));
         }
 
         private void ExecuteNavigateToQuestion(object questionInfo)

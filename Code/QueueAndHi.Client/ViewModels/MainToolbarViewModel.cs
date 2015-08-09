@@ -47,7 +47,7 @@ namespace QueueAndHi.Client.ViewModels
         public void ExecuteLogout()
         {
             AuthenticationTokenSingleton.Instance.LogOut();
-            this.navigationManager.RequestNavigation(new QuestionListViewModel(this.navigationManager, this.postQueries, this.postServices, new List<Question>()));
+            this.navigationManager.RequestNavigation(new QuestionListViewModel(this.navigationManager, this.postQueries, this.postServices));
         }
 
         public void ExecuteSearch()
