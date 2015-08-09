@@ -26,8 +26,8 @@ namespace QueueAndHi.Client.ViewModels
             this.postQueries = postQueries;
             this.postServices = postServices;
             this.userServices = userServices;
-            NavigateNewQuestion = new DelegateCommand(obj => navigationManager.RequestNavigation(new NewQuestionViewModel(postServices)), s => AuthenticationTokenSingleton.Instance.IsLoggedIn);
-            NavigateMyQuestions = new DelegateCommand(obj => ExecuteNavigateMyQuestions(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn);
+            NavigateNewQuestion = new DelegateCommand(obj => navigationManager.RequestNavigation(new NewQuestionViewModel(postServices)));
+            NavigateMyQuestions = new DelegateCommand(obj => ExecuteNavigateMyQuestions());
             NavigateUserManagement = new DelegateCommand(obj => navigationManager.RequestNavigation(new UserManagementViewModel(navigationManager, userServices, postQueries, postServices)));
             NavigateHome = new DelegateCommand(obj => ExecuteNavigateHome());
             AuthenticationTokenSingleton.Instance.UserLoggedIn += OnUserLoggedIn;
@@ -50,12 +50,14 @@ namespace QueueAndHi.Client.ViewModels
         {
             OnPropertyChanged("IsUserAdmin");
             OnPropertyChanged("IsLoggedIn");
+            OnPropertyChanged("IsMuted");
         }
 
         private void OnUserLoggedIn(object sender, EventArgs e)
         {
             OnPropertyChanged("IsUserAdmin");
             OnPropertyChanged("IsLoggedIn");
+            OnPropertyChanged("IsMuted");
         }
 
         public bool IsLoggedIn
