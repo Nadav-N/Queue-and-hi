@@ -29,12 +29,10 @@ namespace QueueAndHi.Client
     {
         public MainWindow()
         {
-            
-            IAuthTokenSerializer authTokenSerializer = new AuthTokenSerializer();
             NavigationManager navigationManager = new NavigationManager();
-            MainMenuVM = new MainMenuViewModel(navigationManager, new UserServices(authTokenSerializer), new PostQueries(authTokenSerializer), new PostServices());
-            MainToolbarVM = new MainToolbarViewModel(navigationManager, new UserServices(authTokenSerializer), new PostQueries(authTokenSerializer), new PostServices());
-            MainVM = new QuestionListViewModel(navigationManager,new PostQueries(authTokenSerializer), new PostServices(), new List<Question>()); //new PostQueries().GetLatestQuestions());
+            MainMenuVM = new MainMenuViewModel(navigationManager, new UserServices(), new PostQueries(), new PostServices());
+            MainToolbarVM = new MainToolbarViewModel(navigationManager, new UserServices(), new PostQueries(), new PostServices());
+            MainVM = new QuestionListViewModel(navigationManager,new PostQueries(), new PostServices(), new PostQueries().GetLatestQuestions());
             
             navigationManager.NavigationRequested += navigationManager_NavigationRequested;
 

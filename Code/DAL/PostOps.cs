@@ -66,7 +66,7 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Question> TagsSearch(IEnumerable<string> tags)
+        public IEnumerable<Question> TagsSearch(string tag)
         {
             throw new NotImplementedException();
         }

@@ -17,7 +17,7 @@ namespace QueueAndHi.BL
 
         public UserServices(IAuthTokenSerializer authTokenSerializer)
         {
-            this.authTokenSerializer = authTokenSerializer;
+            this.authTokenSerializer = new AuthTokenSerializer();
             this.userValidator = new EmailAddressValidator();
             // userValidator = new DecoratedValidator(userValidator);
         }
@@ -112,7 +112,6 @@ namespace QueueAndHi.BL
             int userid = authTokenSerializer.Deserialize(authToken);
             UserInfo ui = userOps.GetUserInfo(userid);
             return new OperationResult<UserInfo>(ui);
-            
         }
     }
 }

@@ -1,11 +1,10 @@
-﻿using QueueAndHi.Common;
+﻿using DAL;
+using QueueAndHi.BL.Authentication;
+using QueueAndHi.Common;
+using QueueAndHi.Common.Logic.Validations.Question;
+using QueueAndHi.Common.Logic.Validators;
 using QueueAndHi.Common.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
 
 namespace QueueAndHi.BL
 {
@@ -13,14 +12,28 @@ namespace QueueAndHi.BL
     // NOTE: In order to launch WCF Test Client for testing this service, please select PostServices.svc or PostServices.svc.cs at the Solution Explorer and start debugging.
     public class PostServices : IPostServices
     {
+        private IAuthTokenSerializer authTokenSerializer;
+        private UserOps userOps;
+        private IValidator<Question> newQuestionValidator;
+        private IValidator<Answer> newAnswerValidator;
+
         public PostServices()
         {
-
+            this.authTokenSerializer = new AuthTokenSerializer();
+            this.userOps = new UserOps();
+            this.newQuestionValidator = new TitleValidator(new ContentValidator());
+            this.newAnswerValidator = new ContentValidator();
         }
 
         public void AddQuestion(AuthenticatedOperation<Question> question)
         {
-            throw new NotImplementedException();
+            UserInfo user = GetUserFromRequest(question);
+            if (user.IsMuted)
+            {
+                throw new InvalidOperationException("The user can not add a new question because he is muted.");
+            }
+
+            
         }
 
         public void DeleteQuestion(AuthenticatedOperation<int> questionId)
@@ -96,6 +109,12 @@ namespace QueueAndHi.BL
         public void UnmarkAsRightAnswer(AuthenticatedOperation<int> answerId)
         {
             throw new NotImplementedException();
+        }
+
+        private UserInfo GetUserFromRequest<T>(AuthenticatedOperation<T> operation)
+        {
+            int userId = authTokenSerializer.Deserialize(operation.Token);
+            return this.userOps.GetUserInfo(userId);
         }
     }
 }
