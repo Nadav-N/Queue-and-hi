@@ -128,6 +128,11 @@ namespace DAL
             throw new NotImplementedException();
         }
 
+        public Question GetQuestionById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         private Question GetQuestion(int it)
         {
             throw new NotImplementedException();

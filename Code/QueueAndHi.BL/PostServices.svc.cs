@@ -14,6 +14,7 @@ namespace QueueAndHi.BL
     {
         private IAuthTokenSerializer authTokenSerializer;
         private UserOps userOps;
+        private PostOps postOps;
         private IValidator<Question> newQuestionValidator;
         private IValidator<Answer> newAnswerValidator;
 
@@ -23,6 +24,7 @@ namespace QueueAndHi.BL
             this.userOps = new UserOps();
             this.newQuestionValidator = new TitleValidator(new ContentValidator());
             this.newAnswerValidator = new ContentValidator();
+            this.postOps = new PostOps();
         }
 
         public void AddQuestion(AuthenticatedOperation<Question> question)
@@ -33,12 +35,23 @@ namespace QueueAndHi.BL
                 throw new InvalidOperationException("The user can not add a new question because he is muted.");
             }
 
-            
+            OperationResult validationResult = this.newQuestionValidator.IsValid(question.Payload);
+            if (!validationResult.IsSuccessful)
+            {
+                throw new ArgumentException(String.Join("\n", validationResult.ErrorMessages));
+            }
+
+            this.postOps.AddQuestion(question.Payload);
         }
 
         public void DeleteQuestion(AuthenticatedOperation<int> questionId)
         {
-            throw new NotImplementedException();
+            UserInfo user = GetUserFromRequest(questionId);
+            Question questionToDelete = this.postOps.GetQuestionById(questionId.Payload);
+            if (questionToDelete.Author.ID == user.ID)
+            {
+                this.postOps.DeleteQuestion(questionId.Payload);
+            }
         }
 
         public void AddAnswer(AuthenticationToken token, int questionId, string content)
