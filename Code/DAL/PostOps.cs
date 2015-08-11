@@ -36,6 +36,11 @@ namespace DAL
             throw new NotImplementedException();
         }
 
+        public void UnrecommendQuestion(int questionId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void VoteUpQuestion(int questionId)
         {
             throw new NotImplementedException();
@@ -133,7 +138,7 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        private Question GetQuestion(int it)
+        public Answer GetAnswerById(int id)
         {
             throw new NotImplementedException();
         }
@@ -143,12 +148,42 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        public void RankQuestion(int questionId, int userId, int rank)
+        public void RankUpQuestion(int questionId, int userId)
         {
             throw new NotImplementedException();
         }
 
-        public void RankAnswer(int answerId, int userId, int rank)
+        public void RankDownQuestion(int questionId, int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RankUpAnswer(int answerId, int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RankDownAnswer(int answerId, int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CancelRankUpQuestion(int questionId, int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CancelRankDownQuestion(int questionId, int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CancelRankUpAnswer(int answerId, int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CancelRankDownAnswer(int answerId, int userId)
         {
             throw new NotImplementedException();
         }
@@ -159,6 +194,16 @@ namespace DAL
         }
 
         public int GetAnswerRankingHistory(int answerId, int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MarkAsRightAnswer(int answerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnmarkAsRightAnswer(int answerId)
         {
             throw new NotImplementedException();
         }

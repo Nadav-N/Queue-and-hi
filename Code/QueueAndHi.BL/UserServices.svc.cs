@@ -15,7 +15,7 @@ namespace QueueAndHi.BL
         private IAuthTokenSerializer authTokenSerializer;
         private IValidator<UserInfo> userValidator;
 
-        public UserServices(IAuthTokenSerializer authTokenSerializer)
+        public UserServices()
         {
             this.authTokenSerializer = new AuthTokenSerializer();
             this.userValidator = new EmailAddressValidator();

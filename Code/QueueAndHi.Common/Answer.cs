@@ -10,6 +10,11 @@ namespace QueueAndHi.Common
     [DataContract]
     public class Answer : IPost
     {
+        public Answer()
+        {
+            Ranking = new RankingHistory();
+        }
+
         [DataMember]
         public string Content { get; set; }
 
