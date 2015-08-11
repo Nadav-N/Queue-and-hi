@@ -11,7 +11,12 @@ namespace QueueAndHi.Common.Logic.Validations.User
     {
         public override OperationResult IsValidInternal(UserInfo userInfo)
         {
-            throw new NotImplementedException();
+            if (userInfo.Ranking < 10 && !userInfo.IsAdmin)
+            {
+                return new OperationResult(new [] { "User does not have high enough ranking to rank down a post." });
+            }
+
+            return new OperationResult();
         }
     }
 }

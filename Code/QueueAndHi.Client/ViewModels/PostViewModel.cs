@@ -1,5 +1,7 @@
 ﻿using QueueAndHi.Client.Authentication;
 using QueueAndHi.Common;
+using QueueAndHi.Common.Logic.Validations.User;
+using QueueAndHi.Common.Logic.Validators;
 using QueueAndHi.Common.Services;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,7 @@ namespace QueueAndHi.Client.ViewModels
         protected DiscussionThread discussionThread;
         protected IPostServices postServices;
         protected T post;
+        protected IValidator<UserInfo> rankDownValidator;
 
         public PostViewModel(DiscussionThread discussionThread, IPostServices postServices)
         {
@@ -26,6 +29,7 @@ namespace QueueAndHi.Client.ViewModels
             RankDown = new DelegateCommand(s => ExecuteRankDown());
             CancelRankDown = new DelegateCommand(s => ExecuteCancelRankDown());
             Delete = new DelegateCommand(s => ExecuteDelete());
+            this.rankDownValidator = new RankDownValidator();
         }
 
         public T Post
@@ -56,7 +60,15 @@ namespace QueueAndHi.Client.ViewModels
         {
             get
             {
-                return Post.Author.ID == AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.UserID;
+                return AuthenticationTokenSingleton.Instance.IsLoggedIn && Post.Author.ID == AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.UserID;
+            }
+        }
+
+        public bool IsRankDownEnabled
+        {
+            get
+            {
+                return AuthenticationTokenSingleton.Instance.IsLoggedIn && !IsAuthor && this.rankDownValidator.IsValid(AuthenticationTokenSingleton.Instance.AuthenticatedUser).IsSuccessful;
             }
         }
 
@@ -80,7 +92,7 @@ namespace QueueAndHi.Client.ViewModels
         {
             get
             {
-                return AuthenticationTokenSingleton.Instance.AuthenticatedUser.IsAdmin || IsAuthor;
+                return AuthenticationTokenSingleton.Instance.IsLoggedIn && (AuthenticationTokenSingleton.Instance.AuthenticatedUser.IsAdmin || IsAuthor);
             }
         }
 

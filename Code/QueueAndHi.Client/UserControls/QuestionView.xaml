@@ -46,7 +46,9 @@
         <ToggleButton HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
                  Width="30" Name="btnNotFavorite" ToolTip="Click to mark as favorite question"
                  Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
-                 Style="{DynamicResource NoMouseOverImageButton}" IsChecked="{Binding Post.IsRecommended}">
+                 Style="{DynamicResource NoMouseOverImageButton}"
+                 IsChecked="{Binding Post.IsRecommended}"
+                 Visibility="{Binding IsRecommendationEnabled, Converter={StaticResource Bool2VisConverter}}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Checked">
                     <i:InvokeCommandAction Command="{Binding RecommendQuestion}"/>
@@ -123,7 +125,7 @@
                  Grid.Row="2" Grid.Column="0"
                  Width="33" x:Name="btnDownVote" ToolTip="Click to add negative rating for a bad question"
                  Style="{DynamicResource NoMouseOverImageButton}" IsChecked="{Binding IsRankedDown, Mode=OneWay}"
-                 Visibility="{Binding IsAuthor, Converter={StaticResource InvBool2VisConverter}}">
+                 Visibility="{Binding IsRankDownEnabled, Converter={StaticResource Bool2VisConverter}}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Checked">
                         <i:InvokeCommandAction Command="{Binding RankDown}"/>
@@ -144,7 +146,7 @@
                 <Run Text="{Binding Post.AnswerCount}"/>
                 <Run Text=" Answers"/>
             </TextBlock>
-            <ItemsControl Background="Transparent" VerticalAlignment="Center" ItemsSource="{Binding Answers}">
+            <ItemsControl Background="Transparent" VerticalAlignment="Center" ItemsSource="{Binding Post.Answers}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical"/>
