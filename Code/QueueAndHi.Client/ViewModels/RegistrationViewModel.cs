@@ -10,7 +10,7 @@ using System.Windows.Input;
 using QueueAndHi.Common.Services;
 using QueueAndHi.Common.Logic.Validators;
 using QueueAndHi.Common.Logic.Validations.User;
-using QueueAndHi.Common.Logic.Validations.User;
+
 
 namespace QueueAndHi.Client.ViewModels
 {
@@ -48,8 +48,8 @@ namespace QueueAndHi.Client.ViewModels
 
         private bool ExecuteRegister()
         {
-            
-            
+
+            RegistrationResult = "";
             //create objects from the user posted data
             this.User = new UserInfo()
             {

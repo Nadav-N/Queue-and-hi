@@ -13,13 +13,12 @@ namespace QueueAndHi.BL
 
         private DAL.UserOps userOps = new DAL.UserOps();
         private IAuthTokenSerializer authTokenSerializer;
-        //private IValidator<UserInfo> userValidator;
+        private IValidator<UserInfo> userValidator;
 
         public UserServices()
         {
             this.authTokenSerializer = new AuthTokenSerializer();
-            //this.userValidator = new EmailAddressValidator();
-            // userValidator = new DecoratedValidator(userValidator);
+            this.userValidator = new UserValidator();
         }
 
         public OperationResult AddNewUser(UserInfo newUser, UserCredentials userCredentials)
@@ -27,7 +26,7 @@ namespace QueueAndHi.BL
             newUser.Ranking = 0;
             newUser.IsMuted = false;
             newUser.IsAdmin = false;
-            //OperationResult validationResult = userValidator.IsValid(newUser);
+            OperationResult validationResult = userValidator.IsValid(newUser);
 
             //if (validationResult.IsSuccessful)
             //{
