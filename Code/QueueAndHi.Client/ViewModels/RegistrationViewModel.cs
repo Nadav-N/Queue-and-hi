@@ -84,7 +84,7 @@ namespace QueueAndHi.Client.ViewModels
             }
             else
             {
-                foreach (string s in or.ErrorMessages)
+                foreach (string s in por.ErrorMessages)
                 {
                     RegistrationResult += s + "\n";
                 }

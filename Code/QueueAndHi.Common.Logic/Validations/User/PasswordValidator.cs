@@ -61,12 +61,12 @@ namespace QueueAndHi.Common.Logic.Validations.User
                 score++;
             if (pwd.Length >= 12)
                 score++;
-            if (Regex.Match(pwd, @"/\d+/", RegexOptions.ECMAScript).Success)
+            if (Regex.Match(pwd, @"\d+", RegexOptions.ECMAScript).Success)
                 score++;
-            if (Regex.Match(pwd, @"/[a-z]/", RegexOptions.ECMAScript).Success &&
-              Regex.Match(pwd, @"/[A-Z]/", RegexOptions.ECMAScript).Success)
+            if (Regex.Match(pwd, @"[a-z]", RegexOptions.ECMAScript).Success &&
+              Regex.Match(pwd, @"[A-Z]", RegexOptions.ECMAScript).Success)
                 score++;
-            if (Regex.Match(pwd, @"/.[!,@,#,$,%,^,&,*,?,_,~,-,£,(,)]/", RegexOptions.ECMAScript).Success)
+            if (Regex.Match(pwd, @"[!,@,#,$,%,^,&,*,?,_,~,-,£,(,)]", RegexOptions.ECMAScript).Success)
                 score++;
 
             return score;
