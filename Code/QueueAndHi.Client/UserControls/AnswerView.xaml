@@ -86,7 +86,7 @@
                  Grid.Row="2" Grid.Column="0"
                  Width="33" Name="btnDownVote" ToolTip="Click to add negative rating for a bad answer"
                  Style="{DynamicResource NoMouseOverImageButton}" IsChecked="{Binding IsRankedDown, Mode=OneWay}"
-                           Visibility="{Binding IsAuthor, Converter={StaticResource InvBool2VisConverter}}">
+                           Visibility="{Binding IsRankDownEnabled, Converter={StaticResource Bool2VisConverter}}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Checked">
                         <i:InvokeCommandAction Command="{Binding RankDown}"/>

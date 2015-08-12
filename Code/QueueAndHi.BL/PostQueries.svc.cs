@@ -18,19 +18,19 @@ namespace QueueAndHi.BL
         private PostOps postOps = new PostOps();
         private IAuthTokenSerializer authTokenSerializer;
 
-        public PostQueries(IAuthTokenSerializer authTokenSerializer)
+        public PostQueries()
         {
-            this.authTokenSerializer = authTokenSerializer;
+            this.authTokenSerializer = new AuthTokenSerializer();
         }
 
         public IEnumerable<Question> FreeSearch(string searchString)
         {
-            throw new NotImplementedException();
+            return postOps.FreeSearch(searchString);
         }
 
         public IEnumerable<Question> TagsSearch(string tag)
         {
-            throw new NotImplementedException();
+            return postOps.TagsSearch(tag);
         }
 
         public IEnumerable<Question> GetMyQuestions(AuthenticationToken authToken)
@@ -41,7 +41,7 @@ namespace QueueAndHi.BL
 
         public DiscussionThread GetDiscussionThreadById(int id)
         {
-            throw new NotImplementedException();
+            return postOps.GetDiscussionThreadById(id);
         }
 
         public IEnumerable<Question> GetLatestQuestions()

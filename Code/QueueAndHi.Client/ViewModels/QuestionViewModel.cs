@@ -1,14 +1,10 @@
 ﻿using QueueAndHi.Client.Authentication;
 using QueueAndHi.Common;
+using QueueAndHi.Common.Logic.Validations.User;
+using QueueAndHi.Common.Logic.Validators;
 using QueueAndHi.Common.Services;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace QueueAndHi.Client.ViewModels
@@ -17,12 +13,12 @@ namespace QueueAndHi.Client.ViewModels
     {
         private NavigationManager navigationManager;
         private DiscussionThreadObserver threadObserver;
+        private IValidator<UserInfo> questionRecommendationValidator;
 
         public QuestionViewModel(DiscussionThread discussionThread, IPostServices postServices, NavigationManager navigationManager, IPostQueries postQueries)
             : base(discussionThread, postServices)
         {
             Post = new QuestionModel(discussionThread);
-            FillAnswers(discussionThread);
             this.threadObserver = new DiscussionThreadObserver(postQueries);
             this.threadObserver.StartObservingDiscussionThread(discussionThread.Question.ID);
             this.threadObserver.NewDiscussionThreadVersion += OnNewDiscussionThreadVersion;
@@ -30,22 +26,14 @@ namespace QueueAndHi.Client.ViewModels
             RecommendQuestion = new DelegateCommand(s => ExecuteRecommendQuestion());
             UnrecommendQuestion = new DelegateCommand(s => ExecuteUnrecommendQuestion());
             AddAnswer = new DelegateCommand(s => ExecuteAddAnswer(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn && !AuthenticationTokenSingleton.Instance.AuthenticatedUser.IsMuted);
+            this.questionRecommendationValidator = new RecommendQuestionValidator();
         }
 
-        private void FillAnswers(DiscussionThread discussionThread)
-        {
-            Answers = new ObservableCollection<AnswerViewModel>();
-            foreach (Answer answer in discussionThread.Answers)
-            {
-                Answers.Add(new AnswerViewModel(discussionThread, answer, this.postServices));
-            }
-        }
-
-        public QuestionModel Question
+        public bool IsRecommendationEnabled
         {
             get
             {
-                return Post;
+                return AuthenticationTokenSingleton.Instance.IsLoggedIn && !IsAuthor && this.questionRecommendationValidator.IsValid(AuthenticationTokenSingleton.Instance.AuthenticatedUser).IsSuccessful;
             }
         }
 
@@ -58,9 +46,8 @@ namespace QueueAndHi.Client.ViewModels
         private void OnNewDiscussionThreadVersion(object sender, NewDiscussionThreadVersionEventArgs e)
         {
             this.discussionThread = e.NewDiscussionThread;
-            // not sure if this is needed
-            OnPropertyChanged("Post.Answers");
-
+            Post = new QuestionModel(e.NewDiscussionThread);
+            OnPropertyChanged("Post");
         }
 
         private void ExecuteAddAnswer()
@@ -118,6 +105,7 @@ namespace QueueAndHi.Client.ViewModels
 
         public void Dispose()
         {
+            this.threadObserver.NewDiscussionThreadVersion -= OnNewDiscussionThreadVersion;
             this.threadObserver.Dispose();
         }
     }

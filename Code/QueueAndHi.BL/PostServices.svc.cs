@@ -1,11 +1,11 @@
-﻿using QueueAndHi.Common;
+﻿using DAL;
+using QueueAndHi.BL.Authentication;
+using QueueAndHi.Common;
+using QueueAndHi.Common.Logic.Validations.Question;
+using QueueAndHi.Common.Logic.Validations.User;
+using QueueAndHi.Common.Logic.Validators;
 using QueueAndHi.Common.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
 
 namespace QueueAndHi.BL
 {
@@ -13,89 +13,278 @@ namespace QueueAndHi.BL
     // NOTE: In order to launch WCF Test Client for testing this service, please select PostServices.svc or PostServices.svc.cs at the Solution Explorer and start debugging.
     public class PostServices : IPostServices
     {
+        private IAuthTokenSerializer authTokenSerializer;
+        private UserOps userOps;
+        private PostOps postOps;
+        private IValidator<Question> newQuestionValidator;
+        private IValidator<Answer> newAnswerValidator;
+        private IValidator<UserInfo> recommendPostValidator;
+        private IValidator<UserInfo> rankDownValidator;
+
         public PostServices()
         {
-
+            this.authTokenSerializer = new AuthTokenSerializer();
+            this.userOps = new UserOps();
+            this.newQuestionValidator = new TitleValidator(new ContentValidator());
+            this.newAnswerValidator = new ContentValidator();
+            this.recommendPostValidator = new RecommendQuestionValidator();
+            this.rankDownValidator = new RankDownValidator();
+            this.postOps = new PostOps();
         }
 
         public void AddQuestion(AuthenticatedOperation<Question> question)
         {
-            throw new NotImplementedException();
+            UserInfo user = GetUserFromRequest(question);
+            if (user.IsMuted)
+            {
+                throw new InvalidOperationException("The user can not add a new question because he is muted.");
+            }
+
+            question.Payload.IsRecommended = false;
+            question.Payload.RightAnswerId = null;
+            question.Payload.AnswerCount = 0;
+            question.Payload.Author = user;
+            question.Payload.DatePosted = DateTime.Now;
+
+            OperationResult validationResult = this.newQuestionValidator.IsValid(question.Payload);
+            if (!validationResult.IsSuccessful)
+            {
+                throw new ArgumentException(String.Join("\n", validationResult.ErrorMessages));
+            }
+
+            this.postOps.AddQuestion(question.Payload);
         }
 
         public void DeleteQuestion(AuthenticatedOperation<int> questionId)
         {
-            throw new NotImplementedException();
+            UserInfo user = GetUserFromRequest(questionId);
+            Question questionToDelete = this.postOps.GetQuestionById(questionId.Payload);
+            if (questionToDelete.Author.ID != user.ID && !user.IsAdmin)
+            {
+                throw new InvalidOperationException("Only the author of the post or an admin can delete the post.");
+            }
+
+            this.postOps.DeleteQuestion(questionId.Payload);
         }
 
         public void AddAnswer(AuthenticationToken token, int questionId, string content)
         {
-            throw new NotImplementedException();
+            UserInfo user = GetUserFromRequest(token);
+            if (user.IsMuted)
+            {
+                throw new InvalidOperationException("The user can not add a new question because he is muted.");
+            }
+
+            Answer newAnswer = new Answer
+            {
+                Content = content,
+                RelatedQuestionId = questionId,
+                Author = user,
+                DatePosted = DateTime.Now
+            };
+
+            OperationResult validationResult = this.newAnswerValidator.IsValid(newAnswer);
+            if (!validationResult.IsSuccessful)
+            {
+                throw new ArgumentException(String.Join("\n", validationResult.ErrorMessages));
+            }
+
+            this.postOps.AddAnswer(newAnswer);
+            this.postOps.IncrementVersion(questionId);
         }
 
         public void DeleteAnswer(AuthenticatedOperation<int> answerId)
         {
-            throw new NotImplementedException();
+            UserInfo user = GetUserFromRequest(answerId);
+            Answer answerToDelete = this.postOps.GetAnswerById(answerId.Payload);
+            if (answerToDelete.Author.ID != user.ID && !user.IsAdmin)
+            {
+                throw new InvalidOperationException("Only the author of the post or an admin can delete the post.");
+            }
+
+            this.postOps.DeleteAnswer(answerId.Payload);
+            this.postOps.IncrementVersion(answerToDelete.RelatedQuestionId);
         }
 
         public void RecommendQuestion(AuthenticatedOperation<int> questionId)
         {
-            throw new NotImplementedException();
+            UserInfo user = GetUserFromRequest(questionId);
+            OperationResult validationResult = this.recommendPostValidator.IsValid(user);
+            if (!validationResult.IsSuccessful)
+            {
+                throw new InvalidOperationException(String.Join("\n", validationResult.ErrorMessages));
+            }
+            
+            this.postOps.RecommendQuestion(questionId.Payload);
+            this.postOps.IncrementVersion(questionId.Payload);
         }
 
         public void UnrecommendQuestion(AuthenticatedOperation<int> questionId)
         {
-            throw new NotImplementedException();
+            UserInfo user = GetUserFromRequest(questionId);
+            OperationResult validationResult = this.recommendPostValidator.IsValid(user);
+            if (!validationResult.IsSuccessful)
+            {
+                throw new InvalidOperationException(String.Join("\n", validationResult.ErrorMessages));
+            }
+
+            this.postOps.UnrecommendQuestion(questionId.Payload);
+            this.postOps.IncrementVersion(questionId.Payload);
         }
 
         public void VoteUpQuestion(AuthenticatedOperation<int> questionId)
         {
-            throw new NotImplementedException();
+            UserInfo user = GetUserFromRequest(questionId);
+            Question question =this.postOps.GetQuestionById(questionId.Payload);
+            if (question.Author.ID == user.ID)
+            {
+                throw new InvalidOperationException("User can not rank his own posts.");
+            }
+
+            this.postOps.RankUpQuestion(questionId.Payload, user.ID);
+            this.postOps.IncrementVersion(questionId.Payload);
         }
 
         public void VoteDownQuestion(AuthenticatedOperation<int> questionId)
         {
-            throw new NotImplementedException();
+            UserInfo user = GetUserFromRequest(questionId);
+            Question question = this.postOps.GetQuestionById(questionId.Payload);
+            if (question.Author.ID == user.ID)
+            {
+                throw new InvalidOperationException("User can not rank his own posts.");
+            }
+
+            OperationResult validationResult = this.rankDownValidator.IsValid(user);
+            if (!validationResult.IsSuccessful)
+            {
+                throw new InvalidOperationException(String.Join("\n", validationResult.ErrorMessages));
+            }
+
+            this.postOps.RankDownQuestion(questionId.Payload, user.ID);
+            this.postOps.IncrementVersion(questionId.Payload);
         }
 
         public void VoteUpAnswer(AuthenticatedOperation<int> answerId)
         {
-            throw new NotImplementedException();
+            UserInfo user = GetUserFromRequest(answerId);
+            Answer answer = this.postOps.GetAnswerById(answerId.Payload);
+            if (answer.Author.ID == user.ID)
+            {
+                throw new InvalidOperationException("User can not rank his own posts.");
+            }
+
+            this.postOps.RankUpAnswer(answerId.Payload, user.ID);
+            this.postOps.IncrementVersion(answer.RelatedQuestionId);
         }
 
         public void VoteDownAnswer(AuthenticatedOperation<int> answerId)
         {
-            throw new NotImplementedException();
+            UserInfo user = GetUserFromRequest(answerId);
+            Answer answer = this.postOps.GetAnswerById(answerId.Payload);
+            if (answer.Author.ID == user.ID)
+            {
+                throw new InvalidOperationException("User can not rank his own posts.");
+            }
+
+            OperationResult validationResult = this.rankDownValidator.IsValid(user);
+            if (!validationResult.IsSuccessful)
+            {
+                throw new InvalidOperationException(String.Join("\n", validationResult.ErrorMessages));
+            }
+
+            this.postOps.RankDownAnswer(answerId.Payload, user.ID);
+            this.postOps.IncrementVersion(answer.RelatedQuestionId);
         }
 
         public void CancelVoteUpQuestion(AuthenticatedOperation<int> questionId)
         {
-            throw new NotImplementedException();
+            UserInfo user = GetUserFromRequest(questionId);
+            Question question = this.postOps.GetQuestionById(questionId.Payload);
+            if (question.Author.ID == user.ID)
+            {
+                throw new InvalidOperationException("User can not rank his own posts.");
+            }
+
+            this.postOps.CancelRankUpQuestion(questionId.Payload, user.ID);
+            this.postOps.IncrementVersion(questionId.Payload);
         }
 
         public void CancelVoteDownQuestion(AuthenticatedOperation<int> questionId)
         {
-            throw new NotImplementedException();
+            UserInfo user = GetUserFromRequest(questionId);
+            Question question = this.postOps.GetQuestionById(questionId.Payload);
+            if (question.Author.ID == user.ID)
+            {
+                throw new InvalidOperationException("User can not rank his own posts.");
+            }
+
+            this.postOps.CancelRankDownQuestion(questionId.Payload, user.ID);
+            this.postOps.IncrementVersion(questionId.Payload);
         }
 
         public void CancelVoteUpAnswer(AuthenticatedOperation<int> answerId)
         {
-            throw new NotImplementedException();
+            UserInfo user = GetUserFromRequest(answerId);
+            Answer answer = this.postOps.GetAnswerById(answerId.Payload);
+            if (answer.Author.ID == user.ID)
+            {
+                throw new InvalidOperationException("User can not rank his own posts.");
+            }
+
+            this.postOps.CancelRankUpAnswer(answerId.Payload, user.ID);
+            this.postOps.IncrementVersion(answer.RelatedQuestionId);
         }
 
         public void CancelVoteDownAnswer(AuthenticatedOperation<int> answerId)
         {
-            throw new NotImplementedException();
+            UserInfo user = GetUserFromRequest(answerId);
+            Answer answer = this.postOps.GetAnswerById(answerId.Payload);
+            if (answer.Author.ID == user.ID)
+            {
+                throw new InvalidOperationException("User can not rank his own posts.");
+            }
+
+            this.postOps.CancelRankDownAnswer(answerId.Payload, user.ID);
+            this.postOps.IncrementVersion(answer.RelatedQuestionId);
         }
 
         public void MarkAsRightAnswer(AuthenticatedOperation<int> answerId)
         {
-            throw new NotImplementedException();
+            UserInfo user = GetUserFromRequest(answerId);
+            Answer answer = this.postOps.GetAnswerById(answerId.Payload);
+            Question relatedQuestion = this.postOps.GetQuestionById(answer.RelatedQuestionId);
+            if (relatedQuestion.Author.ID != user.ID && !user.IsAdmin)
+            {
+                throw new InvalidOperationException("Only the question owner or an admin can mark an answer as right.");
+            }
+
+            this.postOps.MarkAsRightAnswer(answerId.Payload);
+            this.postOps.IncrementVersion(answer.RelatedQuestionId);
         }
 
         public void UnmarkAsRightAnswer(AuthenticatedOperation<int> answerId)
         {
-            throw new NotImplementedException();
+            UserInfo user = GetUserFromRequest(answerId);
+            Answer answer = this.postOps.GetAnswerById(answerId.Payload);
+            Question relatedQuestion = this.postOps.GetQuestionById(answer.RelatedQuestionId);
+            if (relatedQuestion.Author.ID != user.ID && !user.IsAdmin)
+            {
+                throw new InvalidOperationException("Only the question owner or an admin can unmark an answer from right.");
+            }
+
+            this.postOps.UnmarkAsRightAnswer(answerId.Payload);
+            this.postOps.IncrementVersion(answer.RelatedQuestionId);
+        }
+
+        private UserInfo GetUserFromRequest<T>(AuthenticatedOperation<T> operation)
+        {
+            return GetUserFromRequest(operation.Token);
+        }
+
+        private UserInfo GetUserFromRequest(AuthenticationToken token)
+        {
+            int userId = authTokenSerializer.Deserialize(token);
+            return this.userOps.GetUserInfo(userId);
         }
     }
 }

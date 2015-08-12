@@ -9,6 +9,11 @@ namespace QueueAndHi.Client
 {
     public class NewDiscussionThreadVersionEventArgs : EventArgs
     {
-        public DiscussionThread NewDiscussionThread { get; set; }
+        public NewDiscussionThreadVersionEventArgs(DiscussionThread discussionThread)
+        {
+            NewDiscussionThread = discussionThread;
+        }
+
+        public DiscussionThread NewDiscussionThread { get; private set; }
     }
 }

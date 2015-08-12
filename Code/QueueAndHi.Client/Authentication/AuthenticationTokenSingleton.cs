@@ -39,10 +39,10 @@ namespace QueueAndHi.Client.Authentication
 
         public void LogOut()
         {
-            OnLogOut();
-
             AuthenticatedIdentity = null;
             AuthenticatedUser = null;
+
+            OnLogOut();
         }
 
         public bool IsLoggedIn
