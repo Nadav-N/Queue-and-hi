@@ -20,7 +20,7 @@ namespace QueueAndHi.Client.ViewModels
         IPostQueries postQueries;
         IPostServices postServices;
         private IValidator<UserInfo> validator;
-        
+        private IValidator<Tuple<string, string>> pwdValidator;
 
         NavigationManager navManager;
         public RegistrationViewModel(NavigationManager navigationManager, IUserServices userServices, IPostQueries postQueries, IPostServices postServices)
@@ -31,7 +31,8 @@ namespace QueueAndHi.Client.ViewModels
             this.postQueries = postQueries;
             this.postServices = postServices;
             this.validator = new UserValidator();
-            
+            this.pwdValidator = new PasswordValidator();
+
             RegisterUser = new DelegateCommand(s => ExecuteRegister()); 
         }
         public UserInfo User { get; set; }
@@ -48,6 +49,7 @@ namespace QueueAndHi.Client.ViewModels
 
         private bool ExecuteRegister()
         {
+            bool validationResult = true;
 
             RegistrationResult = "";
             //create objects from the user posted data
@@ -68,13 +70,30 @@ namespace QueueAndHi.Client.ViewModels
                     RegistrationResult += s + "\n";
                 }
                 OnPropertyChanged("RegistrationResult");
-                return false;
+                validationResult =  false;
             }
-            //assuming that password validations - 
+
+
+            
             //1. that the password and password confirmation fields matched
-            //2. that the password follows password guidance rules
-            // have passed
-            this.Credentials = new UserCredentials(UserName, Password);
+            //2. that the password follows password guidance rules have passed
+            OperationResult por = pwdValidator.IsValid(new Tuple<string,string>(this.Password, this.Confirmation));
+            if (por.IsSuccessful)
+            {
+                this.Credentials = new UserCredentials(UserName, Password);
+            }
+            else
+            {
+                foreach (string s in or.ErrorMessages)
+                {
+                    RegistrationResult += s + "\n";
+                }
+                OnPropertyChanged("RegistrationResult");
+                validationResult = false;
+            }
+
+            //make sure all validations passed.
+            if (!validationResult) return false;
 
 
             OperationResult registerResult = this.userServices.AddNewUser(this.User, this.Credentials);
@@ -112,5 +131,6 @@ namespace QueueAndHi.Client.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
     }
 }
