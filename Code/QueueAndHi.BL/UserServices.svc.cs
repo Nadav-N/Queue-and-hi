@@ -1,6 +1,6 @@
 ﻿using QueueAndHi.Common;
 using QueueAndHi.Common.Logic.Validators;
-using QueueAndHi.Common.Logic.Validators.User;
+using QueueAndHi.Common.Logic.Validations.User;
 using QueueAndHi.Common.Services;
 using System.Collections.Generic;
 using QueueAndHi.BL.Authentication;
@@ -13,12 +13,12 @@ namespace QueueAndHi.BL
 
         private DAL.UserOps userOps = new DAL.UserOps();
         private IAuthTokenSerializer authTokenSerializer;
-        private IValidator<UserInfo> userValidator;
+        //private IValidator<UserInfo> userValidator;
 
         public UserServices(IAuthTokenSerializer authTokenSerializer)
         {
             this.authTokenSerializer = authTokenSerializer;
-            this.userValidator = new EmailAddressValidator();
+            //this.userValidator = new EmailAddressValidator();
             // userValidator = new DecoratedValidator(userValidator);
         }
 
