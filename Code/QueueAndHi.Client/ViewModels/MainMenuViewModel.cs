@@ -26,7 +26,7 @@ namespace QueueAndHi.Client.ViewModels
             this.postQueries = postQueries;
             this.postServices = postServices;
             this.userServices = userServices;
-            NavigateNewQuestion = new DelegateCommand(obj => navigationManager.RequestNavigation(new NewQuestionViewModel(postServices)));
+            NavigateNewQuestion = new DelegateCommand(obj => navigationManager.RequestNavigation(new NewQuestionViewModel(navigationManager, postServices, postQueries)));
             NavigateMyQuestions = new DelegateCommand(obj => ExecuteNavigateMyQuestions());
             NavigateUserManagement = new DelegateCommand(obj => navigationManager.RequestNavigation(new UserManagementViewModel(navigationManager, userServices, postQueries, postServices)));
             NavigateHome = new DelegateCommand(obj => ExecuteNavigateHome());

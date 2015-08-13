@@ -4,26 +4,25 @@ using QueueAndHi.Common.Logic.Validations.Question;
 using QueueAndHi.Common.Logic.Validators;
 using QueueAndHi.Common.Services;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace QueueAndHi.Client.ViewModels
 {
     public class NewQuestionViewModel : INotifyPropertyChanged
     {
+        private NavigationManager navigationManager;
+        private IPostQueries postQueries;
         private IPostServices postServices;
         private IValidator<Question> validator;
 
         private string tagsText;
 
-        public NewQuestionViewModel(IPostServices postServices)
+        public NewQuestionViewModel(NavigationManager navigationManager, IPostServices postServices, IPostQueries postQueries)
         {
+            this.navigationManager = navigationManager;
             this.postServices = postServices;
+            this.postQueries = postQueries;
             Question = new QuestionModel();
             PublishQuestion = new DelegateCommand(s => ValidateAndSubmitQuestion());
             AddNewTag = new DelegateCommand(AddTag);
@@ -72,7 +71,9 @@ namespace QueueAndHi.Client.ViewModels
             OperationResult validationResult = this.validator.IsValid(question);
             if (validationResult.IsSuccessful)
             {
-                postServices.AddQuestion(AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation(question));
+                Question addedQuestion = this.postServices.AddQuestion(AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation(question));
+                DiscussionThread discussionThread = this.postQueries.GetDiscussionThreadById(addedQuestion.ID);
+                this.navigationManager.RequestNavigation(new QuestionViewModel(discussionThread, this.postServices, this.navigationManager, this.postQueries));
             }
             else
             {

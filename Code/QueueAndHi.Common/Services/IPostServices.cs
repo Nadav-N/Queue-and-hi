@@ -11,7 +11,7 @@ namespace QueueAndHi.Common.Services
     public interface IPostServices
     {
         [OperationContract]
-        void AddQuestion(AuthenticatedOperation<Question> question);
+        Question AddQuestion(AuthenticatedOperation<Question> question);
 
         [OperationContract]
         void DeleteQuestion(AuthenticatedOperation<int> questionId);

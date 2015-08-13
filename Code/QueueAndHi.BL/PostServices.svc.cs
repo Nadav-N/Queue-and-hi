@@ -32,7 +32,7 @@ namespace QueueAndHi.BL
             this.postOps = new PostOps();
         }
 
-        public void AddQuestion(AuthenticatedOperation<Question> question)
+        public Question AddQuestion(AuthenticatedOperation<Question> question)
         {
             UserInfo user = GetUserFromRequest(question);
             if (user.IsMuted)
@@ -52,7 +52,7 @@ namespace QueueAndHi.BL
                 throw new ArgumentException(String.Join("\n", validationResult.ErrorMessages));
             }
 
-            this.postOps.AddQuestion(question.Payload);
+            return this.postOps.AddQuestion(question.Payload);
         }
 
         public void DeleteQuestion(AuthenticatedOperation<int> questionId)
