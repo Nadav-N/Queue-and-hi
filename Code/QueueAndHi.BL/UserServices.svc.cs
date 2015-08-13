@@ -1,6 +1,6 @@
 ﻿using QueueAndHi.Common;
 using QueueAndHi.Common.Logic.Validators;
-using QueueAndHi.Common.Logic.Validators.User;
+using QueueAndHi.Common.Logic.Validations.User;
 using QueueAndHi.Common.Services;
 using System.Collections.Generic;
 using QueueAndHi.BL.Authentication;
@@ -18,8 +18,7 @@ namespace QueueAndHi.BL
         public UserServices()
         {
             this.authTokenSerializer = new AuthTokenSerializer();
-            this.userValidator = new EmailAddressValidator();
-            // userValidator = new DecoratedValidator(userValidator);
+            this.userValidator = new UserValidator();
         }
 
         public OperationResult AddNewUser(UserInfo newUser, UserCredentials userCredentials)
@@ -27,7 +26,7 @@ namespace QueueAndHi.BL
             newUser.Ranking = 0;
             newUser.IsMuted = false;
             newUser.IsAdmin = false;
-            //OperationResult validationResult = userValidator.IsValid(newUser);
+            OperationResult validationResult = userValidator.IsValid(newUser);
 
             //if (validationResult.IsSuccessful)
             //{

@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using QueueAndHi.Common.Services;
+using QueueAndHi.Common.Logic.Validators;
+using QueueAndHi.Common.Logic.Validations.User;
+
 
 namespace QueueAndHi.Client.ViewModels
 {
@@ -16,6 +19,8 @@ namespace QueueAndHi.Client.ViewModels
         IUserServices userServices;
         IPostQueries postQueries;
         IPostServices postServices;
+        private IValidator<UserInfo> validator;
+        private IValidator<Tuple<string, string>> pwdValidator;
 
         NavigationManager navManager;
         public RegistrationViewModel(NavigationManager navigationManager, IUserServices userServices, IPostQueries postQueries, IPostServices postServices)
@@ -25,6 +30,9 @@ namespace QueueAndHi.Client.ViewModels
             this.userServices = userServices;
             this.postQueries = postQueries;
             this.postServices = postServices;
+            this.validator = new UserValidator();
+            this.pwdValidator = new PasswordValidator();
+
             RegisterUser = new DelegateCommand(s => ExecuteRegister()); 
         }
         public UserInfo User { get; set; }
@@ -41,7 +49,10 @@ namespace QueueAndHi.Client.ViewModels
 
         private bool ExecuteRegister()
         {
-            //craete objects from the user posted data
+            bool validationResult = true;
+
+            RegistrationResult = "";
+            //create objects from the user posted data
             this.User = new UserInfo()
             {
                 EmailAddress = Email,
@@ -50,11 +61,39 @@ namespace QueueAndHi.Client.ViewModels
                 Ranking = 0,
                 Username = UserName
             };
-            //assuming that password validations - 
+
+            OperationResult or = validator.IsValid(this.User);
+            if (!or.IsSuccessful)
+            {
+                foreach (string s in or.ErrorMessages)
+                {
+                    RegistrationResult += s + "\n";
+                }
+                OnPropertyChanged("RegistrationResult");
+                validationResult =  false;
+            }
+
+
+            
             //1. that the password and password confirmation fields matched
-            //2. that the password follows password guidance rules
-            // have passed
-            this.Credentials = new UserCredentials(UserName, Password);
+            //2. that the password follows password guidance rules have passed
+            OperationResult por = pwdValidator.IsValid(new Tuple<string,string>(this.Password, this.Confirmation));
+            if (por.IsSuccessful)
+            {
+                this.Credentials = new UserCredentials(UserName, Password);
+            }
+            else
+            {
+                foreach (string s in por.ErrorMessages)
+                {
+                    RegistrationResult += s + "\n";
+                }
+                OnPropertyChanged("RegistrationResult");
+                validationResult = false;
+            }
+
+            //make sure all validations passed.
+            if (!validationResult) return false;
 
 
             OperationResult registerResult = this.userServices.AddNewUser(this.User, this.Credentials);
@@ -92,5 +131,6 @@ namespace QueueAndHi.Client.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
     }
 }

@@ -31,12 +31,34 @@ namespace QueueAndHi.Client
         {
             if (this.DataContext != null)
             { ((dynamic)this.DataContext).Password = ((PasswordBox)sender).Password; }
+            validatePwdMatch();
         }
 
         private void PasswordBox_ConfirmationChanged(object sender, RoutedEventArgs e)
         {
             if (this.DataContext != null)
             { ((dynamic)this.DataContext).Confirmation = ((PasswordBox)sender).Password; }
+            validatePwdMatch();
+           
+        }
+
+        private void validatePwdMatch()
+        {
+            //validation
+            if (txtPwd2.Password != txtPwd.Password)
+            {
+                //Execute code to alert user passwords don't match here.
+                txtPwd2.BorderBrush = Brushes.Red;
+                txtPwd.BorderBrush = Brushes.Red;
+            }
+            else
+            {
+                /*You must make sure that whatever you do is reversed here;
+                 *all users will get the above "error" whilst typing in and you need to make sure
+                 *that it goes when they're right!*/
+                txtPwd2.BorderBrush = Brushes.Gray;
+                txtPwd.BorderBrush = Brushes.Gray;
+            }
         }
     }
 }
