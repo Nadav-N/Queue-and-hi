@@ -11,7 +11,19 @@ namespace DAL
     {
         public void SaveNotification(int userId, string message, NotificationType notificationType)
         {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                notification notification = new notification
+                {
+                    message = message,
+                    notification_type = (int)notificationType,
+                    recipient = userId,
+                    seen = 0,
+                    timestamp = DateTime.Now
+                };
+
+                db.notifications.Add(notification);
+            }
         }
 
         public IEnumerable<Notification> GetNotifications(int userId)

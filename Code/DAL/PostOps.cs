@@ -93,7 +93,7 @@ namespace DAL
                         Converter.toExtQuestion(
                             q, 
                             ui,
-                            new RankingHistory(),//GetQuestionRankingHistory(q.id, q.author_id), 
+                            new RankingHistory(),//GetQuestionRankingHistory(q.id), 
                             getTags(q.id)
                             )
                         );
@@ -130,12 +130,31 @@ namespace DAL
 
         public DiscussionThread GetDiscussionThreadById(int id)
         {
-            throw new NotImplementedException();
+            DiscussionThread discussionThread = new DiscussionThread();
+            int dtVersion;
+            Question question = GetInternalQuestionById(id, out dtVersion);
+            discussionThread.Version = dtVersion;
+            discussionThread.Question = question;
+            discussionThread.Answers = GetAnswers(question);
+
+            return discussionThread;
         }
 
         public Question GetQuestionById(int id)
         {
-            throw new NotImplementedException();
+            int version;
+            return GetInternalQuestionById(id, out version);
+        }
+
+        private Question GetInternalQuestionById(int id, out int version)
+        {
+            using (var db = new qnhdb())
+            {
+                question question = db.questions.First(x => x.id == id);
+                version = question.version;
+                UserInfo ui = userOps.GetUserInfo(q.author_id);
+                return Converter.toExtQuestion(question, ui, GetQuestionRankingHistory(question.id), getTags(question.id));
+            }
         }
 
         public Answer GetAnswerById(int id)
@@ -188,12 +207,12 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        public int GetQuestionRankingHistory(int questionId, int userId)
+        public RankingHistory GetQuestionRankingHistory(int questionId)
         {
             throw new NotImplementedException();
         }
 
-        public int GetAnswerRankingHistory(int answerId, int userId)
+        public RankingHistory GetAnswerRankingHistory(int answerId)
         {
             throw new NotImplementedException();
         }
