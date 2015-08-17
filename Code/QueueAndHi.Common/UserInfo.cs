@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace QueueAndHi.Common
 {
     [DataContract]
-    public class UserInfo
+    public class UserInfo : IEquatable<UserInfo>
     {
         [DataMember]
         public int Ranking { get; set; }
@@ -27,5 +27,25 @@ namespace QueueAndHi.Common
 
         [DataMember]
         public int ID { get; set; }
+
+        public override int GetHashCode()
+        {
+            return Ranking.GetHashCode() * 17 +
+            Username.GetHashCode() * 17 +
+            EmailAddress.GetHashCode() * 17 +
+            IsAdmin.GetHashCode() * 17 +
+            IsMuted.GetHashCode() * 17 +
+            ID.GetHashCode();
+        }
+
+        public bool Equals(UserInfo other)
+        {
+            return Ranking.Equals(other.Ranking) &&
+                Username.Equals(other.Username) &&
+                EmailAddress.Equals(other.EmailAddress) &&
+                IsAdmin.Equals(other.IsAdmin) &&
+                IsMuted.Equals(other.IsMuted) &&
+                ID.Equals(other.ID);
+        }
     }
 }

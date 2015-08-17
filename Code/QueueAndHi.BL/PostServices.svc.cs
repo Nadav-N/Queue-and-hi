@@ -165,6 +165,10 @@ namespace QueueAndHi.BL
 
             this.postOps.RankUpQuestion(questionId.Payload, user.ID);
             this.postOps.IncrementVersion(questionId.Payload);
+
+            this.notificationOps.SaveNotification(question.Author.ID,
+                string.Format("Your question \"{0}\" has been ranked up", question.Title),
+                NotificationType.QuestionRankedUp);
         }
 
         public void VoteDownQuestion(AuthenticatedOperation<int> questionId)
@@ -184,6 +188,10 @@ namespace QueueAndHi.BL
 
             this.postOps.RankDownQuestion(questionId.Payload, user.ID);
             this.postOps.IncrementVersion(questionId.Payload);
+
+            this.notificationOps.SaveNotification(question.Author.ID,
+                string.Format("Your question \"{0}\" has been ranked down", question.Title),
+                NotificationType.QuestionRankedDown);
         }
 
         public void VoteUpAnswer(AuthenticatedOperation<int> answerId)
@@ -197,6 +205,11 @@ namespace QueueAndHi.BL
 
             this.postOps.RankUpAnswer(answerId.Payload, user.ID);
             this.postOps.IncrementVersion(answer.RelatedQuestionId);
+
+            Question question = this.postOps.GetQuestionById(answer.RelatedQuestionId);
+            this.notificationOps.SaveNotification(answer.Author.ID,
+                string.Format("Your answer to the question \"{0}\" has been ranked up", question.Title),
+                NotificationType.AnswerRankedUp);
         }
 
         public void VoteDownAnswer(AuthenticatedOperation<int> answerId)
@@ -216,6 +229,11 @@ namespace QueueAndHi.BL
 
             this.postOps.RankDownAnswer(answerId.Payload, user.ID);
             this.postOps.IncrementVersion(answer.RelatedQuestionId);
+
+            Question question = this.postOps.GetQuestionById(answer.RelatedQuestionId);
+            this.notificationOps.SaveNotification(answer.Author.ID,
+                string.Format("Your answer to the question \"{0}\" has been ranked down", question.Title),
+                NotificationType.AnswerRankedDown);
         }
 
         public void CancelVoteUpQuestion(AuthenticatedOperation<int> questionId)
@@ -282,6 +300,10 @@ namespace QueueAndHi.BL
 
             this.postOps.MarkAsRightAnswer(answerId.Payload);
             this.postOps.IncrementVersion(answer.RelatedQuestionId);
+
+            this.notificationOps.SaveNotification(answer.Author.ID,
+                string.Format("Your answer to the question \"{0}\" has been marked as the right answer.", relatedQuestion.Title),
+                NotificationType.AnswerMarkedAsRight);
         }
 
         public void UnmarkAsRightAnswer(AuthenticatedOperation<int> answerId)
