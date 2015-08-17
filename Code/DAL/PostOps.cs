@@ -152,7 +152,7 @@ namespace DAL
             {
                 question question = db.questions.First(x => x.id == id);
                 version = question.version;
-                UserInfo ui = userOps.GetUserInfo(q.author_id);
+                UserInfo ui = userOps.GetUserInfo(question.author_id);
                 return Converter.toExtQuestion(question, ui, GetQuestionRankingHistory(question.id), getTags(question.id));
             }
         }

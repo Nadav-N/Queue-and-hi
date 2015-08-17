@@ -4,6 +4,7 @@ using QueueAndHi.Common;
 using QueueAndHi.Common.Logic.Validations.Question;
 using QueueAndHi.Common.Logic.Validations.User;
 using QueueAndHi.Common.Logic.Validators;
+using QueueAndHi.Common.Notifications;
 using QueueAndHi.Common.Services;
 using System;
 
@@ -16,6 +17,7 @@ namespace QueueAndHi.BL
         private IAuthTokenSerializer authTokenSerializer;
         private UserOps userOps;
         private PostOps postOps;
+        private NotificationOps notificationOps;
         private IValidator<Question> newQuestionValidator;
         private IValidator<Answer> newAnswerValidator;
         private IValidator<UserInfo> recommendPostValidator;
@@ -25,6 +27,7 @@ namespace QueueAndHi.BL
         {
             this.authTokenSerializer = new AuthTokenSerializer();
             this.userOps = new UserOps();
+            this.notificationOps = new NotificationOps();
             this.newQuestionValidator = new TitleValidator(new ContentValidator());
             this.newAnswerValidator = new ContentValidator();
             this.recommendPostValidator = new RecommendQuestionValidator();
@@ -65,6 +68,10 @@ namespace QueueAndHi.BL
             }
 
             this.postOps.DeleteQuestion(questionId.Payload);
+
+            this.notificationOps.SaveNotification(questionToDelete.Author.ID,
+                string.Format("Your question: \"{0}\" has been deleted.", questionToDelete.Title),
+                NotificationType.PostWasDeleted);
         }
 
         public void AddAnswer(AuthenticationToken token, int questionId, string content)
@@ -91,6 +98,11 @@ namespace QueueAndHi.BL
 
             this.postOps.AddAnswer(newAnswer);
             this.postOps.IncrementVersion(questionId);
+
+            Question relatedQuestion = this.postOps.GetQuestionById(questionId);
+            this.notificationOps.SaveNotification(relatedQuestion.Author.ID,
+                string.Format("An answer was added to your question \"{0}\"", relatedQuestion.Title),
+                NotificationType.NewAnswer);
         }
 
         public void DeleteAnswer(AuthenticatedOperation<int> answerId)
@@ -104,6 +116,11 @@ namespace QueueAndHi.BL
 
             this.postOps.DeleteAnswer(answerId.Payload);
             this.postOps.IncrementVersion(answerToDelete.RelatedQuestionId);
+
+            Question relatedQuestion = this.postOps.GetQuestionById(answerToDelete.RelatedQuestionId);
+            this.notificationOps.SaveNotification(answerToDelete.Author.ID,
+                string.Format("Your answer to the question: \"{0}\" has been deleted.", relatedQuestion.Title),
+                NotificationType.PostWasDeleted);
         }
 
         public void RecommendQuestion(AuthenticatedOperation<int> questionId)
@@ -114,9 +131,14 @@ namespace QueueAndHi.BL
             {
                 throw new InvalidOperationException(String.Join("\n", validationResult.ErrorMessages));
             }
-            
+
             this.postOps.RecommendQuestion(questionId.Payload);
             this.postOps.IncrementVersion(questionId.Payload);
+
+            Question question = this.postOps.GetQuestionById(questionId.Payload);
+            this.notificationOps.SaveNotification(question.Author.ID,
+                string.Format("Your question \"{0}\" has been marked as recommeneded.", question.Title),
+                NotificationType.QuestionMarkedAsRecommended);
         }
 
         public void UnrecommendQuestion(AuthenticatedOperation<int> questionId)
@@ -135,7 +157,7 @@ namespace QueueAndHi.BL
         public void VoteUpQuestion(AuthenticatedOperation<int> questionId)
         {
             UserInfo user = GetUserFromRequest(questionId);
-            Question question =this.postOps.GetQuestionById(questionId.Payload);
+            Question question = this.postOps.GetQuestionById(questionId.Payload);
             if (question.Author.ID == user.ID)
             {
                 throw new InvalidOperationException("User can not rank his own posts.");

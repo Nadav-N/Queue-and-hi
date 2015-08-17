@@ -20,7 +20,6 @@ namespace QueueAndHi.Client.ViewModels
         {
             Notifications = new ObservableCollection<Notification>();
             this.notificationService = new NotificationService();
-            this.notificationsObserver = new NotificationsObserver(this.notificationService);
             if (AuthenticationTokenSingleton.Instance.IsLoggedIn)
             {
                 Initialize();
@@ -38,6 +37,8 @@ namespace QueueAndHi.Client.ViewModels
         private void OnUserLogout(object sender, EventArgs e)
         {
             this.notificationsObserver.NewNotifications -= OnNewNotifications;
+            this.notificationsObserver.Dispose();
+            this.notificationsObserver = null;
             Notifications.Clear();
         }
 
@@ -46,6 +47,7 @@ namespace QueueAndHi.Client.ViewModels
             Notifications.Clear();
             IEnumerable<Notification> newNotifications = this.notificationService.GetNotifications(AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token);
             AddNewNotifications(newNotifications);
+            this.notificationsObserver = new NotificationsObserver(this.notificationService);
             this.notificationsObserver.NewNotifications += OnNewNotifications;
         }
 
