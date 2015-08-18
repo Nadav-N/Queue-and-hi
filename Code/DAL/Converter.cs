@@ -77,9 +77,19 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        internal static Answer toExtAnswer(answer answer)
+        internal static Answer toExtAnswer(answer answer, UserInfo userInfo, RankingHistory rankingHistory)
         {
-            throw new NotImplementedException();
+            Answer extAnswer = new Answer
+            {
+                Author = userInfo,
+                Content = answer.contents,
+                DatePosted = answer.created,
+                ID = answer.id,
+                Ranking = rankingHistory,
+                RelatedQuestionId = answer.question_id
+            };
+
+            return extAnswer;
         }
 
         internal static notification toNotification(Notification notification)
@@ -92,5 +102,35 @@ namespace DAL
             throw new NotImplementedException();
         }
 
+        internal static RankingHistory toExtRankingHistory(IEnumerable<answer_rankings> answerRankings)
+        {
+
+            return new RankingHistory(answerRankings.Select(rank => new RankingEntry(rank.author_id, toExtRankingType(rank.rank))));
+        }
+
+        internal static RankingType toExtRankingType(byte rankingType)
+        {
+            return rankingType == 1 ? RankingType.Up : RankingType.Down;
+        }
+
+        internal static byte toRankingType(RankingType rankingType)
+        {
+            return rankingType == RankingType.Up ? (byte)1 : (byte)0;
+        }
+
+        internal static RankingHistory toExtRankingHistory(IEnumerable<question_rankings> questionRankings)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static IEnumerable<question_rankings> toQuestionRanking(RankingHistory rankingHistory)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static IEnumerable<answer_rankings> toAnswerRanking(RankingHistory rankingHistory)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

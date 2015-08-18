@@ -159,7 +159,12 @@ namespace DAL
 
         public Answer GetAnswerById(int id)
         {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                answer answer = db.answers.First(x => x.id == id);
+                UserInfo ui = userOps.GetUserInfo(answer.author_id);
+                return Converter.toExtAnswer(answer, ui, GetAnswerRankingHistory(answer.id));
+            }
         }
 
         private IEnumerable<Answer> GetAnswers(Question question)
@@ -209,7 +214,11 @@ namespace DAL
 
         public RankingHistory GetQuestionRankingHistory(int questionId)
         {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                IQueryable<question_rankings> questionRanking =  db.question_rankings.Where(ranking => ranking.question_id == questionId);
+                return Converter.toExtRankingHistory(questionRanking);
+            }
         }
 
         public RankingHistory GetAnswerRankingHistory(int answerId)
