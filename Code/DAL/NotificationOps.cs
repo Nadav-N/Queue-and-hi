@@ -18,17 +18,21 @@ namespace DAL
                     message = message,
                     notification_type = (int)notificationType,
                     recipient = userId,
-                    seen = 0,
+                    seen = Convert.ToByte(false),
                     timestamp = DateTime.Now
                 };
 
                 db.notifications.Add(notification);
+                db.SaveChanges();
             }
         }
 
         public IEnumerable<Notification> GetNotifications(int userId)
         {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                return db.notifications.Where(notification => notification.recipient == userId && !Convert.ToBoolean(notification.seen)).Select(n => Converter.toExtNotification(n));
+            }
         }
     }
 }

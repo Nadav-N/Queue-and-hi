@@ -10,15 +10,30 @@ namespace DAL
     public class PostOps
     {
         private UserOps userOps = new UserOps();
-        
+
         public Question AddQuestion(Question question)
         {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                question intQuestion = Converter.toQuestion(question);
+                intQuestion.version = 1;
+                db.questions.Add(intQuestion);
+                db.SaveChanges();
+                // When does the saved question gets his id?
+                // if its part of the saving to the DB process, then how can I know what is the id which was generated for the question?
+                // if its before the saving to he DB (Manual set) then it cannot be int and should be replaced with Uniqueidentifier (guid)
+                //question.Tags.Select(t => Converter.toTag(t, intQuestion.id));
+            }
         }
 
         public void DeleteQuestion(int questionId)
         {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                question question = db.questions.Single(q => q.id == questionId);
+                db.questions.Remove(question);
+                db.SaveChanges();
+            }
         }
 
         public Answer AddAnswer(Answer answer)
@@ -63,7 +78,12 @@ namespace DAL
 
         public void IncrementVersion(int questionId)
         {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                question question = db.questions.First(q => q.id == questionId);
+                question.version++;
+                db.SaveChanges();
+            }
         }
 
         public IEnumerable<Question> FreeSearch(string searchString)
@@ -91,7 +111,7 @@ namespace DAL
 
                     result.Add(
                         Converter.toExtQuestion(
-                            q, 
+                            q,
                             ui,
                             new RankingHistory(),//GetQuestionRankingHistory(q.id), 
                             getTags(q.id)
@@ -169,7 +189,18 @@ namespace DAL
 
         private IEnumerable<Answer> GetAnswers(Question question)
         {
-            throw new NotImplementedException();
+            List<Answer> externalAnswers = new List<Answer>();
+            using (var db = new qnhdb())
+            {
+                foreach (var answer in db.answers.Where(a => a.question_id == question.ID))
+                {
+                    UserInfo ui = userOps.GetUserInfo(answer.author_id);
+                    RankingHistory rh = GetAnswerRankingHistory(answer.id);
+                    externalAnswers.Add(Converter.toExtAnswer(answer, ui, rh));
+                }
+            }
+
+            return externalAnswers;
         }
 
         public void RankUpQuestion(int questionId, int userId)
@@ -216,14 +247,18 @@ namespace DAL
         {
             using (var db = new qnhdb())
             {
-                IQueryable<question_rankings> questionRanking =  db.question_rankings.Where(ranking => ranking.question_id == questionId);
+                IQueryable<question_rankings> questionRanking = db.question_rankings.Where(ranking => ranking.question_id == questionId);
                 return Converter.toExtRankingHistory(questionRanking);
             }
         }
 
         public RankingHistory GetAnswerRankingHistory(int answerId)
         {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                IQueryable<answer_rankings> answerRankings = db.answer_rankings.Where(ranking => ranking.answer_id == answerId);
+                return Converter.toExtRankingHistory(answerRankings);
+            }
         }
 
         public void MarkAsRightAnswer(int answerId)

@@ -51,7 +51,16 @@ namespace DAL
 
         internal static question toQuestion(Question question)
         {
-            throw new NotImplementedException();
+            question intQuestion = new question
+            {
+                title = question.title,
+                contents = question.Content,
+                author_id = question.Author.ID,
+                created = question.DatePosted,
+                recommended = Convert.ToByte(false),
+                right_answer_id = question.RightAnswerId
+            };
+            return intQuestion;
         }
 
         internal static Question toExtQuestion(question question, UserInfo userInfo, RankingHistory rankingHistory, IEnumerable<string> tags)
@@ -131,6 +140,15 @@ namespace DAL
         internal static IEnumerable<answer_rankings> toAnswerRanking(RankingHistory rankingHistory)
         {
             throw new NotImplementedException();
+        }
+
+        internal static tag toTag(string tag, int questionId)
+        {
+            return new tag
+            {
+                question_id = questionId,
+                tag1 = tag
+            };
         }
     }
 }
