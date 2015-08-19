@@ -23,6 +23,8 @@ namespace DAL
                 // if its part of the saving to the DB process, then how can I know what is the id which was generated for the question?
                 // if its before the saving to he DB (Manual set) then it cannot be int and should be replaced with Uniqueidentifier (guid)
                 //question.Tags.Select(t => Converter.toTag(t, intQuestion.id));
+                UserInfo ui = userOps.GetUserInfo(intQuestion.author_id);
+                return Converter.toExtQuestion(intQuestion, ui, new RankingHistory(), question.Tags);
             }
         }
 
@@ -30,6 +32,10 @@ namespace DAL
         {
             using (var db = new qnhdb())
             {
+                foreach (var ranking in db.question_rankings.Where(r => r.question_id == questionId))
+                {
+                    db.question_rankings.Remove(ranking);
+                }
                 question question = db.questions.Single(q => q.id == questionId);
                 db.questions.Remove(question);
                 db.SaveChanges();
@@ -38,42 +44,48 @@ namespace DAL
 
         public Answer AddAnswer(Answer answer)
         {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                answer intAnswer = Converter.toAnswer(answer);
+                db.answers.Add(intAnswer);
+                db.SaveChanges();
+                return answer;
+            }
         }
 
         public void DeleteAnswer(int answerId)
         {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                foreach (var ranking in db.answer_rankings.Where(r => r.answer_id == answerId))
+                {
+                    db.answer_rankings.Remove(ranking);
+                }
+
+                answer answer = db.answers.Single(a => a.id == answerId);
+                db.answers.Remove(answer);
+                db.SaveChanges();
+            }
         }
 
         public void RecommendQuestion(int questionId)
         {
-            throw new NotImplementedException();
+            ChangeQuestionRecommendation(questionId, true);
         }
 
         public void UnrecommendQuestion(int questionId)
         {
-            throw new NotImplementedException();
+            ChangeQuestionRecommendation(questionId, false);
         }
 
-        public void VoteUpQuestion(int questionId)
+        private void ChangeQuestionRecommendation(int questionId, bool isRecommended)
         {
-            throw new NotImplementedException();
-        }
-
-        public void VoteDownQuestion(int questionId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void VoteUpAnswer(int answerId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void VoteDownAnswer(int answerId)
-        {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                question question = db.questions.Single(q => q.id == questionId);
+                question.recommended = Convert.ToByte(isRecommended);
+                db.SaveChanges();
+            }
         }
 
         public void IncrementVersion(int questionId)
@@ -88,12 +100,32 @@ namespace DAL
 
         public IEnumerable<Question> FreeSearch(string searchString)
         {
-            throw new NotImplementedException();
+            List<Question> questions = new List<Question>();
+            using (var db = new qnhdb())
+            {
+                foreach (question question in db.questions.Where(q => q.title.Contains(searchString) || q.contents.Contains(searchString)))
+                {
+                    UserInfo ui = userOps.GetUserInfo(question.author_id);
+                    RankingHistory rh = GetQuestionRankingHistory(question.id);
+                    questions.Add(Converter.toExtQuestion(question, ui, rh, getTags(question.id)));
+                }
+
+                return questions;
+            }
         }
 
         public IEnumerable<Question> TagsSearch(string tag)
         {
-            throw new NotImplementedException();
+            List<Question> questions = new List<Question>();
+            using (var db = new qnhdb())
+            {
+                foreach (tag intTag in db.tags.Where(t => String.Equals(t.tag1, tag, StringComparison.InvariantCultureIgnoreCase)))
+                {
+                    questions.Add(GetQuestionById(intTag.question_id));
+                }
+
+                return questions;
+            }
         }
 
         public IEnumerable<Question> GetLatestQuestions()
@@ -263,12 +295,24 @@ namespace DAL
 
         public void MarkAsRightAnswer(int answerId)
         {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                answer answer = db.answers.Single(a => a.id == answerId);
+                question question = db.questions.Single(q => q.id == answer.question_id);
+                question.right_answer_id = answerId;
+                db.SaveChanges();
+            }
         }
 
         public void UnmarkAsRightAnswer(int answerId)
         {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                answer answer = db.answers.Single(a => a.id == answerId);
+                question question = db.questions.Single(q => q.id == answer.question_id);
+                question.right_answer_id = null;
+                db.SaveChanges();
+            }
         }
 
         private IEnumerable<string> getTags(int questionId)
