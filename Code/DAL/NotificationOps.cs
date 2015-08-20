@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using QueueAndHi.Common.Notifications;
+using QueueAndHi.Common;
 
 namespace DAL
 {
     public class NotificationOps
     {
+        private UserOps userOps = new UserOps();
+
         public void SaveNotification(int userId, string message, NotificationType notificationType)
         {
             using (var db = new qnhdb())
@@ -31,7 +34,8 @@ namespace DAL
         {
             using (var db = new qnhdb())
             {
-                return db.notifications.Where(notification => notification.recipient == userId && !Convert.ToBoolean(notification.seen)).Select(n => Converter.toExtNotification(n));
+                UserInfo ui = userOps.GetUserInfo(userId);
+                return db.notifications.Where(notification => notification.recipient == userId && !Convert.ToBoolean(notification.seen)).Select(n => Converter.toExtNotification(n, ui));
             }
         }
     }

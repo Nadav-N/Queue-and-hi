@@ -83,7 +83,14 @@ namespace DAL
 
         internal static answer toAnswer(Answer answer)
         {
-            throw new NotImplementedException();
+            return new answer
+            {
+                author_id = answer.Author.ID,
+                contents = answer.Content,
+                created = answer.DatePosted,
+                id = answer.ID,
+                question_id = answer.RelatedQuestionId
+            };
         }
 
         internal static Answer toExtAnswer(answer answer, UserInfo userInfo, RankingHistory rankingHistory)
@@ -101,19 +108,20 @@ namespace DAL
             return extAnswer;
         }
 
-        internal static notification toNotification(Notification notification)
+        internal static Notification toExtNotification(notification notification, UserInfo userInfo)
         {
-            throw new NotImplementedException();
-        }
-
-        internal static Notification toExtNotification(notification notification)
-        {
-            throw new NotImplementedException();
+            return new Notification
+            {
+                Message = notification.message,
+                Recipient = userInfo,
+                Seen = Convert.ToBoolean(notification.seen),
+                TimeStamp = notification.timestamp,
+                Type = (NotificationType)notification.notification_type
+            };
         }
 
         internal static RankingHistory toExtRankingHistory(IEnumerable<answer_rankings> answerRankings)
         {
-
             return new RankingHistory(answerRankings.Select(rank => new RankingEntry(rank.author_id, toExtRankingType(rank.rank))));
         }
 
@@ -129,17 +137,7 @@ namespace DAL
 
         internal static RankingHistory toExtRankingHistory(IEnumerable<question_rankings> questionRankings)
         {
-            throw new NotImplementedException();
-        }
-
-        internal static IEnumerable<question_rankings> toQuestionRanking(RankingHistory rankingHistory)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal static IEnumerable<answer_rankings> toAnswerRanking(RankingHistory rankingHistory)
-        {
-            throw new NotImplementedException();
+            return new RankingHistory(questionRankings.Select(rank => new RankingEntry(rank.author_id, toExtRankingType(rank.rank))));
         }
 
         internal static tag toTag(string tag, int questionId)
