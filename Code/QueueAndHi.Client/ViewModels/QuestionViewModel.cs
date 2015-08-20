@@ -81,7 +81,7 @@ namespace QueueAndHi.Client.ViewModels
 
         protected override void ExecuteCancelRankUp()
         {
-            this.postServices.CancelVoteUpQuestion(GetAuthenticatedOperation());
+            this.postServices.CancelQuestionRanking(GetAuthenticatedOperation());
             base.ExecuteCancelRankUp();
         }
 
@@ -93,7 +93,7 @@ namespace QueueAndHi.Client.ViewModels
 
         protected override void ExecuteCancelRankDown()
         {
-            this.postServices.CancelVoteDownQuestion(GetAuthenticatedOperation());
+            this.postServices.CancelQuestionRanking(GetAuthenticatedOperation());
             base.ExecuteCancelRankDown();
         }
 

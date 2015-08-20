@@ -236,7 +236,7 @@ namespace QueueAndHi.BL
                 NotificationType.AnswerRankedDown);
         }
 
-        public void CancelVoteUpQuestion(AuthenticatedOperation<int> questionId)
+        public void CancelQuestionRanking(AuthenticatedOperation<int> questionId)
         {
             UserInfo user = GetUserFromRequest(questionId);
             Question question = this.postOps.GetQuestionById(questionId.Payload);
@@ -245,24 +245,11 @@ namespace QueueAndHi.BL
                 throw new InvalidOperationException("User can not rank his own posts.");
             }
 
-            this.postOps.CancelRankUpQuestion(questionId.Payload, user.ID);
+            this.postOps.CancelQuestionRank(questionId.Payload, user.ID);
             this.postOps.IncrementVersion(questionId.Payload);
         }
 
-        public void CancelVoteDownQuestion(AuthenticatedOperation<int> questionId)
-        {
-            UserInfo user = GetUserFromRequest(questionId);
-            Question question = this.postOps.GetQuestionById(questionId.Payload);
-            if (question.Author.ID == user.ID)
-            {
-                throw new InvalidOperationException("User can not rank his own posts.");
-            }
-
-            this.postOps.CancelRankDownQuestion(questionId.Payload, user.ID);
-            this.postOps.IncrementVersion(questionId.Payload);
-        }
-
-        public void CancelVoteUpAnswer(AuthenticatedOperation<int> answerId)
+        public void CancelAnswerVote(AuthenticatedOperation<int> answerId)
         {
             UserInfo user = GetUserFromRequest(answerId);
             Answer answer = this.postOps.GetAnswerById(answerId.Payload);
@@ -271,20 +258,7 @@ namespace QueueAndHi.BL
                 throw new InvalidOperationException("User can not rank his own posts.");
             }
 
-            this.postOps.CancelRankUpAnswer(answerId.Payload, user.ID);
-            this.postOps.IncrementVersion(answer.RelatedQuestionId);
-        }
-
-        public void CancelVoteDownAnswer(AuthenticatedOperation<int> answerId)
-        {
-            UserInfo user = GetUserFromRequest(answerId);
-            Answer answer = this.postOps.GetAnswerById(answerId.Payload);
-            if (answer.Author.ID == user.ID)
-            {
-                throw new InvalidOperationException("User can not rank his own posts.");
-            }
-
-            this.postOps.CancelRankDownAnswer(answerId.Payload, user.ID);
+            this.postOps.CancelAnswerRanking(answerId.Payload, user.ID);
             this.postOps.IncrementVersion(answer.RelatedQuestionId);
         }
 

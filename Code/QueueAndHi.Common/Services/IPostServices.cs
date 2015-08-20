@@ -35,16 +35,10 @@ namespace QueueAndHi.Common.Services
         void VoteDownAnswer(AuthenticatedOperation<int> answerId);
 
         [OperationContract]
-        void CancelVoteUpQuestion(AuthenticatedOperation<int> questionId);
+        void CancelQuestionRanking(AuthenticatedOperation<int> questionId);
 
         [OperationContract]
-        void CancelVoteDownQuestion(AuthenticatedOperation<int> questionId);
-
-        [OperationContract]
-        void CancelVoteUpAnswer(AuthenticatedOperation<int> answerId);
-
-        [OperationContract]
-        void CancelVoteDownAnswer(AuthenticatedOperation<int> answerId);
+        void CancelAnswerVote(AuthenticatedOperation<int> answerId);
 
         [OperationContract]
         void RecommendQuestion(AuthenticatedOperation<int> questionId);

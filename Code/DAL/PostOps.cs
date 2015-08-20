@@ -237,42 +237,58 @@ namespace DAL
 
         public void RankUpQuestion(int questionId, int userId)
         {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                db.question_rankings.Add(new question_rankings { author_id = userId, question_id = questionId, rank = Convert.ToByte(true) });
+                db.SaveChanges();
+            }
         }
 
         public void RankDownQuestion(int questionId, int userId)
         {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                db.question_rankings.Add(new question_rankings { author_id = userId, question_id = questionId, rank = Convert.ToByte(false) });
+                db.SaveChanges();
+            }
         }
 
         public void RankUpAnswer(int answerId, int userId)
         {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                db.answer_rankings.Add(new answer_rankings { author_id = userId, answer_id = answerId, rank = Convert.ToByte(true) });
+                db.SaveChanges();
+            }
         }
 
         public void RankDownAnswer(int answerId, int userId)
         {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                db.answer_rankings.Add(new answer_rankings { author_id = userId, answer_id = answerId, rank = Convert.ToByte(true) });
+                db.SaveChanges();
+            }
         }
 
-        public void CancelRankUpQuestion(int questionId, int userId)
+        public void CancelQuestionRank(int questionId, int userId)
         {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                question_rankings ranking = db.question_rankings.Single(qr => qr.author_id == userId && qr.question_id == questionId);
+                db.question_rankings.Remove(ranking);
+                db.SaveChanges();
+            }
         }
 
-        public void CancelRankDownQuestion(int questionId, int userId)
+        public void CancelAnswerRanking(int answerId, int userId)
         {
-            throw new NotImplementedException();
-        }
-
-        public void CancelRankUpAnswer(int answerId, int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CancelRankDownAnswer(int answerId, int userId)
-        {
-            throw new NotImplementedException();
+            using (var db = new qnhdb())
+            {
+                answer_rankings ranking = db.answer_rankings.Single(ar => ar.author_id == userId && ar.answer_id == answerId);
+                db.answer_rankings.Remove(ranking);
+                db.SaveChanges();
+            }
         }
 
         public RankingHistory GetQuestionRankingHistory(int questionId)
