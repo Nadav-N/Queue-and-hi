@@ -14,15 +14,17 @@ namespace QueueAndHi.Client.ViewModels
         private NavigationManager navigationManager;
         private IPostQueries postQueries;
         private IPostServices postServices;
+        private IUserServices userServices;
         private IValidator<Question> validator;
 
         private string tagsText;
 
-        public NewQuestionViewModel(NavigationManager navigationManager, IPostServices postServices, IPostQueries postQueries)
+        public NewQuestionViewModel(NavigationManager navigationManager, IPostServices postServices, IPostQueries postQueries, IUserServices userServices)
         {
             this.navigationManager = navigationManager;
             this.postServices = postServices;
             this.postQueries = postQueries;
+            this.userServices = userServices;
             Question = new QuestionModel();
             PublishQuestion = new DelegateCommand(s => ValidateAndSubmitQuestion());
             AddNewTag = new DelegateCommand(AddTag);
@@ -67,7 +69,23 @@ namespace QueueAndHi.Client.ViewModels
 
         public void ValidateAndSubmitQuestion()
         {
+            //get the user info for the posting user.
+            OperationResult<UserInfo> orui = userServices.GetUserInfo(AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token);
+            UserInfo ui=null;
+            if (orui.IsSuccessful)
+            {
+                ui = orui.Payload;
+            }
+            else
+            {
+                //not logged in? send to login page
+                navigationManager.RequestNavigation(new LoginViewModel(navigationManager, userServices, postQueries, postServices));
+            }
+
             Question question = Question.ToExternal();
+            //add author to question
+            question.Author = ui;
+
             OperationResult validationResult = this.validator.IsValid(question);
             if (validationResult.IsSuccessful)
             {

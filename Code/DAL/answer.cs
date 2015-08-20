@@ -24,7 +24,6 @@ namespace DAL
         public string contents { get; set; }
         public int ranking { get; set; }
         public int author_id { get; set; }
-        public Nullable<byte> seen { get; set; }
         public System.DateTime created { get; set; }
     
         public virtual ICollection<answer_rankings> answer_rankings { get; set; }

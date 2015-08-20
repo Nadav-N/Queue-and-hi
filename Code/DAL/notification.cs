@@ -11,8 +11,7 @@ namespace DAL
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
-
+    
     public partial class notification
     {
         public int id { get; set; }
@@ -21,7 +20,7 @@ namespace DAL
         public System.DateTime timestamp { get; set; }
         public int recipient { get; set; }
         public byte seen { get; set; }
-
+    
         public virtual user user { get; set; }
     }
 }

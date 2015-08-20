@@ -34,6 +34,7 @@ namespace QueueAndHi.Client
             Tags = new ObservableCollection<string>(question.Question.Tags);
             Answers = new ObservableCollection<AnswerModel>(question.Answers.Select(answer => new AnswerModel(question.Question, answer)));
             AnswerCount = question.Answers.Count();
+            ID = question.Question.ID;
         }
 
         public Question ToExternal()

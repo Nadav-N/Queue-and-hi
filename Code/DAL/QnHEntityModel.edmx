@@ -69,7 +69,6 @@
           <Property Name="contents" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ranking" Type="int" Nullable="false" />
           <Property Name="author_id" Type="int" Nullable="false" />
-          <Property Name="seen" Type="tinyint" />
           <Property Name="created" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="notifications">
@@ -316,7 +315,6 @@
           <Property Name="contents" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="ranking" Type="Int32" Nullable="false" />
           <Property Name="author_id" Type="Int32" Nullable="false" />
-          <Property Name="seen" Type="Byte" />
           <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="answer_rankings" Relationship="qnhdbModel.FK_answer_rankings_answers" FromRole="answers" ToRole="answer_rankings" />
           <NavigationProperty Name="question" Relationship="qnhdbModel.FK_answers_questions" FromRole="answers" ToRole="questions" />
@@ -532,7 +530,6 @@
                 <ScalarProperty Name="contents" ColumnName="contents" />
                 <ScalarProperty Name="ranking" ColumnName="ranking" />
                 <ScalarProperty Name="author_id" ColumnName="author_id" />
-                <ScalarProperty Name="seen" ColumnName="seen" />
                 <ScalarProperty Name="created" ColumnName="created" />
               </MappingFragment>
             </EntityTypeMapping>

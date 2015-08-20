@@ -18,13 +18,9 @@ namespace DAL
                 question intQuestion = Converter.toQuestion(question);
                 intQuestion.version = 1;
                 db.questions.Add(intQuestion);
+                //foreach(var tag in 
                 db.SaveChanges();
-                // When does the saved question gets his id?
-                // if its part of the saving to the DB process, then how can I know what is the id which was generated for the question?
-                // if its before the saving to he DB (Manual set) then it cannot be int and should be replaced with Uniqueidentifier (guid)
-                //question.Tags.Select(t => Converter.toTag(t, intQuestion.id));
-                UserInfo ui = userOps.GetUserInfo(intQuestion.author_id);
-                return Converter.toExtQuestion(intQuestion, ui, new RankingHistory(), question.Tags);
+                return Converter.toExtQuestion(intQuestion, question.Author, new RankingHistory(), question.Tags);
             }
         }
 
@@ -32,12 +28,32 @@ namespace DAL
         {
             using (var db = new qnhdb())
             {
+                //remove rankings
                 foreach (var ranking in db.question_rankings.Where(r => r.question_id == questionId))
                 {
                     db.question_rankings.Remove(ranking);
                 }
+
+                //remove answer ranking and answers
+                var answers = db.answers.Where(x => x.question_id == questionId);
+                foreach (var answer in answers)
+                {
+                    foreach (var ranking in db.answer_rankings.Where(x => x.answer_id == answer.id))
+                    {
+                        db.answer_rankings.Remove(ranking);
+                    }
+                    db.answers.Remove(answer);
+                }
+                
+                //remove tags? nope. tags are remove by the entity framework for us. this is buggy!
+                foreach( var tag in db.tags.Where(x=>x.question_id == questionId)){
+                    db.tags.Remove(tag);
+                }
+                //remove question
                 question question = db.questions.Single(q => q.id == questionId);
                 db.questions.Remove(question);
+
+
                 db.SaveChanges();
             }
         }

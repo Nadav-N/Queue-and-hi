@@ -77,8 +77,7 @@ namespace QueueAndHi.BL
 
         public IEnumerable<UserInfo> GetAllUsersData(AuthenticationToken authToken)
         {
-            int userid = authTokenSerializer.Deserialize(authToken);
-            UserInfo ui = userOps.GetUserInfo(userid);
+            UserInfo ui = getUserInfo(authToken);
             if (ui.IsAdmin)
             {
                 return userOps.GetAllUsers();
@@ -92,8 +91,7 @@ namespace QueueAndHi.BL
 
         public OperationResult SaveUsersData(AuthenticatedOperation<IEnumerable<UserInfo>> usersData)
         {
-            int userid = authTokenSerializer.Deserialize(usersData.Token);
-            UserInfo ui = userOps.GetUserInfo(userid);
+            UserInfo ui = getUserInfo(usersData.Token);
             if (ui.IsAdmin)
             {
                 userOps.SaveUsersData(usersData.Payload);
@@ -108,9 +106,15 @@ namespace QueueAndHi.BL
 
         public OperationResult<UserInfo> GetUserInfo(AuthenticationToken authToken)
         {
+            UserInfo ui = getUserInfo(authToken);
+            return new OperationResult<UserInfo>(ui);
+        }
+
+        private UserInfo getUserInfo(AuthenticationToken authToken)
+        {
             int userid = authTokenSerializer.Deserialize(authToken);
             UserInfo ui = userOps.GetUserInfo(userid);
-            return new OperationResult<UserInfo>(ui);
+            return ui;
         }
     }
 }

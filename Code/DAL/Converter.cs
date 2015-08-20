@@ -51,6 +51,11 @@ namespace DAL
 
         internal static question toQuestion(Question question)
         {
+            HashSet<tag> toTags = new HashSet<tag>();
+            foreach (var tag in question.Tags)
+            {
+                toTags.Add(new DAL.tag() { tag1 = tag, question_id = question.ID });
+            }
             question intQuestion = new question
             {
                 title = question.Title,
@@ -58,7 +63,8 @@ namespace DAL
                 author_id = question.Author.ID,
                 created = question.DatePosted,
                 recommended = Convert.ToByte(false),
-                right_answer_id = question.RightAnswerId
+                right_answer_id = question.RightAnswerId,
+                tags = toTags
             };
             return intQuestion;
         }
