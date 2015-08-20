@@ -53,7 +53,7 @@ namespace DAL
         {
             question intQuestion = new question
             {
-                title = question.title,
+                title = question.Title,
                 contents = question.Content,
                 author_id = question.Author.ID,
                 created = question.DatePosted,
