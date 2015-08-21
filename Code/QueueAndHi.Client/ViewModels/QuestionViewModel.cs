@@ -12,6 +12,8 @@ namespace QueueAndHi.Client.ViewModels
     public class QuestionViewModel : PostViewModel<QuestionModel>, IDisposable
     {
         private NavigationManager navigationManager;
+        private IPostQueries postQueries;
+
         private DiscussionThreadObserver threadObserver;
         private IValidator<UserInfo> questionRecommendationValidator;
 
@@ -19,6 +21,7 @@ namespace QueueAndHi.Client.ViewModels
             : base(discussionThread, postServices)
         {
             Post = new QuestionModel(discussionThread);
+            this.postQueries = postQueries;
             this.threadObserver = new DiscussionThreadObserver(postQueries);
             this.threadObserver.StartObservingDiscussionThread(discussionThread.Question.ID);
             this.threadObserver.NewDiscussionThreadVersion += OnNewDiscussionThreadVersion;
@@ -99,7 +102,15 @@ namespace QueueAndHi.Client.ViewModels
 
         protected override void ExecuteDelete()
         {
+            //make sure the thread observer doesn't try to get new data about this question, as we're about to delete it
+            this.threadObserver.Dispose();
+            //delete the question
             this.postServices.DeleteQuestion(GetAuthenticatedOperation());
+            //hwow to handle the page view?
+            //navigate to the question list view?
+            //notify the user?
+            //do we do it here, or in the OnPostDeleted Event?
+            this.navigationManager.RequestNavigation(new QuestionListViewModel(this.navigationManager, this.postQueries, this.postServices));
             base.ExecuteDelete();
         }
 
