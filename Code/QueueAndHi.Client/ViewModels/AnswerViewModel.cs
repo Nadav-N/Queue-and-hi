@@ -77,7 +77,6 @@ namespace QueueAndHi.Client.ViewModels
         protected override void ExecuteDelete()
         {
             this.postServices.DeleteAnswer(GetAuthenticatedOperation());
-            base.ExecuteDelete();
         }
     }
 }

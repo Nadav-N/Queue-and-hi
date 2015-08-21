@@ -111,12 +111,7 @@ namespace QueueAndHi.Client.ViewModels
             //navigate to the question list view?
             //notify the user?
             //do we do it here, or in the OnPostDeleted Event?
-<<<<<<< HEAD
-            this.navigationManager.RequestNavigation(new QuestionListViewModel(this.navigationManager, this.postQueries, this.postServices));
-=======
             this.navigationManager.RequestNavigation(new QuestionListViewModel(this.navigationManager, this.postQueries, this.postServices, this.userServices));
-            base.ExecuteDelete();
->>>>>>> f8d4d84d4135c4a1ceb17862b70fe6e16ef7726b
         }
 
         public void Dispose()
