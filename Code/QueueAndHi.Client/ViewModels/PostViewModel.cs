@@ -96,6 +96,15 @@ namespace QueueAndHi.Client.ViewModels
             }
         }
 
+        //only a logged in user that's not muted can add an answer
+        public bool CanAddAnswer
+        {
+            get
+            {
+                return AuthenticationTokenSingleton.Instance.IsLoggedIn && (!AuthenticationTokenSingleton.Instance.AuthenticatedUser.IsMuted);
+            }
+        }
+
         protected virtual void ExecuteRankUp()
         {
             int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;

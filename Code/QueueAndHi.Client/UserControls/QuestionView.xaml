@@ -69,10 +69,12 @@
         </TextBlock>
 
         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="0,0,0,10">
-            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left" Style="{DynamicResource commandLinks}">
+            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left" Style="{DynamicResource commandLinks}"
+                       Visibility="{Binding CanDeletePost, Converter={StaticResource Bool2VisConverter}}">
                 <Hyperlink Command="{Binding Delete}">Delete Question</Hyperlink>
             </TextBlock>
-            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left" Style="{DynamicResource commandLinks}">
+            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left" Style="{DynamicResource commandLinks}"
+                       Visibility="{Binding CanAddAnswer, Converter={StaticResource Bool2VisConverter}}">
                 <Hyperlink Command="{Binding AddAnswer}">Add Answer</Hyperlink>
             </TextBlock>
         </StackPanel>
