@@ -6,19 +6,27 @@ using QueueAndHi.Common.Services;
 using System;
 using System.ComponentModel;
 using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace QueueAndHi.Client.ViewModels
 {
     public class NewAnswerViewModel : INotifyPropertyChanged
     {
         private IPostServices postServices;
+        private IUserServices userServices;
+        private IPostQueries postQueries;
+        private NavigationManager navManager;
+
         private int questionId;
         private IValidator<Answer> validator;
 
-        public NewAnswerViewModel(int questionId, IPostServices postServices)
+        public NewAnswerViewModel(int questionId, NavigationManager navigationManager, IUserServices userServices, IPostQueries postQueries, IPostServices postServices)
         {
             this.questionId = questionId;
             this.postServices = postServices;
+            this.navManager = navigationManager;
+            this.userServices = userServices;
+            this.postQueries = postQueries;
             Answer = new AnswerModel(questionId);
             SubmitAnswer = new DelegateCommand(s => ExecuteAddAnswer());
 
@@ -37,6 +45,13 @@ namespace QueueAndHi.Client.ViewModels
             if (result.IsSuccessful)
             {
                 this.postServices.AddAnswer(AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token, this.questionId, Answer.Content);
+                ErrorMessages = "Answer posted successfully";
+                OnPropertyChanged("ErrorMessages");
+                Task.Delay(3000).ContinueWith(_ =>
+                {
+                    DiscussionThread selectedThread = this.postQueries.GetDiscussionThreadById(questionId);
+                    navManager.RequestNavigation(new QuestionViewModel(selectedThread, this.postServices, this.navManager, this.postQueries, this.userServices));
+                });
             }
             else
             {

@@ -16,11 +16,13 @@ namespace QueueAndHi.Client.ViewModels
     {
         private IPostQueries postQueries;
         private IPostServices postServices;
+        private IUserServices userServices;
         private NavigationManager navigationManager;
 
         public MainToolbarViewModel(NavigationManager navigationManager, IUserServices userServices, IPostQueries postQueries, IPostServices postServices)
         {
             this.postQueries = postQueries;
+            this.userServices = userServices;
             this.navigationManager = navigationManager;
             this.postServices = postServices;
             DoLogin = new DelegateCommand(obj => navigationManager.RequestNavigation(new LoginViewModel(navigationManager, userServices, postQueries, postServices)));
@@ -47,7 +49,7 @@ namespace QueueAndHi.Client.ViewModels
         public void ExecuteLogout()
         {
             AuthenticationTokenSingleton.Instance.LogOut();
-            this.navigationManager.RequestNavigation(new QuestionListViewModel(this.navigationManager, this.postQueries, this.postServices));
+            this.navigationManager.RequestNavigation(new QuestionListViewModel(this.navigationManager, this.postQueries, this.postServices, this.userServices));
         }
 
         public void ExecuteSearch()

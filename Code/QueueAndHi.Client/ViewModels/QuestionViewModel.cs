@@ -13,15 +13,16 @@ namespace QueueAndHi.Client.ViewModels
     {
         private NavigationManager navigationManager;
         private IPostQueries postQueries;
-
+        private IUserServices userServices;
         private DiscussionThreadObserver threadObserver;
         private IValidator<UserInfo> questionRecommendationValidator;
 
-        public QuestionViewModel(DiscussionThread discussionThread, IPostServices postServices, NavigationManager navigationManager, IPostQueries postQueries)
+        public QuestionViewModel(DiscussionThread discussionThread, IPostServices postServices, NavigationManager navigationManager, IPostQueries postQueries, IUserServices userServices)
             : base(discussionThread, postServices)
         {
             Post = new QuestionModel(discussionThread);
             this.postQueries = postQueries;
+            this.userServices = userServices;
             this.threadObserver = new DiscussionThreadObserver(postQueries);
             this.threadObserver.StartObservingDiscussionThread(discussionThread.Question.ID);
             this.threadObserver.NewDiscussionThreadVersion += OnNewDiscussionThreadVersion;
@@ -55,7 +56,7 @@ namespace QueueAndHi.Client.ViewModels
 
         private void ExecuteAddAnswer()
         {
-            this.navigationManager.RequestNavigation(new NewAnswerViewModel(Post.ID, this.postServices));
+            this.navigationManager.RequestNavigation(new NewAnswerViewModel(Post.ID, this.navigationManager, this.userServices, this.postQueries, this.postServices));
         }
 
         private void ExecuteRecommendQuestion()
@@ -110,7 +111,7 @@ namespace QueueAndHi.Client.ViewModels
             //navigate to the question list view?
             //notify the user?
             //do we do it here, or in the OnPostDeleted Event?
-            this.navigationManager.RequestNavigation(new QuestionListViewModel(this.navigationManager, this.postQueries, this.postServices));
+            this.navigationManager.RequestNavigation(new QuestionListViewModel(this.navigationManager, this.postQueries, this.postServices, this.userServices));
             base.ExecuteDelete();
         }
 

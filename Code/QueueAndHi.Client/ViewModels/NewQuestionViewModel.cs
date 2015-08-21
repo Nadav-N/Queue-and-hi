@@ -91,7 +91,7 @@ namespace QueueAndHi.Client.ViewModels
             {
                 Question addedQuestion = this.postServices.AddQuestion(AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation(question));
                 DiscussionThread discussionThread = this.postQueries.GetDiscussionThreadById(addedQuestion.ID);
-                this.navigationManager.RequestNavigation(new QuestionViewModel(discussionThread, this.postServices, this.navigationManager, this.postQueries));
+                this.navigationManager.RequestNavigation(new QuestionViewModel(discussionThread, this.postServices, this.navigationManager, this.postQueries, this.userServices));
             }
             else
             {
