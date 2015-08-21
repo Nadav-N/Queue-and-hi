@@ -18,6 +18,7 @@ namespace QueueAndHi.Client.ViewModels
     {
         private IPostQueries postQueries;
         private IPostServices postServices;
+        private IUserServices userServices; 
         private NavigationManager navigationManager;
 
         /// <summary>
@@ -39,16 +40,17 @@ namespace QueueAndHi.Client.ViewModels
         /// </summary>
         /// <param name="navigationManager"></param>
 
-        public QuestionListViewModel(NavigationManager navigationManager, IPostQueries postQueries, IPostServices postServices)
+        public QuestionListViewModel(NavigationManager navigationManager, IPostQueries postQueries, IPostServices postServices, IUserServices userServices)
             : this(navigationManager, postQueries, postServices, postQueries.GetLatestQuestions())
         {
+            this.userServices = userServices;
         }
 
         private void ExecuteNavigateToQuestion(object questionInfo)
         {
             int questionId = ((QuestionInfo)questionInfo).ID;
             DiscussionThread selectedThread = this.postQueries.GetDiscussionThreadById(questionId);
-            QuestionViewModel questionVM = new QuestionViewModel(selectedThread, this.postServices, this.navigationManager, this.postQueries);
+            QuestionViewModel questionVM = new QuestionViewModel(selectedThread, this.postServices, this.navigationManager, this.postQueries, this.userServices);
             this.navigationManager.RequestNavigation(questionVM);
         }
 

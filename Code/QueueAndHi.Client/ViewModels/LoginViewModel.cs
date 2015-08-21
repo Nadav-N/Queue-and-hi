@@ -50,7 +50,7 @@ namespace QueueAndHi.Client.ViewModels
                 AuthenticationTokenSingleton.Instance.LogIn(orai.Payload, loggedInUser);
                 LoginResult = "Welcome, " + UserName;
                 OnPropertyChanged("LoginResult");
-                navManager.RequestNavigation(new QuestionListViewModel(navManager, postQueries, postServices));
+                navManager.RequestNavigation(new QuestionListViewModel(navManager, postQueries, postServices, userServices));
                 return true;
             }
             else
