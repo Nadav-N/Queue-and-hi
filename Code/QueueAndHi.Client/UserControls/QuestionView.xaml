@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:QueueAndHi.Client" x:Class="QueueAndHi.Client.QuestionView" 
+             xmlns:local="clr-namespace:QueueAndHi.Client" 
+        x:Class="QueueAndHi.Client.QuestionView" 
                 xmlns:app="clr-namespace:QueueAndHi.Client"
              mc:Ignorable="d" 
                d:DesignHeight="300" d:DesignWidth="500">

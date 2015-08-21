@@ -20,10 +20,12 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions>
-            <ContentControl Content="{Binding NotificationsVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
-            <StackPanel Grid.Column="1" HorizontalAlignment="Left">
-                <ContentControl Margin="0,0,100,0" Content="{Binding MainVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
-            </StackPanel>
+            <ContentControl Grid.Column="0" Content="{Binding NotificationsVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
+            <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto" >
+                <StackPanel  HorizontalAlignment="Left">
+                    <ContentControl  Margin="0,0,100,0" Content="{Binding MainVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Window>

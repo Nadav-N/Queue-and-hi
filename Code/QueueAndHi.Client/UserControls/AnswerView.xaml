@@ -46,7 +46,7 @@
         </TextBlock>
 
         <StackPanel Visibility="{Binding CanDeletePost, Converter={StaticResource Bool2VisConverter}}" Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Margin="0,0,0,10">
-            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left" Style="{DynamicResource commandLinks}">
+            <TextBlock  VerticalAlignment="Bottom" HorizontalAlignment="Left" Style="{DynamicResource commandLinks}">
                 <Hyperlink Command="{Binding Delete}">Delete Answer</Hyperlink>
             </TextBlock>
         </StackPanel>
@@ -113,8 +113,8 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <StackPanel>
-                    <Image Source="..\resources\answered.png" Visibility="{Binding Post.Answered, Converter={StaticResource Bool2VisConverter}}"/>
-                    <Image Source="..\resources\unanswered.png" Visibility="{Binding Post.Answered, Converter={StaticResource InvBool2VisConverter}}"/>
+                    <Image Source="..\resources\answered.png" Visibility="{Binding Answered, Converter={StaticResource Bool2VisConverter}}"/>
+                    <Image Source="..\resources\unanswered.png" Visibility="{Binding Answered, Converter={StaticResource InvBool2VisConverter}}"/>
                 </StackPanel>
             </ToggleButton>
         </Grid>
