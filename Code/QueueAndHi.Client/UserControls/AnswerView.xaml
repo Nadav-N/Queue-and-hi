@@ -40,9 +40,9 @@
                    VerticalAlignment="Center" />
        
         <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,5,0">
-            <Run Text="{Binding Post.Author.Username}" Style="{DynamicResource bolder}"/>
+            <Run Text="{Binding Author.Username}" Style="{DynamicResource bolder}"/>
             <Run Text=" answered on "/>
-            <Run Text="{Binding Post.DatePosted}" Style="{DynamicResource bolder}"/>
+            <Run Text="{Binding DatePosted}" Style="{DynamicResource bolder}"/>
         </TextBlock>
 
         <StackPanel Visibility="{Binding CanDeletePost, Converter={StaticResource Bool2VisConverter}}" Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Margin="0,0,0,10">
