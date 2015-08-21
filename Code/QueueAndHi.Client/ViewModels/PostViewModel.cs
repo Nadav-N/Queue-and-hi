@@ -28,7 +28,7 @@ namespace QueueAndHi.Client.ViewModels
             CancelRankUp = new DelegateCommand(s => ExecuteCancelRankUp());
             RankDown = new DelegateCommand(s => ExecuteRankDown());
             CancelRankDown = new DelegateCommand(s => ExecuteCancelRankDown());
-            Delete = new DelegateCommand(s => ExecuteDelete());
+            Delete = new DelegateCommand(s => ExecuteDelete(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn && !AuthenticationTokenSingleton.Instance.AuthenticatedUser.IsMuted);
             this.rankDownValidator = new RankDownValidator();
         }
 
@@ -141,10 +141,7 @@ namespace QueueAndHi.Client.ViewModels
             OnPropertyChanged("IsRankedDown");
         }
 
-        protected virtual void ExecuteDelete()
-        {
-            OnPostDeleted();
-        }
+        protected abstract void ExecuteDelete();
 
         protected AuthenticatedOperation<int> GetAuthenticatedOperation()
         {
@@ -161,15 +158,5 @@ namespace QueueAndHi.Client.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public EventHandler<EventArgs> PostDeleted;
-
-        protected void OnPostDeleted()
-        {
-            if (PostDeleted != null)
-            {
-                PostDeleted(this, EventArgs.Empty);
-            }
-        }
     }
 }
