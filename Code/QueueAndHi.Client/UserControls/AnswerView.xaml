@@ -32,7 +32,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="5,5,5,5" 
                    TextWrapping="Wrap"  VerticalAlignment="Top" 
                    Grid.Row="2" Grid.Column="1"
-            Text="{Binding Content}">
+            Text="{Binding Post.Content}">
 
         </TextBlock>
         <Separator HorizontalAlignment="Stretch"  Margin="1,5,1,5" 
@@ -40,9 +40,9 @@
                    VerticalAlignment="Center" />
        
         <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,5,0">
-            <Run Text="{Binding Author.Username}" Style="{DynamicResource bolder}"/>
+            <Run Text="{Binding Post.Author.Username}" Style="{DynamicResource bolder}"/>
             <Run Text=" answered on "/>
-            <Run Text="{Binding DatePosted}" Style="{DynamicResource bolder}"/>
+            <Run Text="{Binding Post.DatePosted}" Style="{DynamicResource bolder}"/>
         </TextBlock>
 
         <StackPanel Visibility="{Binding CanDeletePost, Converter={StaticResource Bool2VisConverter}}" Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Margin="0,0,0,10">
@@ -65,7 +65,7 @@
                  Grid.Column="0" Grid.Row="0" Grid.RowSpan="1"
                  Width="33" Name="btnUpVote" ToolTip="Click to add positive rating for a helpful answer"
                  Style="{DynamicResource NoMouseOverImageButton}" IsChecked="{Binding IsRankedUp, Mode=OneWay}"
-                 Visibility="{Binding IsAuthor, Converter={StaticResource InvBool2VisConverter}}">
+                 Visibility="{Binding IsRankUpEnabled, Converter={StaticResource Bool2VisConverter}}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Checked">
                         <i:InvokeCommandAction Command="{Binding RankUp}"/>
@@ -113,8 +113,8 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <StackPanel>
-                    <Image Source="..\resources\answered.png" Visibility="{Binding Answered, Converter={StaticResource Bool2VisConverter}}"/>
-                    <Image Source="..\resources\unanswered.png" Visibility="{Binding Answered, Converter={StaticResource InvBool2VisConverter}}"/>
+                    <Image Source="..\resources\answered.png" Visibility="{Binding Post.Answered, Converter={StaticResource Bool2VisConverter}}"/>
+                    <Image Source="..\resources\unanswered.png" Visibility="{Binding Post.Answered, Converter={StaticResource InvBool2VisConverter}}"/>
                 </StackPanel>
             </ToggleButton>
         </Grid>

@@ -27,7 +27,7 @@
                             <TextBlock TextAlignment="Center" Text="{Binding Ranking}" />
                             <TextBlock TextAlignment="Center">votes</TextBlock>
                         </StackPanel>
-                        <StackPanel Orientation="Vertical" Grid.Column="2" VerticalAlignment="Center">
+                        <StackPanel Orientation="Vertical" Grid.Column="2" VerticalAlignment="Center" Margin="20,0,0,0">
                             <TextBlock TextAlignment="Center" Text="{Binding AnswersCount}" />
                             <TextBlock TextAlignment="Center">answers</TextBlock>
                         </StackPanel>

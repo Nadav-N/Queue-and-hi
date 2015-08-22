@@ -33,8 +33,8 @@ namespace QueueAndHi.Client.ViewModels
         {
             get
             {
-                return AuthenticationTokenSingleton.Instance.AuthenticatedUser.IsAdmin ||
-                    this.discussionThread.Question.Author.ID == AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.UserID;
+                return AuthenticationTokenSingleton.Instance.IsLoggedIn && (AuthenticationTokenSingleton.Instance.AuthenticatedUser.IsAdmin ||
+                    this.discussionThread.Question.Author.ID == AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.UserID);
             }
         }
 

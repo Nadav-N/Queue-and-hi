@@ -64,6 +64,14 @@ namespace QueueAndHi.Client.ViewModels
             }
         }
 
+        public bool IsRankUpEnabled
+        {
+            get
+            {
+                return AuthenticationTokenSingleton.Instance.IsLoggedIn && !IsAuthor;
+            }
+        }
+
         public bool IsRankDownEnabled
         {
             get

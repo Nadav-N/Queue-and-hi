@@ -4,6 +4,7 @@ using QueueAndHi.Common.Logic.Validations.User;
 using QueueAndHi.Common.Logic.Validators;
 using QueueAndHi.Common.Services;
 using System;
+using System.Linq;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -21,6 +22,7 @@ namespace QueueAndHi.Client.ViewModels
             : base(discussionThread, postServices)
         {
             Post = new QuestionModel(discussionThread);
+            Answers = new ObservableCollection<AnswerViewModel>(discussionThread.Answers.Select(answer => new AnswerViewModel(discussionThread, answer, postServices)));
             this.postQueries = postQueries;
             this.userServices = userServices;
             this.threadObserver = new DiscussionThreadObserver(postQueries);
