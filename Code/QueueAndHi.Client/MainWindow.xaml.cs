@@ -33,7 +33,7 @@ namespace QueueAndHi.Client
             MainMenuVM = new MainMenuViewModel(navigationManager, new UserServices(), new PostQueries(), new PostServices());
             MainToolbarVM = new MainToolbarViewModel(navigationManager, new UserServices(), new PostQueries(), new PostServices());
             MainVM = new QuestionListViewModel(navigationManager,new PostQueries(), new PostServices(), new PostQueries().GetLatestQuestions());
-            
+            NotificationsVM = new NotificationsViewModel();
             navigationManager.NavigationRequested += navigationManager_NavigationRequested;
 
             InitializeComponent();

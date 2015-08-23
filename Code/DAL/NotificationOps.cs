@@ -32,11 +32,16 @@ namespace DAL
 
         public IEnumerable<Notification> GetNotifications(int userId)
         {
+            List<Notification> notifications = new List<Notification>();
             using (var db = new qnhdb())
             {
                 UserInfo ui = userOps.GetUserInfo(userId);
-                return db.notifications.Where(notification => notification.recipient == userId && !Convert.ToBoolean(notification.seen)).Select(n => Converter.toExtNotification(n, ui));
+                foreach (notification n in db.notifications.Where(x => x.recipient == userId && x.seen == 0))
+                {
+                    notifications.Add(Converter.toExtNotification(n, ui));
+                }
             }
+            return notifications;
         }
     }
 }
