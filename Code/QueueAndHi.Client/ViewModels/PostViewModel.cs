@@ -86,19 +86,27 @@ namespace QueueAndHi.Client.ViewModels
             }
         }
 
+        /// <summary>
+        /// Is the post already ranked up by the current user
+        /// Returns false for a not logged in user
+        /// </summary>
         public bool IsRankedUp
         {
             get
             {
-                return Post.Ranking.Any(entry => entry.UserID == AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.UserID && entry.RankingType == RankingType.Up);
+                return AuthenticationTokenSingleton.Instance.IsLoggedIn && Post.Ranking.Any(entry => entry.UserID == AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.UserID && entry.RankingType == RankingType.Up);
             }
         }
 
+        /// <summary>
+        /// Is the post already ranked down by the current user
+        /// returns false for a not logged in user
+        /// </summary>
         public bool IsRankedDown
         {
             get
             {
-                return Post.Ranking.Any(entry => entry.UserID == AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.UserID && entry.RankingType == RankingType.Down);
+                return AuthenticationTokenSingleton.Instance.IsLoggedIn && Post.Ranking.Any(entry => entry.UserID == AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.UserID && entry.RankingType == RankingType.Down);
             }
         }
 
