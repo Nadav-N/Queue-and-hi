@@ -161,7 +161,7 @@ namespace DAL
                         Converter.toExtQuestion(
                             q,
                             ui,
-                            new RankingHistory(),//GetQuestionRankingHistory(q.id), 
+                            GetQuestionRankingHistory(q.id), 
                             getTags(q.id)
                             )
                         );
