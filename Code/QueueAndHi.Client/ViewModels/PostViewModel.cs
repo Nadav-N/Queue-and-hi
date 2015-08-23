@@ -17,13 +17,19 @@ namespace QueueAndHi.Client.ViewModels
     {
         protected DiscussionThread discussionThread;
         protected IPostServices postServices;
+        protected IPostQueries postQueries;
+        protected IUserServices userServices;
+        protected NavigationManager navigationManager;
         protected T post;
         protected IValidator<UserInfo> rankDownValidator;
 
-        public PostViewModel(DiscussionThread discussionThread, IPostServices postServices)
+        public PostViewModel(DiscussionThread discussionThread, IPostServices postServices, IPostQueries postQueries, NavigationManager navigationManager, IUserServices userServices)
         {
             this.discussionThread = discussionThread;
             this.postServices = postServices;
+            this.postQueries = postQueries;
+            this.userServices = userServices;
+            this.navigationManager = navigationManager;
             RankUp = new DelegateCommand(s => ExecuteRankUp());
             CancelRankUp = new DelegateCommand(s => ExecuteCancelRankUp());
             RankDown = new DelegateCommand(s => ExecuteRankDown());

@@ -12,23 +12,17 @@ namespace QueueAndHi.Client.ViewModels
 {
     public class QuestionViewModel : PostViewModel<QuestionModel>, IDisposable
     {
-        private NavigationManager navigationManager;
-        private IPostQueries postQueries;
-        private IUserServices userServices;
         private DiscussionThreadObserver threadObserver;
         private IValidator<UserInfo> questionRecommendationValidator;
 
         public QuestionViewModel(DiscussionThread discussionThread, IPostServices postServices, NavigationManager navigationManager, IPostQueries postQueries, IUserServices userServices)
-            : base(discussionThread, postServices)
+            : base(discussionThread, postServices, postQueries, navigationManager, userServices)
         {
             Post = new QuestionModel(discussionThread);
-            Answers = new ObservableCollection<AnswerViewModel>(discussionThread.Answers.Select(answer => new AnswerViewModel(discussionThread, answer, postServices)));
-            this.postQueries = postQueries;
-            this.userServices = userServices;
+            Answers = new ObservableCollection<AnswerViewModel>(discussionThread.Answers.Select(answer => new AnswerViewModel(discussionThread, answer, postServices, postQueries, navigationManager, userServices)));
             this.threadObserver = new DiscussionThreadObserver(postQueries);
             this.threadObserver.StartObservingDiscussionThread(discussionThread.Question.ID);
             this.threadObserver.NewDiscussionThreadVersion += OnNewDiscussionThreadVersion;
-            this.navigationManager = navigationManager;
             RecommendQuestion = new DelegateCommand(s => ExecuteRecommendQuestion());
             UnrecommendQuestion = new DelegateCommand(s => ExecuteUnrecommendQuestion());
             AddAnswer = new DelegateCommand(s => ExecuteAddAnswer(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn && !AuthenticationTokenSingleton.Instance.AuthenticatedUser.IsMuted);

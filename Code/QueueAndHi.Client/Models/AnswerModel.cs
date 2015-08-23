@@ -56,5 +56,13 @@ namespace QueueAndHi.Client
                 base.OnPropertyChanged("Answered");
             }
         }
+
+        public int RelatedQuestionId
+        {
+            get
+            {
+                return this.relatedQuestionId;
+            }
+        }
     }
 }
