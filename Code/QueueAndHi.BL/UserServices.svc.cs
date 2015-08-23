@@ -5,20 +5,23 @@ using QueueAndHi.Common.Services;
 using System.Collections.Generic;
 using QueueAndHi.BL.Authentication;
 using System;
+using DAL;
 
 namespace QueueAndHi.BL
 {
     public class UserServices : IUserServices
     {
 
-        private DAL.UserOps userOps = new DAL.UserOps();
+        private UserOps userOps = new UserOps();
         private IAuthTokenSerializer authTokenSerializer;
         private IValidator<UserInfo> userValidator;
-
+        private NotificationOps notificationOps;
+        
         public UserServices()
         {
             this.authTokenSerializer = new AuthTokenSerializer();
             this.userValidator = new UserValidator();
+            this.notificationOps = new NotificationOps();
         }
 
         public OperationResult AddNewUser(UserInfo newUser, UserCredentials userCredentials)
@@ -95,6 +98,7 @@ namespace QueueAndHi.BL
             if (ui.IsAdmin)
             {
                 userOps.SaveUsersData(usersData.Payload);
+                
                 return new OperationResult<IEnumerable<UserInfo>>(usersData.Payload);
             }
             else

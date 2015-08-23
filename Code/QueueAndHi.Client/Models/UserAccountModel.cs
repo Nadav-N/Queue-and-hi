@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace QueueAndHi.Client
 {
-    public class UserAccountModel : INotifyPropertyChanged
+    public class UserAccountModel : INotifyPropertyChanged, ICloneable
     {
         private string username;
         private int ranking;
@@ -117,5 +117,14 @@ namespace QueueAndHi.Client
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
+
+        #region ICloneable Members
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+
+        #endregion
     }
 }

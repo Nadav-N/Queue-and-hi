@@ -29,9 +29,11 @@ namespace QueueAndHi.Client.ViewModels
 
             ApplyChanges = new DelegateCommand(s => ExecuteApplyChanges()); 
 
-            //get the logged in user token, then get his questions
+            //get the logged in user from his token, then get all the users he can manage (meaning if a non admin user
+            //somehow got here by mistake - he won't get any users to manage
             IEnumerable<UserInfo> managedUsers = this.userServices.GetAllUsersData(AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token);
             Users = new ObservableCollection<UserAccountModel>(managedUsers.Select(q => new UserAccountModel(q)));
+            StaleUsers = Users.Select(objEntity => (UserAccountModel)objEntity.Clone()).ToList();
             OnPropertyChanged("Users");
         }
 
@@ -44,17 +46,30 @@ namespace QueueAndHi.Client.ViewModels
             set;
         }
 
+        private List<UserAccountModel> StaleUsers
+        {
+            get;
+            set;
+        }
+
         public ICommand ApplyChanges { get; set; }
 
         private bool ExecuteApplyChanges()
         {
+            //check which users have changed by comparing the users from "Users" with the users from "StaleUsers"
+            //only save changes to the users that have changed (changed means either admin or muted have changed"
+            List<UserAccountModel> changedUsers = Users.Where(x => StaleUsers.Any(y => y.id == x.id && (y.isMuted != x.isMuted || y.IsAdmin != x.IsAdmin))).ToList();
+                                                                       
+            //TODO - send notifications to the users that have changed.
             AuthenticatedOperation<IEnumerable<UserInfo>> ao = new AuthenticatedOperation<IEnumerable<UserInfo>>(
                 AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token,
-                Users.Select(q => q.ToExternal())
+                changedUsers.Select(q => q.ToExternal())
                 );
             OperationResult or = userServices.SaveUsersData(ao);
             if (or.IsSuccessful)
             {
+                //StaleUsers should be updated to current Users after a successful save
+                StaleUsers = Users.Select(objEntity => (UserAccountModel)objEntity.Clone()).ToList();
                 ApplyResult = "Changes saved successfully.";
                 OnPropertyChanged("ApplyResult");
                 return true;
