@@ -43,6 +43,7 @@ namespace QueueAndHi.Client.ViewModels
             set;
         }
 
+       
         private void OnNewDiscussionThreadVersion(object sender, NewDiscussionThreadVersionEventArgs e)
         {
             this.discussionThread = e.NewDiscussionThread;

@@ -82,7 +82,7 @@ namespace DAL
                 RightAnswerId = question.right_answer_id,
                 Tags = tags,
                 Title = question.title,
-                AnswerCount = 0
+                AnswerCount = question.answers.Count
             };
             return extQuestion;
         }
