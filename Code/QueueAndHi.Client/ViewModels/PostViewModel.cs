@@ -130,8 +130,17 @@ namespace QueueAndHi.Client.ViewModels
         protected virtual void ExecuteRankUp()
         {
             int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
-            Post.Ranking.Remove(entry => entry.UserID == userId);
-            Post.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Up));
+            
+            //if ranking contains a rank down entry - just remove it. don't add a rank up
+            if (post.Ranking.Any(x => x.UserID == userId && x.RankingType == RankingType.Down))
+            {
+                Post.Ranking.Remove(entry => entry.UserID == userId);
+            }
+            else
+            {
+                Post.Ranking.Remove(entry => entry.UserID == userId);
+                Post.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Up));
+            }
             Post.OnPropertyChanged("Ranking");
             OnPropertyChanged("IsRankedUp");
             OnPropertyChanged("IsRankedDown");
@@ -148,8 +157,16 @@ namespace QueueAndHi.Client.ViewModels
         protected virtual void ExecuteRankDown()
         {
             int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
-            Post.Ranking.Remove(entry => entry.UserID == userId);
-            Post.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Down));
+            //if ranking contains a rank up entry - just remove it. don't add a rank down
+            if (post.Ranking.Any(x => x.UserID == userId && x.RankingType == RankingType.Up))
+            {
+                Post.Ranking.Remove(entry => entry.UserID == userId);
+            }
+            else
+            {
+                Post.Ranking.Remove(entry => entry.UserID == userId);
+                Post.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Down));
+            }
             Post.OnPropertyChanged("Ranking");
             OnPropertyChanged("IsRankedUp");
             OnPropertyChanged("IsRankedDown");

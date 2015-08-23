@@ -28,6 +28,11 @@ namespace QueueAndHi.Common
                 return this.Count(entry => entry.RankingType == RankingType.Up) - this.Count(entry => entry.RankingType == RankingType.Down);
             }
         }
+
+        public bool Contains(int userid, RankingType type)
+        {
+            return this.Any(x => x.UserID == userid && x.RankingType == type);
+        }
     }
 
     [DataContract]

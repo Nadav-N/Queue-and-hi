@@ -71,7 +71,7 @@ namespace QueueAndHi.Client.ViewModels
         protected override void ExecuteCancelRankDown()
         {
             this.postServices.CancelAnswerVote(GetAuthenticatedOperation());
-            base.ExecuteRankDown();
+            base.ExecuteCancelRankDown();
         }
 
         protected override void ExecuteDelete()

@@ -7,6 +7,7 @@ using QueueAndHi.Common.Logic.Validators;
 using QueueAndHi.Common.Notifications;
 using QueueAndHi.Common.Services;
 using System;
+using System.Collections.Generic;
 
 namespace QueueAndHi.BL
 {
@@ -186,6 +187,7 @@ namespace QueueAndHi.BL
                 throw new InvalidOperationException(String.Join("\n", validationResult.ErrorMessages));
             }
 
+            //if(question.Ranking.Count != 0 && question.Ranking
             this.postOps.RankDownQuestion(questionId.Payload, user.ID);
             this.postOps.IncrementVersion(questionId.Payload);
 
@@ -203,9 +205,16 @@ namespace QueueAndHi.BL
                 throw new InvalidOperationException("User can not rank his own posts.");
             }
 
-            this.postOps.RankUpAnswer(answerId.Payload, user.ID);
-            this.postOps.IncrementVersion(answer.RelatedQuestionId);
-
+            //check if the user is canceling a rank down or simply adding a rank up
+            if (answer.Ranking.Contains(user.ID, RankingType.Down))
+            {
+                CancelAnswerVote(answerId);
+            }
+            else
+            {
+                this.postOps.RankUpAnswer(answerId.Payload, user.ID);
+                this.postOps.IncrementVersion(answer.RelatedQuestionId);
+            }
             Question question = this.postOps.GetQuestionById(answer.RelatedQuestionId);
             this.notificationOps.SaveNotification(answer.Author.ID,
                 string.Format("Your answer to the question \"{0}\" has been ranked up", question.Title),
@@ -227,9 +236,16 @@ namespace QueueAndHi.BL
                 throw new InvalidOperationException(String.Join("\n", validationResult.ErrorMessages));
             }
 
-            this.postOps.RankDownAnswer(answerId.Payload, user.ID);
-            this.postOps.IncrementVersion(answer.RelatedQuestionId);
-
+            //check if the user is canceling a rank up or simply adding a rank down
+            if (answer.Ranking.Contains(user.ID, RankingType.Up))
+            {
+                CancelAnswerVote(answerId);
+            }
+            else
+            {
+                this.postOps.RankDownAnswer(answerId.Payload, user.ID);
+                this.postOps.IncrementVersion(answer.RelatedQuestionId);
+            }
             Question question = this.postOps.GetQuestionById(answer.RelatedQuestionId);
             this.notificationOps.SaveNotification(answer.Author.ID,
                 string.Format("Your answer to the question \"{0}\" has been ranked down", question.Title),

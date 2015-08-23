@@ -282,7 +282,7 @@ namespace DAL
         {
             using (var db = new qnhdb())
             {
-                db.answer_rankings.Add(new answer_rankings { author_id = userId, answer_id = answerId, rank = Convert.ToByte(true) });
+                db.answer_rankings.Add(new answer_rankings { author_id = userId, answer_id = answerId, rank = Convert.ToByte(false) });
                 db.SaveChanges();
             }
         }
@@ -301,9 +301,12 @@ namespace DAL
         {
             using (var db = new qnhdb())
             {
-                answer_rankings ranking = db.answer_rankings.Single(ar => ar.author_id == userId && ar.answer_id == answerId);
-                db.answer_rankings.Remove(ranking);
-                db.SaveChanges();
+                answer_rankings ranking = db.answer_rankings.SingleOrDefault(ar => ar.author_id == userId && ar.answer_id == answerId);
+                if (ranking != null)
+                {
+                    db.answer_rankings.Remove(ranking);
+                    db.SaveChanges();
+                }
             }
         }
 
