@@ -63,10 +63,11 @@ namespace QueueAndHi.Client.ViewModels
             UserAccountModel changedLoggedInUserModel = changedUsers.FirstOrDefault(user => user.ID == AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID);
             if (changedLoggedInUserModel != null)
             {
+                changedUsers.Remove(changedLoggedInUserModel);
                 UserAccountModel unchangedAdmin = StaleUsers.First(user => user.ID == AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID);
+
                 changedLoggedInUserModel.IsAdmin = unchangedAdmin.IsAdmin;
                 changedLoggedInUserModel.IsMuted = unchangedAdmin.IsMuted;
-                return false;
             }
 
             AuthenticatedOperation<IEnumerable<UserInfo>> ao = new AuthenticatedOperation<IEnumerable<UserInfo>>(
