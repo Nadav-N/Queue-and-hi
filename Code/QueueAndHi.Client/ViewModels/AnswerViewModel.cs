@@ -46,8 +46,11 @@ namespace QueueAndHi.Client.ViewModels
 
         private void ExecuteUnmarkAsRight()
         {
-            this.postServices.UnmarkAsRightAnswer(GetAuthenticatedOperation());
-            Post.Answered = false;
+            if (!this.isDisposed)
+            {
+                this.postServices.UnmarkAsRightAnswer(GetAuthenticatedOperation());
+                Post.Answered = false;
+            }
         }
 
         protected override void ExecuteRankUp()

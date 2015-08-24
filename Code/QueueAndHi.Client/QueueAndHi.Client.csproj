@@ -59,6 +59,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AbstractPost.cs" />
+    <Compile Include="Converters\Bool2HiddenConverter.cs" />
     <Compile Include="Converters\Int2VisConverter.cs" />
     <Compile Include="Converters\PositiveIntConverter.cs" />
     <Compile Include="DelegateCommand.cs" />

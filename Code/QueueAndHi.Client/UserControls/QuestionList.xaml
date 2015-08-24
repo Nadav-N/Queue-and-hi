@@ -30,9 +30,9 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="12*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="..\Resources\star.png" Height="40" Width="40" RenderOptions.BitmapScalingMode="NearestNeighbor"
-       RenderOptions.EdgeMode="Aliased" Visibility="{Binding IsRecommended, Converter={StaticResource Bool2VisConverter}}" />
-                        <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+                        <Image Source="..\Resources\star.png" Margin="5,0,0,0" Height="30" Width="30" RenderOptions.BitmapScalingMode="NearestNeighbor"
+       RenderOptions.EdgeMode="Aliased" Visibility="{Binding IsRecommended, Converter={StaticResource Bool2HiddenConverter}}" />
+                        <StackPanel Orientation="Vertical" Margin="15,0,0,0" Grid.Column="1" VerticalAlignment="Center">
                             <TextBlock TextAlignment="Center" Text="{Binding Ranking}" />
                             <TextBlock TextAlignment="Center">votes</TextBlock>
                         </StackPanel>

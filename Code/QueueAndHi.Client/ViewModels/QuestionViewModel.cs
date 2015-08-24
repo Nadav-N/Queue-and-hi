@@ -33,7 +33,7 @@ namespace QueueAndHi.Client.ViewModels
         {
             get
             {
-                return AuthenticationTokenSingleton.Instance.IsLoggedIn && !IsAuthor && this.questionRecommendationValidator.IsValid(AuthenticationTokenSingleton.Instance.AuthenticatedUser).IsSuccessful;
+                return AuthenticationTokenSingleton.Instance.IsLoggedIn && (!IsAuthor || AuthenticationTokenSingleton.Instance.AuthenticatedUser.IsAdmin) && this.questionRecommendationValidator.IsValid(AuthenticationTokenSingleton.Instance.AuthenticatedUser).IsSuccessful;
             }
         }
 
@@ -64,8 +64,11 @@ namespace QueueAndHi.Client.ViewModels
 
         private void ExecuteUnrecommendQuestion()
         {
-            this.postServices.UnrecommendQuestion(GetAuthenticatedOperation());
-            Post.IsRecommended = false;
+            if (!this.isDisposed)
+            {
+                this.postServices.UnrecommendQuestion(GetAuthenticatedOperation());
+                Post.IsRecommended = false;
+            }
         }
 
         public ICommand RecommendQuestion { get; set; }

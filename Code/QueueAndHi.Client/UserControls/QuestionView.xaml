@@ -49,7 +49,7 @@
                  Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
                  Style="{DynamicResource NoMouseOverImageButton}"
                  IsChecked="{Binding Post.IsRecommended}"
-                 Visibility="{Binding IsRecommendationEnabled, Converter={StaticResource Bool2VisConverter}}">
+                 IsEnabled="{Binding IsRecommendationEnabled}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Checked">
                     <i:InvokeCommandAction Command="{Binding RecommendQuestion}"/>

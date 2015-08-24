@@ -36,9 +36,9 @@
         <Setter Property="Background" Value="Black"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        
+
     </Style>
-    
+
     <Style TargetType="Run" x:Key="bolder">
         <Setter Property="TextBlock.FontWeight" Value="Bold"/>
     </Style>
@@ -85,7 +85,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style x:Key="NoMouseOverImageButton" TargetType="ToggleButton">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="Margin" Value="5"/>
@@ -110,7 +110,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style TargetType="Label" x:Key="header">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Foreground" Value="Black"/>
@@ -130,7 +130,7 @@
                                            BorderBrush="{TemplateBinding Border.BorderBrush}"
                                            BorderThickness="{TemplateBinding Border.BorderThickness}"
                                            SnapsToDevicePixels="True">
-                            
+
                         </TextBox>
                         <Label x:Name="InternalWatermarkLabel" 
                                Content="{TemplateBinding Tag}" 
@@ -166,17 +166,23 @@
     </Style>
 
     <!-- ################  End Of Styles ###########################################################-->
-    
+
     <!-- ################  Converters  ###########################################################-->
-    
+
     <app:Bool2VisConverter
                 x:Key="Bool2VisConverter" 
                 True="Visible" 
                 False="Collapsed" />
+    
     <app:Bool2VisConverter
                 x:Key="InvBool2VisConverter"
                 True="Collapsed"
                 False="Visible" />
+    
+    <app:Bool2HiddenConverter
+                x:Key="Bool2HiddenConverter"
+                True="Visible"
+                False="Hidden" />
 
     <app:Int2VisConverter
         x:Key="Int2VisConverter"
