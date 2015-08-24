@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace QueueAndHi.Client.ViewModels
 {
-    public abstract class PostViewModel<T> : INotifyPropertyChanged where T : AbstractPost
+    public abstract class PostViewModel<T> : INotifyPropertyChanged, IDisposable where T : AbstractPost
     {
         protected DiscussionThread discussionThread;
         protected IPostServices postServices;
@@ -22,6 +22,7 @@ namespace QueueAndHi.Client.ViewModels
         protected NavigationManager navigationManager;
         protected T post;
         protected IValidator<UserInfo> rankDownValidator;
+        protected bool isDisposed = false;
 
         public PostViewModel(DiscussionThread discussionThread, IPostServices postServices, IPostQueries postQueries, NavigationManager navigationManager, IUserServices userServices)
         {
@@ -130,54 +131,54 @@ namespace QueueAndHi.Client.ViewModels
         protected virtual void ExecuteRankUp()
         {
             int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
-            
-            //if ranking contains a rank down entry - just remove it. don't add a rank up
+
             if (post.Ranking.Any(x => x.UserID == userId && x.RankingType == RankingType.Down))
             {
                 Post.Ranking.Remove(entry => entry.UserID == userId);
+                OnPropertyChanged("IsRankedDown");
             }
-            else
-            {
-                Post.Ranking.Remove(entry => entry.UserID == userId);
-                Post.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Up));
-            }
-            Post.OnPropertyChanged("Ranking");
+
+            Post.Ranking.Remove(entry => entry.UserID == userId);
+            Post.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Up));
             OnPropertyChanged("IsRankedUp");
-            OnPropertyChanged("IsRankedDown");
+            Post.OnPropertyChanged("Ranking");
         }
 
         protected virtual void ExecuteCancelRankUp()
         {
-            int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
-            Post.Ranking.Remove(entry => entry.UserID == userId && entry.RankingType == RankingType.Up);
-            Post.OnPropertyChanged("Ranking");
-            OnPropertyChanged("IsRankedUp");
+            if (!this.isDisposed)
+            {
+                int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
+                Post.Ranking.Remove(entry => entry.UserID == userId && entry.RankingType == RankingType.Up);
+                Post.OnPropertyChanged("Ranking");
+                OnPropertyChanged("IsRankedUp");
+            }
         }
 
         protected virtual void ExecuteRankDown()
         {
             int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
-            //if ranking contains a rank up entry - just remove it. don't add a rank down
             if (post.Ranking.Any(x => x.UserID == userId && x.RankingType == RankingType.Up))
             {
                 Post.Ranking.Remove(entry => entry.UserID == userId);
+                OnPropertyChanged("IsRankedUp");
             }
-            else
-            {
-                Post.Ranking.Remove(entry => entry.UserID == userId);
-                Post.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Down));
-            }
-            Post.OnPropertyChanged("Ranking");
-            OnPropertyChanged("IsRankedUp");
+
+            Post.Ranking.Remove(entry => entry.UserID == userId);
+            Post.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Down));
             OnPropertyChanged("IsRankedDown");
+            Post.OnPropertyChanged("Ranking");
         }
 
         protected virtual void ExecuteCancelRankDown()
         {
-            int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
-            Post.Ranking.Remove(entry => entry.UserID == userId && entry.RankingType == RankingType.Down);
-            Post.OnPropertyChanged("Ranking");
-            OnPropertyChanged("IsRankedDown");
+            if (!this.isDisposed)
+            {
+                int userId = AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID;
+                Post.Ranking.Remove(entry => entry.UserID == userId && entry.RankingType == RankingType.Down);
+                Post.OnPropertyChanged("Ranking");
+                OnPropertyChanged("IsRankedDown");
+            }
         }
 
         protected abstract void ExecuteDelete();
@@ -194,6 +195,11 @@ namespace QueueAndHi.Client.ViewModels
             {
                 handler(this, new PropertyChangedEventArgs(propName));
             }
+        }
+
+        public virtual void Dispose()
+        {
+            this.isDisposed = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

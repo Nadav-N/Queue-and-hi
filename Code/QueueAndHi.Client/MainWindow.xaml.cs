@@ -43,14 +43,14 @@ namespace QueueAndHi.Client
         {
             object oldVM = MainVM;
             MainVM = e.ViewModelToNavigate;
+            OnPropertyChanged("MainVM");
+
             IDisposable disposableVM = oldVM as IDisposable;
 
             if (disposableVM != null)
             {
                 disposableVM.Dispose();
             }
-
-            OnPropertyChanged("MainVM");
         }
 
         public object MainVM

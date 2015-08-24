@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace QueueAndHi.Client.ViewModels
 {
-    public class QuestionViewModel : PostViewModel<QuestionModel>, IDisposable
+    public class QuestionViewModel : PostViewModel<QuestionModel>
     {
         private DiscussionThreadObserver threadObserver;
         private IValidator<UserInfo> questionRecommendationValidator;
@@ -82,8 +82,11 @@ namespace QueueAndHi.Client.ViewModels
 
         protected override void ExecuteCancelRankUp()
         {
-            this.postServices.CancelQuestionRanking(GetAuthenticatedOperation());
-            base.ExecuteCancelRankUp();
+            if (!this.isDisposed)
+            {
+                this.postServices.CancelQuestionRanking(GetAuthenticatedOperation());
+                base.ExecuteCancelRankUp();
+            }
         }
 
         protected override void ExecuteRankDown()
@@ -94,8 +97,11 @@ namespace QueueAndHi.Client.ViewModels
 
         protected override void ExecuteCancelRankDown()
         {
-            this.postServices.CancelQuestionRanking(GetAuthenticatedOperation());
-            base.ExecuteCancelRankDown();
+            if (!this.isDisposed)
+            {
+                this.postServices.CancelQuestionRanking(GetAuthenticatedOperation());
+                base.ExecuteCancelRankDown();
+            }
         }
 
         protected override void ExecuteDelete()
@@ -111,10 +117,11 @@ namespace QueueAndHi.Client.ViewModels
             this.navigationManager.RequestNavigation(new QuestionListViewModel(this.navigationManager, this.postQueries, this.postServices, this.userServices));
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             this.threadObserver.NewDiscussionThreadVersion -= OnNewDiscussionThreadVersion;
             this.threadObserver.Dispose();
+            base.Dispose();
         }
     }
 }
