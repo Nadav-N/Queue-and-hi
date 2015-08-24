@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace QueueAndHi.Client.ViewModels
 {
@@ -58,10 +59,13 @@ namespace QueueAndHi.Client.ViewModels
 
         private void AddNewNotifications(IEnumerable<Notification> newNotifications)
         {
-            foreach (Notification notification in newNotifications)
+            App.Current.Dispatcher.Invoke(() =>
             {
-                Notifications.Insert(0, notification);
-            }
+                foreach (Notification notification in newNotifications)
+                {
+                    Notifications.Add(notification);
+                }
+            });
         }
 
         public ObservableCollection<Notification> Notifications

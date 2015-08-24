@@ -39,7 +39,9 @@ namespace DAL
                 foreach (notification n in db.notifications.Where(x => x.recipient == userId && x.seen == 0))
                 {
                     notifications.Add(Converter.toExtNotification(n, ui));
+                    n.seen = Convert.ToByte(true);
                 }
+                db.SaveChanges();
             }
             return notifications;
         }
