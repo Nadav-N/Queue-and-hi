@@ -52,6 +52,8 @@ namespace QueueAndHi.BL.Notifications
                     return string.Format("Different answers you posted were ranked up {0} times.", notificationCount);
                 case NotificationType.MarkedAsLecturer:
                     return "You were marked as a Lecturer";
+                case NotificationType.UnmarkedAsLecturer:
+                    return "You're lecturer status has been revoked";
                 case NotificationType.NewAnswer:
                     return string.Format("{0} answers were posted to your questions", notificationCount);
                 case NotificationType.PostWasDeleted:
@@ -64,6 +66,8 @@ namespace QueueAndHi.BL.Notifications
                     return string.Format("Different questions you posted were ranked up {0} times.", notificationCount);
                 case NotificationType.YouWereMuted:
                     return "You were muted by an administrator";
+                case NotificationType.YouWereUnmuted:
+                    return "You were unmuted by an administrator";
                 default:
                     throw new InvalidEnumArgumentException("notificationType", (int)notificationType, typeof(NotificationType));
             }
