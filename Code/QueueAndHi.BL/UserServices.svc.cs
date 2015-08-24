@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using QueueAndHi.BL.Authentication;
 using System;
 using DAL;
+using QueueAndHi.Common.Notifications;
 
 namespace QueueAndHi.BL
 {
@@ -87,7 +88,7 @@ namespace QueueAndHi.BL
             }
             else
             {
-                return null;
+                return new List<UserInfo>();
             }
 
         }
@@ -97,8 +98,18 @@ namespace QueueAndHi.BL
             UserInfo ui = getUserInfo(usersData.Token);
             if (ui.IsAdmin)
             {
-                userOps.SaveUsersData(usersData.Payload);
-                
+                //foreach user changed, pull old date from db, compare them, and send notification of impending change
+                foreach (var newu in usersData.Payload)
+                {
+                    var oldu = userOps.GetUserInfo(newu.ID);
+                    userOps.SaveUserData(newu);
+                    foreach (Notification noti in userChangeMessages(oldu, newu))
+                    {
+                        this.notificationOps.SaveNotification(newu.ID,
+                        noti.Message,
+                        noti.Type);
+                    }
+                }
                 return new OperationResult<IEnumerable<UserInfo>>(usersData.Payload);
             }
             else
@@ -107,6 +118,38 @@ namespace QueueAndHi.BL
             }
         }
 
+        private IEnumerable<Notification> userChangeMessages(UserInfo olduser, UserInfo newuser)
+        {
+            List<Notification> msgs = new List<Notification>();
+            string msg = "";
+            NotificationType type = NotificationType.AnswerMarkedAsRight;
+
+            if (olduser.IsAdmin && !newuser.IsAdmin){
+                msg = "Your Admin privileges have been revoked.";
+                type = NotificationType.UnmarkedAsLecturer;
+                msgs.Add(new Notification() { Message = msg, Type = type });
+            }
+            if (!olduser.IsAdmin && newuser.IsAdmin)
+            {
+                msg = "You have been granted Admin privileges. With great power comes great responsibility.";
+                type = NotificationType.MarkedAsLecturer;
+                msgs.Add(new Notification() { Message = msg, Type = type });
+            }
+            if (olduser.IsMuted && !newuser.IsMuted)
+            {
+                msg = "Your ban has been lifted. You are no longer muted.";
+                type = NotificationType.YouWereUnmuted;
+                msgs.Add(new Notification() { Message = msg, Type = type });
+            }
+            if (!olduser.IsMuted && newuser.IsMuted)
+            {
+                msg = "You have been banned from asking questions or writing answers.";
+                type = NotificationType.YouWereMuted;
+                msgs.Add(new Notification() { Message = msg, Type = type });
+            }
+            
+            return msgs;
+        }
 
         public OperationResult<UserInfo> GetUserInfo(AuthenticationToken authToken)
         {
