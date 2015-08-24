@@ -44,9 +44,10 @@ namespace DAL
                     }
                     db.answers.Remove(answer);
                 }
-                
+
                 //remove tags? nope. tags are remove by the entity framework for us. this is buggy!
-                foreach( var tag in db.tags.Where(x=>x.question_id == questionId)){
+                foreach (var tag in db.tags.Where(x => x.question_id == questionId))
+                {
                     db.tags.Remove(tag);
                 }
                 //remove question
@@ -119,10 +120,10 @@ namespace DAL
             List<Question> questions = new List<Question>();
             using (var db = new qnhdb())
             {
-                
 
-                foreach (question question in db.questions.Where(q => q.title.Contains(searchString) || q.contents.Contains(searchString) 
-                    || db.users.Any(x=> x.id == q.author_id && x.name.Contains(searchString))))
+
+                foreach (question question in db.questions.Where(q => q.title.Contains(searchString) || q.contents.Contains(searchString)
+                    || db.users.Any(x => x.id == q.author_id && x.name.Contains(searchString))))
                 {
                     UserInfo ui = userOps.GetUserInfo(question.author_id);
                     RankingHistory rh = GetQuestionRankingHistory(question.id);
@@ -164,7 +165,7 @@ namespace DAL
                         Converter.toExtQuestion(
                             q,
                             ui,
-                            GetQuestionRankingHistory(q.id), 
+                            GetQuestionRankingHistory(q.id),
                             getTags(q.id)
                             )
                         );
@@ -259,6 +260,8 @@ namespace DAL
             using (var db = new qnhdb())
             {
                 db.question_rankings.Add(new question_rankings { author_id = userId, question_id = questionId, rank = Convert.ToByte(true) });
+                user author = db.users.First(user => user.id == userId);
+                author.ranking++;
                 db.SaveChanges();
             }
         }
@@ -268,6 +271,8 @@ namespace DAL
             using (var db = new qnhdb())
             {
                 db.question_rankings.Add(new question_rankings { author_id = userId, question_id = questionId, rank = Convert.ToByte(false) });
+                user author = db.users.First(user => user.id == userId);
+                author.ranking--;
                 db.SaveChanges();
             }
         }
@@ -277,6 +282,8 @@ namespace DAL
             using (var db = new qnhdb())
             {
                 db.answer_rankings.Add(new answer_rankings { author_id = userId, answer_id = answerId, rank = Convert.ToByte(true) });
+                user author = db.users.First(user => user.id == userId);
+                author.ranking++;
                 db.SaveChanges();
             }
         }
@@ -286,6 +293,8 @@ namespace DAL
             using (var db = new qnhdb())
             {
                 db.answer_rankings.Add(new answer_rankings { author_id = userId, answer_id = answerId, rank = Convert.ToByte(false) });
+                user author = db.users.First(user => user.id == userId);
+                author.ranking--;
                 db.SaveChanges();
             }
         }
@@ -295,6 +304,16 @@ namespace DAL
             using (var db = new qnhdb())
             {
                 question_rankings ranking = db.question_rankings.Single(qr => qr.author_id == userId && qr.question_id == questionId);
+                user author = db.users.First(user => user.id == userId);
+                if (Convert.ToBoolean(ranking.rank))
+                {
+                    author.ranking--;
+                }
+                else
+                {
+                    author.ranking++;
+                }
+
                 db.question_rankings.Remove(ranking);
                 db.SaveChanges();
             }
@@ -304,12 +323,19 @@ namespace DAL
         {
             using (var db = new qnhdb())
             {
-                answer_rankings ranking = db.answer_rankings.SingleOrDefault(ar => ar.author_id == userId && ar.answer_id == answerId);
-                if (ranking != null)
+                answer_rankings ranking = db.answer_rankings.Single(ar => ar.author_id == userId && ar.answer_id == answerId);
+                user author = db.users.First(user => user.id == userId);
+                if (Convert.ToBoolean(ranking.rank))
                 {
-                    db.answer_rankings.Remove(ranking);
-                    db.SaveChanges();
+                    author.ranking--;
                 }
+                else
+                {
+                    author.ranking++;
+                }
+
+                db.answer_rankings.Remove(ranking);
+                db.SaveChanges();
             }
         }
 

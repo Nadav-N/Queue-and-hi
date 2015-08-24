@@ -18,7 +18,6 @@ namespace DAL
             {
                 user tmpUser = Converter.toUser(userInfo, userCredentials);
 
-
                 using (var db = new qnhdb())
                 {
                     db.users.Add(tmpUser);
@@ -122,8 +121,6 @@ namespace DAL
 
         public UserInfo GetUserInfo(int userId)
         {
-            
-
             user tmpUser = new user();
 
             using (var db = new qnhdb())
@@ -137,9 +134,5 @@ namespace DAL
                 
             return tmpUserInfo;
         }
-
-
-
-
     }
 }
