@@ -59,8 +59,16 @@ namespace QueueAndHi.Client.ViewModels
             //check which users have changed by comparing the users from "Users" with the users from "StaleUsers"
             //only save changes to the users that have changed (changed means either admin or muted have changed"
             List<UserAccountModel> changedUsers = Users.Where(x => StaleUsers.Any(y => y.id == x.id && (y.isMuted != x.isMuted || y.IsAdmin != x.IsAdmin))).ToList();
-                                                                       
-            
+
+            UserAccountModel changedLoggedInUserModel = changedUsers.FirstOrDefault(user => user.ID == AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID);
+            if (changedLoggedInUserModel != null)
+            {
+                UserAccountModel unchangedAdmin = StaleUsers.First(user => user.ID == AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID);
+                changedLoggedInUserModel.IsAdmin = unchangedAdmin.IsAdmin;
+                changedLoggedInUserModel.IsMuted = unchangedAdmin.IsMuted;
+                return false;
+            }
+
             AuthenticatedOperation<IEnumerable<UserInfo>> ao = new AuthenticatedOperation<IEnumerable<UserInfo>>(
                 AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token,
                 changedUsers.Select(q => q.ToExternal())
@@ -88,6 +96,7 @@ namespace QueueAndHi.Client.ViewModels
                 return false;
             }
         }
+
         internal void OnPropertyChanged(string propName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
