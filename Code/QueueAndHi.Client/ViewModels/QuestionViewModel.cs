@@ -79,31 +79,31 @@ namespace QueueAndHi.Client.ViewModels
 
         protected override void ExecuteRankUp()
         {
-            this.postServices.VoteUpQuestion(GetAuthenticatedOperation());
             base.ExecuteRankUp();
+            this.postServices.VoteUpQuestion(GetAuthenticatedOperation());
         }
 
         protected override void ExecuteCancelRankUp()
         {
             if (!this.isDisposed)
             {
-                this.postServices.CancelQuestionRanking(GetAuthenticatedOperation());
                 base.ExecuteCancelRankUp();
+                this.postServices.CancelQuestionRanking(GetAuthenticatedOperation());
             }
         }
 
         protected override void ExecuteRankDown()
         {
-            this.postServices.VoteDownQuestion(GetAuthenticatedOperation());
             base.ExecuteRankDown();
+            this.postServices.VoteDownQuestion(GetAuthenticatedOperation());
         }
 
         protected override void ExecuteCancelRankDown()
         {
             if (!this.isDisposed)
             {
-                this.postServices.CancelQuestionRanking(GetAuthenticatedOperation());
                 base.ExecuteCancelRankDown();
+                this.postServices.CancelQuestionRanking(GetAuthenticatedOperation());
             }
         }
 

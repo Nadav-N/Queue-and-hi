@@ -138,7 +138,6 @@ namespace QueueAndHi.Client.ViewModels
                 OnPropertyChanged("IsRankedDown");
             }
 
-            Post.Ranking.Remove(entry => entry.UserID == userId);
             Post.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Up));
             OnPropertyChanged("IsRankedUp");
             Post.OnPropertyChanged("Ranking");
@@ -164,7 +163,6 @@ namespace QueueAndHi.Client.ViewModels
                 OnPropertyChanged("IsRankedUp");
             }
 
-            Post.Ranking.Remove(entry => entry.UserID == userId);
             Post.Ranking.Add(new RankingEntry(AuthenticationTokenSingleton.Instance.AuthenticatedUser.ID, RankingType.Down));
             OnPropertyChanged("IsRankedDown");
             Post.OnPropertyChanged("Ranking");

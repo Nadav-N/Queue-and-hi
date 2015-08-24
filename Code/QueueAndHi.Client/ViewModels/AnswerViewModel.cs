@@ -55,26 +55,26 @@ namespace QueueAndHi.Client.ViewModels
 
         protected override void ExecuteRankUp()
         {
-            this.postServices.VoteUpAnswer(GetAuthenticatedOperation());
             base.ExecuteRankUp();
+            this.postServices.VoteUpAnswer(GetAuthenticatedOperation());
         }
 
         protected override void ExecuteCancelRankUp()
         {
-            this.postServices.CancelAnswerVote(GetAuthenticatedOperation());
             base.ExecuteCancelRankUp();
+            this.postServices.CancelAnswerVote(GetAuthenticatedOperation());
         }
 
         protected override void ExecuteRankDown()
         {
-            this.postServices.VoteDownAnswer(GetAuthenticatedOperation());
             base.ExecuteRankDown();
+            this.postServices.VoteDownAnswer(GetAuthenticatedOperation());
         }
 
         protected override void ExecuteCancelRankDown()
         {
-            this.postServices.CancelAnswerVote(GetAuthenticatedOperation());
             base.ExecuteCancelRankDown();
+            this.postServices.CancelAnswerVote(GetAuthenticatedOperation());
         }
 
         protected override void ExecuteDelete()
