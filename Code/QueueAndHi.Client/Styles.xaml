@@ -178,5 +178,9 @@
                 True="Collapsed"
                 False="Visible" />
 
+    <app:Int2VisConverter
+        x:Key="Int2VisConverter"
+        True="Visible"
+        False="Collapsed" />
     <!-- ################  End Of Converters  ###########################################################-->
 </ResourceDictionary>

@@ -119,7 +119,10 @@ namespace DAL
             List<Question> questions = new List<Question>();
             using (var db = new qnhdb())
             {
-                foreach (question question in db.questions.Where(q => q.title.Contains(searchString) || q.contents.Contains(searchString)))
+                
+
+                foreach (question question in db.questions.Where(q => q.title.Contains(searchString) || q.contents.Contains(searchString) 
+                    || db.users.Any(x=> x.id == q.author_id && x.name.Contains(searchString))))
                 {
                     UserInfo ui = userOps.GetUserInfo(question.author_id);
                     RankingHistory rh = GetQuestionRankingHistory(question.id);

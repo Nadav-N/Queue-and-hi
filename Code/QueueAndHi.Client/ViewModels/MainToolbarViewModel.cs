@@ -71,6 +71,7 @@ namespace QueueAndHi.Client.ViewModels
         {
             string searchText = SearchText;
             SearchText = String.Empty;
+            OnPropertyChanged("SearchText");
             IEnumerable<Question> result = this.postQueries.FreeSearch(searchText);
             QuestionListViewModel questionList = new QuestionListViewModel(this.navigationManager, this.postQueries, this.postServices, result);
             this.navigationManager.RequestNavigation(questionList);

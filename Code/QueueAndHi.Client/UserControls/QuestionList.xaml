@@ -8,8 +8,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="600">
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
+    <StackPanel>
+        <TextBlock HorizontalAlignment="Center" FontSize="18" Visibility="{Binding Questions.Count, Converter={StaticResource Int2VisConverter}}">
+            <Run Text="{Binding Questions.Count, Mode=OneWay}"/>
+            <Run Text="questions were found. Post some :-)"/>
+        </TextBlock>
     <ItemsControl HorizontalContentAlignment="Stretch" ItemsSource="{Binding Questions}">
         <ItemsControl.ItemTemplate>
             <ItemContainerTemplate>
@@ -22,7 +31,7 @@
                             <ColumnDefinition Width="12*"/>
                         </Grid.ColumnDefinitions>
                         <Image Source="..\Resources\star.png" Height="40" Width="40" RenderOptions.BitmapScalingMode="NearestNeighbor"
-       RenderOptions.EdgeMode="Aliased" Visibility="{Binding IsRecommended, Converter={StaticResource BoolToVis}}" />
+       RenderOptions.EdgeMode="Aliased" Visibility="{Binding IsRecommended, Converter={StaticResource Bool2VisConverter}}" />
                         <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
                             <TextBlock TextAlignment="Center" Text="{Binding Ranking}" />
                             <TextBlock TextAlignment="Center">votes</TextBlock>
@@ -52,7 +61,7 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <ItemContainerTemplate>
-                                            <Button Background="AliceBlue" Padding="3" Margin="0,0,8,0">
+                                            <Button Background="AliceBlue" Foreground="Black" Padding="3" Margin="0,0,8,0">
                                                 <TextBlock Text="{Binding}"/>
                                             </Button>
                                         </ItemContainerTemplate>
@@ -66,4 +75,5 @@
             </ItemContainerTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>
+    </StackPanel>
 </UserControl>
