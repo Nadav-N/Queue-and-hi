@@ -35,7 +35,7 @@ namespace QueueAndHi.BL.Notifications
                 Message = aggregatedNotificationMessage,
                 Recipient = filteredNotifications.First().Recipient,
                 Seen = false,
-                // which timestamp should we put here?
+                TimeStamp = filteredNotifications.OrderByDescending(not => not.TimeStamp).First().TimeStamp,
                 Type = notificationType
             };
         }
