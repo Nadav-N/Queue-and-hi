@@ -36,6 +36,7 @@ namespace QueueAndHi.Client.ViewModels
         private void OnUserLogInChanged(object sender, EventArgs e)
         {
             OnPropertyChanged("IsLoggedIn");
+            OnPropertyChanged("LoggedInUser");
         }
 
         public bool IsLoggedIn
