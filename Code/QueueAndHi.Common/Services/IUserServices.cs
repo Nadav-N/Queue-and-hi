@@ -14,8 +14,6 @@ namespace QueueAndHi.Common.Services
         [OperationContract]
         OperationResult AddNewUser(UserInfo newUser, UserCredentials userCredentials);
 
-        // TODO: We need to change the return type of this method so that
-        // it will return something similar to "Authentication token"
         [OperationContract]
         OperationResult<AuthenticatedIdentity> LogIn(UserCredentials userCredentials);
 
