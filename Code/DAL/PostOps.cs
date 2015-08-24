@@ -139,7 +139,7 @@ namespace DAL
             List<Question> questions = new List<Question>();
             using (var db = new qnhdb())
             {
-                foreach (tag intTag in db.tags.Where(t => String.Equals(t.tag1, tag, StringComparison.InvariantCultureIgnoreCase)))
+                foreach (tag intTag in db.tags.Where(t => t.tag1 == tag))
                 {
                     questions.Add(GetQuestionById(intTag.question_id));
                 }

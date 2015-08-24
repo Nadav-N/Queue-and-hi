@@ -33,6 +33,7 @@ namespace QueueAndHi.Client.ViewModels
             this.navigationManager = navigationManager;
             Questions = new ObservableCollection<QuestionInfo>(questions.Select(q => new QuestionInfo(q)));
             NavigateToQuestion = new DelegateCommand(questionInfo => ExecuteNavigateToQuestion(questionInfo));
+            DoTagSearch = new DelegateCommand(ExecuteTagSearch);
         }
 
         /// <summary>
@@ -55,6 +56,13 @@ namespace QueueAndHi.Client.ViewModels
         }
 
         public ICommand NavigateToQuestion { get; set; }
+        public ICommand DoTagSearch { get; set; }
+        
+        private void ExecuteTagSearch(object tag)
+        {
+            //search for the questions and load the question results page
+            navigationManager.RequestNavigation(new QuestionListViewModel(navigationManager, postQueries, postServices, postQueries.TagsSearch(tag.ToString())));
+        }
 
         public ObservableCollection<QuestionInfo> Questions
         {

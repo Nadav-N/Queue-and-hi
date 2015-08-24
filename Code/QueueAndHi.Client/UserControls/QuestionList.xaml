@@ -47,8 +47,7 @@
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" VerticalAlignment="Center" Margin="20,0,0,0">
                 <Hyperlink FontSize="18" TextDecorations="{x:Null}" Command="{Binding DataContext.NavigateToQuestion, 
-         RelativeSource={RelativeSource FindAncestor, 
-                         AncestorType={x:Type local:QuestionList}}}" CommandParameter="{Binding}">
+                    RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:QuestionList}}}" CommandParameter="{Binding}">
                     <TextBlock Text="{Binding Title}" />
                 </Hyperlink>
                             </TextBlock>
@@ -61,7 +60,8 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <ItemContainerTemplate>
-                                            <Button Background="AliceBlue" Foreground="Black" Padding="3" Margin="0,0,8,0">
+                                                <Button Background="AliceBlue" Cursor="Hand" Foreground="Black" Padding="3" Margin="0,0,8,0" Style="{DynamicResource NoMouseOverButton}"
+                                                    Command="{Binding DataContext.DoTagSearch, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:QuestionList}}}" CommandParameter="{Binding}">
                                                 <TextBlock Text="{Binding}"/>
                                             </Button>
                                         </ItemContainerTemplate>

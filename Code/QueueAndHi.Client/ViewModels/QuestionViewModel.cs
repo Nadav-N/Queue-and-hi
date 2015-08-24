@@ -26,6 +26,7 @@ namespace QueueAndHi.Client.ViewModels
             RecommendQuestion = new DelegateCommand(s => ExecuteRecommendQuestion());
             UnrecommendQuestion = new DelegateCommand(s => ExecuteUnrecommendQuestion());
             AddAnswer = new DelegateCommand(s => ExecuteAddAnswer(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn && !AuthenticationTokenSingleton.Instance.AuthenticatedUser.IsMuted);
+            DoTagSearch = new DelegateCommand(ExecuteTagSearch);
             this.questionRecommendationValidator = new RecommendQuestionValidator();
         }
 
@@ -71,11 +72,20 @@ namespace QueueAndHi.Client.ViewModels
             }
         }
 
+
+        private void ExecuteTagSearch(object tag)
+        {
+            //search for the questions and load the question results page
+            navigationManager.RequestNavigation(new QuestionListViewModel(navigationManager, postQueries, postServices, postQueries.TagsSearch(tag.ToString())));
+        }
+
         public ICommand RecommendQuestion { get; set; }
 
         public ICommand UnrecommendQuestion { get; set; }
 
         public ICommand AddAnswer { get; set; }
+
+        public ICommand DoTagSearch { get; set; }
 
         protected override void ExecuteRankUp()
         {

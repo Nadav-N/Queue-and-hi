@@ -91,7 +91,9 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <ItemContainerTemplate>
-                        <Button Background="AliceBlue" Padding="3" Margin="0,0,8,0" Content="{Binding}" Style="{DynamicResource NoMouseOverButton}"/>
+                        <Button Background="AliceBlue" Cursor="Hand" Padding="3" Margin="0,0,8,0" Content="{Binding}" Style="{DynamicResource NoMouseOverButton}"
+                                Command="{Binding DataContext.DoTagSearch, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                CommandParameter="{Binding}" />
                     </ItemContainerTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
