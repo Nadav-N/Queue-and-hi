@@ -259,8 +259,12 @@ namespace DAL
         {
             using (var db = new qnhdb())
             {
+                var oldrankings = db.question_rankings.SingleOrDefault(x => x.author_id == userId && x.question_id == questionId);
+                if(oldrankings != null)
+                    db.question_rankings.Remove(oldrankings);
                 db.question_rankings.Add(new question_rankings { author_id = userId, question_id = questionId, rank = Convert.ToByte(true) });
-                user author = db.users.First(user => user.id == userId);
+                question ranked_question = db.questions.Single(x => x.id == questionId);
+                user author = db.users.First(user => user.id == ranked_question.author_id);
                 author.ranking++;
                 db.SaveChanges();
             }
@@ -270,8 +274,12 @@ namespace DAL
         {
             using (var db = new qnhdb())
             {
+                var oldrankings = db.question_rankings.SingleOrDefault(x => x.author_id == userId && x.question_id == questionId);
+                if (oldrankings != null)
+                    db.question_rankings.Remove(oldrankings); 
                 db.question_rankings.Add(new question_rankings { author_id = userId, question_id = questionId, rank = Convert.ToByte(false) });
-                user author = db.users.First(user => user.id == userId);
+                question ranked_question = db.questions.Single(x => x.id == questionId);
+                user author = db.users.First(user => user.id == ranked_question.author_id);
                 author.ranking--;
                 db.SaveChanges();
             }
@@ -281,8 +289,12 @@ namespace DAL
         {
             using (var db = new qnhdb())
             {
+                var oldrankings = db.answer_rankings.SingleOrDefault(x => x.author_id == userId && x.answer_id== answerId);
+                if (oldrankings != null)
+                    db.answer_rankings.Remove(oldrankings); 
                 db.answer_rankings.Add(new answer_rankings { author_id = userId, answer_id = answerId, rank = Convert.ToByte(true) });
-                user author = db.users.First(user => user.id == userId);
+                answer ranked_answer = db.answers.Single(x => x.id == answerId);
+                user author = db.users.First(user => user.id == ranked_answer.author_id);
                 author.ranking++;
                 db.SaveChanges();
             }
@@ -292,8 +304,12 @@ namespace DAL
         {
             using (var db = new qnhdb())
             {
+                var oldrankings = db.answer_rankings.SingleOrDefault(x => x.author_id == userId && x.answer_id == answerId);
+                if (oldrankings != null)
+                    db.answer_rankings.Remove(oldrankings); 
                 db.answer_rankings.Add(new answer_rankings { author_id = userId, answer_id = answerId, rank = Convert.ToByte(false) });
-                user author = db.users.First(user => user.id == userId);
+                answer ranked_answer = db.answers.Single(x => x.id == answerId);
+                user author = db.users.First(user => user.id == ranked_answer.author_id);
                 author.ranking--;
                 db.SaveChanges();
             }
@@ -304,7 +320,8 @@ namespace DAL
             using (var db = new qnhdb())
             {
                 question_rankings ranking = db.question_rankings.Single(qr => qr.author_id == userId && qr.question_id == questionId);
-                user author = db.users.First(user => user.id == userId);
+                question ranked_question = db.questions.Single(x => x.id == questionId);
+                user author = db.users.First(user => user.id == ranked_question.author_id);
                 if (Convert.ToBoolean(ranking.rank))
                 {
                     author.ranking--;
@@ -324,7 +341,8 @@ namespace DAL
             using (var db = new qnhdb())
             {
                 answer_rankings ranking = db.answer_rankings.Single(ar => ar.author_id == userId && ar.answer_id == answerId);
-                user author = db.users.First(user => user.id == userId);
+                answer ranked_answer = db.answers.Single(x => x.id == answerId);
+                user author = db.users.First(user => user.id == ranked_answer.author_id);
                 if (Convert.ToBoolean(ranking.rank))
                 {
                     author.ranking--;
