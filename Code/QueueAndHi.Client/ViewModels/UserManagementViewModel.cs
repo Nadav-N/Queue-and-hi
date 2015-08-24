@@ -60,7 +60,7 @@ namespace QueueAndHi.Client.ViewModels
             //only save changes to the users that have changed (changed means either admin or muted have changed"
             List<UserAccountModel> changedUsers = Users.Where(x => StaleUsers.Any(y => y.id == x.id && (y.isMuted != x.isMuted || y.IsAdmin != x.IsAdmin))).ToList();
                                                                        
-            //TODO - send notifications to the users that have changed.
+            
             AuthenticatedOperation<IEnumerable<UserInfo>> ao = new AuthenticatedOperation<IEnumerable<UserInfo>>(
                 AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token,
                 changedUsers.Select(q => q.ToExternal())
@@ -76,11 +76,15 @@ namespace QueueAndHi.Client.ViewModels
             }
             else
             {
+                ApplyResult = ""; //clear it from previous messages
                 foreach (string s in or.ErrorMessages)
                 {
                     ApplyResult += s + "\n";
                 }
                 OnPropertyChanged("ApplyResult");
+                //reset the users to what they were before 
+                Users = new ObservableCollection<UserAccountModel>(StaleUsers);
+                OnPropertyChanged("Users");
                 return false;
             }
         }
