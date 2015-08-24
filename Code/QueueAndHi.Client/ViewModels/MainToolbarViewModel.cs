@@ -46,6 +46,20 @@ namespace QueueAndHi.Client.ViewModels
             }
         }
 
+        public string LoggedInUser
+        {
+            get
+            {
+                if (AuthenticationTokenSingleton.Instance.IsLoggedIn)
+                {
+                    return AuthenticationTokenSingleton.Instance.AuthenticatedUser.Username;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
         public void ExecuteLogout()
         {
             AuthenticationTokenSingleton.Instance.LogOut();
