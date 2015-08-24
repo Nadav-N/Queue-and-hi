@@ -17,6 +17,8 @@ namespace QueueAndHi.Common.Notifications
         QuestionMarkedAsRecommended,
         PostWasDeleted,
         YouWereMuted,
-        MarkedAsLecturer
+        YouWereUnmuted,
+        MarkedAsLecturer,
+        UnmarkedAsLecturer
     }
 }
