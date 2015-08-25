@@ -43,7 +43,7 @@ namespace DAL
                 }
                 db.SaveChanges();
             }
-            return notifications;
+            return notifications.OrderByDescending(x=>x.TimeStamp);
         }
     }
 }

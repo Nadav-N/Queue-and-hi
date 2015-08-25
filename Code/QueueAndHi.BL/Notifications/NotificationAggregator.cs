@@ -24,7 +24,7 @@ namespace QueueAndHi.BL.Notifications
                 }
             }
 
-            return aggregatedNotifications;
+            return aggregatedNotifications.OrderByDescending(x=>x.TimeStamp);
         }
 
         private Notification MergeSameTypeNotifications(NotificationType notificationType, IEnumerable<Notification> filteredNotifications)
