@@ -60,6 +60,8 @@ namespace QueueAndHi.BL.Notifications
                     return string.Format("{0} of your posts were deleted", notificationCount);
                 case NotificationType.QuestionMarkedAsRecommended:
                     return string.Format("{0} questions you posted were marked as recommended", notificationCount);
+                case NotificationType.QuestionMarkedAsUnrecommended:
+                    return string.Format("{0} questions you posted were marked as unrecommended", notificationCount);
                 case NotificationType.QuestionRankedDown:
                     return string.Format("Different questions you posted were ranked down {0} times.", notificationCount);
                 case NotificationType.QuestionRankedUp:

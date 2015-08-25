@@ -15,6 +15,7 @@ namespace QueueAndHi.Common.Notifications
         AnswerRankedDown,
         AnswerMarkedAsRight,
         QuestionMarkedAsRecommended,
+        QuestionMarkedAsUnrecommended,
         PostWasDeleted,
         YouWereMuted,
         YouWereUnmuted,

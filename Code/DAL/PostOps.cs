@@ -31,6 +31,10 @@ namespace DAL
                 //remove rankings
                 foreach (var ranking in db.question_rankings.Where(r => r.question_id == questionId))
                 {
+                    //change user's rank based on ranking of question
+                    var que = db.questions.Where(x => x.id == ranking.question_id).Single();
+                    user rankee = db.users.Single(x => x.id == que.author_id);
+                    rankee.ranking = rankee.ranking + (ranking.rank == 0 ? 1 : -1);
                     db.question_rankings.Remove(ranking);
                 }
 
@@ -40,6 +44,10 @@ namespace DAL
                 {
                     foreach (var ranking in db.answer_rankings.Where(x => x.answer_id == answer.id))
                     {
+                        //change user's rank based on ranking of answer
+                        var ans = db.answers.Where(x => x.id == ranking.answer_id).Single();
+                        user rankee = db.users.Single(x => x.id == ans.author_id);
+                        rankee.ranking = rankee.ranking + (ranking.rank == 0 ? 1 : -1);
                         db.answer_rankings.Remove(ranking);
                     }
                     db.answers.Remove(answer);
@@ -76,6 +84,10 @@ namespace DAL
             {
                 foreach (var ranking in db.answer_rankings.Where(r => r.answer_id == answerId))
                 {
+                    //get the question id
+                    var ans = db.answers.Where(x => x.id == ranking.answer_id).Single();
+                    user rankee = db.users.Single(x => x.id == ans.author_id);
+                    rankee.ranking = rankee.ranking + (ranking.rank == 0 ? 1 : -1);
                     db.answer_rankings.Remove(ranking);
                 }
 

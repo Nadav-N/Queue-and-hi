@@ -153,6 +153,11 @@ namespace QueueAndHi.BL
 
             this.postOps.UnrecommendQuestion(questionId.Payload);
             this.postOps.IncrementVersion(questionId.Payload);
+
+            Question question = this.postOps.GetQuestionById(questionId.Payload);
+            this.notificationOps.SaveNotification(question.Author.ID,
+                string.Format("Your question \"{0}\" has been marked as unrecommeneded.", question.Title),
+                NotificationType.QuestionMarkedAsUnrecommended);
         }
 
         public void VoteUpQuestion(AuthenticatedOperation<int> questionId)
