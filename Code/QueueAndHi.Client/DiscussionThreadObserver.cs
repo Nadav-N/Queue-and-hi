@@ -46,7 +46,7 @@ namespace QueueAndHi.Client
             {
                 if (NewDiscussionThreadVersion != null)
                 {
-                    //NewDiscussionThreadVersion(this, new NewDiscussionThreadVersionEventArgs(newDiscussionThread));
+                    NewDiscussionThreadVersion(this, new NewDiscussionThreadVersionEventArgs(newDiscussionThread));
                 }
             }
 
