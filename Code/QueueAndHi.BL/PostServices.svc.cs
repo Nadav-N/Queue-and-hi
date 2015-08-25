@@ -290,6 +290,7 @@ namespace QueueAndHi.BL
             if (relatedQuestion.RightAnswerId.HasValue)
             {
                 this.postOps.UnmarkAsRightAnswer(relatedQuestion.RightAnswerId.Value);
+                this.postOps.IncrementVersion(answer.RelatedQuestionId);
             }
 
             this.postOps.MarkAsRightAnswer(answerId.Payload);

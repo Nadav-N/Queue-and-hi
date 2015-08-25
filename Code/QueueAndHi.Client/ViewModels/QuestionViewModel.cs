@@ -19,7 +19,7 @@ namespace QueueAndHi.Client.ViewModels
             : base(discussionThread, postServices, postQueries, navigationManager, userServices)
         {
             Post = new QuestionModel(discussionThread);
-            Answers = new ObservableCollection<AnswerViewModel>(discussionThread.Answers.Select(answer => new AnswerViewModel(discussionThread, answer, postServices, postQueries, navigationManager, userServices)));
+            Answers = new ObservableCollection<AnswerViewModel>(discussionThread.Answers.Select(answer => new AnswerViewModel(discussionThread, answer, this, postServices, postQueries, navigationManager, userServices)));
             this.threadObserver = new DiscussionThreadObserver(postQueries);
             this.threadObserver.StartObservingDiscussionThread(discussionThread.Question.ID);
             this.threadObserver.NewDiscussionThreadVersion += OnNewDiscussionThreadVersion;
@@ -49,7 +49,7 @@ namespace QueueAndHi.Client.ViewModels
         {
             this.discussionThread = e.NewDiscussionThread;
             Post = new QuestionModel(e.NewDiscussionThread);
-            Answers = new ObservableCollection<AnswerViewModel>(discussionThread.Answers.Select(answer => new AnswerViewModel(discussionThread, answer, this.postServices, this.postQueries, this.navigationManager, this.userServices)));
+            Answers = new ObservableCollection<AnswerViewModel>(discussionThread.Answers.Select(answer => new AnswerViewModel(discussionThread, answer, this, this.postServices, this.postQueries, this.navigationManager, this.userServices)));
             OnPropertyChanged("Post");
             OnPropertyChanged("Answers");
         }
