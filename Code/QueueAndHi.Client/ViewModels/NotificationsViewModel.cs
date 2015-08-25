@@ -61,9 +61,9 @@ namespace QueueAndHi.Client.ViewModels
         {
             App.Current.Dispatcher.Invoke(() =>
             {
-                foreach (Notification notification in newNotifications)
+                foreach (Notification notification in newNotifications.OrderBy(x=>x.TimeStamp))
                 {
-                    Notifications.Add(notification);
+                    Notifications.Insert(0, notification);
                 }
             });
         }
