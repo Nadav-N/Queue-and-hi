@@ -17,8 +17,8 @@ namespace QueueAndHi.Client.ViewModels
         {
             this.questionVM = qVM;
             Post = new AnswerModel(discussionThread.Question, currentAnswer);
-            MarkAsRight = new DelegateCommand(s => ExecuteMarkAsRight());
-            UnmarkAsRight = new DelegateCommand(s => ExecuteUnmarkAsRight());
+            MarkAsRight = new DelegateCommand(s => ExecuteMarkAsRight(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn);
+            UnmarkAsRight = new DelegateCommand(s => ExecuteUnmarkAsRight(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn);
         }
 
         public AnswerModel Answer

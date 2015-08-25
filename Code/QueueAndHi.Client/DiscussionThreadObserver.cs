@@ -13,6 +13,7 @@ namespace QueueAndHi.Client
     public class DiscussionThreadObserver : IDisposable
     {
         private IPostQueries postQueries;
+        private bool isDisposed = false;
         private Timer timer;
         private DiscussionThread latestDiscussionThread;
         private const int timerInterval = 5000;
@@ -49,12 +50,14 @@ namespace QueueAndHi.Client
                     NewDiscussionThreadVersion(this, new NewDiscussionThreadVersionEventArgs(newDiscussionThread));
                 }
             }
-
-            this.timer.Change(timerInterval, Timeout.Infinite);
+            
+            if(!this.isDisposed)
+                this.timer.Change(timerInterval, Timeout.Infinite);
         }
 
         public void Dispose()
         {
+            this.isDisposed = true;
             this.timer.Dispose();
         }
     }

@@ -23,8 +23,8 @@ namespace QueueAndHi.Client.ViewModels
             this.threadObserver = new DiscussionThreadObserver(postQueries);
             this.threadObserver.StartObservingDiscussionThread(discussionThread.Question.ID);
             this.threadObserver.NewDiscussionThreadVersion += OnNewDiscussionThreadVersion;
-            RecommendQuestion = new DelegateCommand(s => ExecuteRecommendQuestion());
-            UnrecommendQuestion = new DelegateCommand(s => ExecuteUnrecommendQuestion());
+            RecommendQuestion = new DelegateCommand(s => ExecuteRecommendQuestion(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn);
+            UnrecommendQuestion = new DelegateCommand(s => ExecuteUnrecommendQuestion(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn);
             AddAnswer = new DelegateCommand(s => ExecuteAddAnswer(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn && !AuthenticationTokenSingleton.Instance.AuthenticatedUser.IsMuted);
             DoTagSearch = new DelegateCommand(ExecuteTagSearch);
             this.questionRecommendationValidator = new RecommendQuestionValidator();
@@ -47,11 +47,7 @@ namespace QueueAndHi.Client.ViewModels
        
         private void OnNewDiscussionThreadVersion(object sender, NewDiscussionThreadVersionEventArgs e)
         {
-            this.discussionThread = e.NewDiscussionThread;
-            Post = new QuestionModel(e.NewDiscussionThread);
-            Answers = new ObservableCollection<AnswerViewModel>(discussionThread.Answers.Select(answer => new AnswerViewModel(discussionThread, answer, this, this.postServices, this.postQueries, this.navigationManager, this.userServices)));
-            OnPropertyChanged("Post");
-            OnPropertyChanged("Answers");
+            this.navigationManager.RequestNavigation(new QuestionViewModel(e.NewDiscussionThread, this.postServices, this.navigationManager, this.postQueries, this.userServices));
         }
 
         private void ExecuteAddAnswer()

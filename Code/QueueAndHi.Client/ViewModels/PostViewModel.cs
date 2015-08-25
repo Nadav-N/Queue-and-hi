@@ -31,10 +31,10 @@ namespace QueueAndHi.Client.ViewModels
             this.postQueries = postQueries;
             this.userServices = userServices;
             this.navigationManager = navigationManager;
-            RankUp = new DelegateCommand(s => ExecuteRankUp());
-            CancelRankUp = new DelegateCommand(s => ExecuteCancelRankUp());
-            RankDown = new DelegateCommand(s => ExecuteRankDown());
-            CancelRankDown = new DelegateCommand(s => ExecuteCancelRankDown());
+            RankUp = new DelegateCommand(s => ExecuteRankUp(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn);
+            CancelRankUp = new DelegateCommand(s => ExecuteCancelRankUp(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn);
+            RankDown = new DelegateCommand(s => ExecuteRankDown(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn);
+            CancelRankDown = new DelegateCommand(s => ExecuteCancelRankDown(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn);
             Delete = new DelegateCommand(s => ExecuteDelete(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn && !AuthenticationTokenSingleton.Instance.AuthenticatedUser.IsMuted);
             this.rankDownValidator = new RankDownValidator();
         }
