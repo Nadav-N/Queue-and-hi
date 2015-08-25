@@ -49,7 +49,9 @@ namespace QueueAndHi.Client.ViewModels
         {
             this.discussionThread = e.NewDiscussionThread;
             Post = new QuestionModel(e.NewDiscussionThread);
+            Answers = new ObservableCollection<AnswerViewModel>(discussionThread.Answers.Select(answer => new AnswerViewModel(discussionThread, answer, this.postServices, this.postQueries, this.navigationManager, this.userServices)));
             OnPropertyChanged("Post");
+            OnPropertyChanged("Answers");
         }
 
         private void ExecuteAddAnswer()

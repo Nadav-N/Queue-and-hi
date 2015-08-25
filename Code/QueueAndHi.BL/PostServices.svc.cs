@@ -287,6 +287,10 @@ namespace QueueAndHi.BL
             {
                 throw new InvalidOperationException("Only the question owner or an admin can mark an answer as right.");
             }
+            if (relatedQuestion.RightAnswerId.HasValue)
+            {
+                this.postOps.UnmarkAsRightAnswer(relatedQuestion.RightAnswerId.Value);
+            }
 
             this.postOps.MarkAsRightAnswer(answerId.Payload);
             this.postOps.IncrementVersion(answer.RelatedQuestionId);
