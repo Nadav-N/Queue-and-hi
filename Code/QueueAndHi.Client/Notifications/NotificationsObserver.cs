@@ -15,7 +15,7 @@ namespace QueueAndHi.Client.Notifications
     {
         private INotificationService notificationService;
         private Timer timer;
-        private const int timerDueTime = 20000;
+        private const int timerDueTime = 5000;
 
         public NotificationsObserver(INotificationService notificationService)
         {

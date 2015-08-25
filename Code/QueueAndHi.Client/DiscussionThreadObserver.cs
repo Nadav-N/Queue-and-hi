@@ -15,7 +15,7 @@ namespace QueueAndHi.Client
         private IPostQueries postQueries;
         private Timer timer;
         private DiscussionThread latestDiscussionThread;
-        private const int timerInterval = 20000;
+        private const int timerInterval = 5000;
 
         //subscribing to the event is the attach method.
         //unsubscribing from it is the detach method.

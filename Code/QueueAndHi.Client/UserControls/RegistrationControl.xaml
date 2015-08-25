@@ -10,7 +10,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
+    <Grid HorizontalAlignment="Left">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="15"/>
             <ColumnDefinition Width="*"/>

@@ -90,8 +90,13 @@ namespace DAL
                     rankee.ranking = rankee.ranking + (ranking.rank == 0 ? 1 : -1);
                     db.answer_rankings.Remove(ranking);
                 }
-
                 answer answer = db.answers.Single(a => a.id == answerId);
+                question relatedQuestion = db.questions.First(q => q.id == answer.question_id);
+                if (relatedQuestion.right_answer_id == answerId)
+                {
+                    UnmarkAsRightAnswer(answerId);
+                }
+
                 db.answers.Remove(answer);
                 db.SaveChanges();
             }

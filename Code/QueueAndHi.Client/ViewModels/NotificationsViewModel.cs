@@ -63,7 +63,7 @@ namespace QueueAndHi.Client.ViewModels
             {
                 foreach (Notification notification in newNotifications.OrderBy(x=>x.TimeStamp))
                 {
-                    Notifications.Insert(0, notification);
+                    Notifications.Add(notification);
                 }
             });
         }
