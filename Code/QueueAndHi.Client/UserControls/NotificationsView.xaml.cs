@@ -23,6 +23,12 @@ namespace QueueAndHi.Client
         public NotificationsView()
         {
             InitializeComponent();
+            itemsControl.DataContextChanged += ItemsControl_DataContextChanged;
+        }
+
+        private void ItemsControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            scrollViewer.ScrollToBottom();
         }
     }
 }

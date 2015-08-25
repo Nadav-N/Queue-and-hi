@@ -18,7 +18,7 @@
         <Grid Grid.Row="2" Margin="20,40,20,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <ContentControl Margin="0,0,10,0" Grid.Column="0" Content="{Binding NotificationsVM, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
             <ScrollViewer Margin="10,0,0,0" Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
