@@ -52,7 +52,7 @@ namespace DAL
         internal static question toQuestion(Question question)
         {
             HashSet<tag> toTags = new HashSet<tag>();
-            foreach (var tag in question.Tags)
+            foreach (var tag in question.Tags.Distinct())
             {
                 toTags.Add(new DAL.tag() { tag1 = tag, question_id = question.ID });
             }

@@ -15,6 +15,8 @@ namespace QueueAndHi.Client.Notifications
     {
         private INotificationService notificationService;
         private Timer timer;
+        private bool isDisposed = false;
+        private object timerLockObject = new object();
         private const int timerDueTime = 5000;
 
         public NotificationsObserver(INotificationService notificationService)
@@ -36,7 +38,16 @@ namespace QueueAndHi.Client.Notifications
                 }
             }
 
-            this.timer.Change(timerDueTime, Timeout.Infinite);
+            if (!this.isDisposed)
+            {
+                lock (this.timerLockObject)
+                {
+                    if (!this.isDisposed)
+                    {
+                        this.timer.Change(timerDueTime, Timeout.Infinite);
+                    }
+                }
+            }
         }
 
         private void OnNewNotifications(IEnumerable<Notification> newNotifications)
@@ -51,7 +62,12 @@ namespace QueueAndHi.Client.Notifications
 
         public void Dispose()
         {
-            this.timer.Dispose();
+            lock (this.timerLockObject)
+            {
+                this.timer.Change(Timeout.Infinite, Timeout.Infinite);
+                this.timer.Dispose();
+                this.isDisposed = true;
+            }
         }
     }
 }
