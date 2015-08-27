@@ -35,8 +35,8 @@
     <Style TargetType="Button" x:Key="toolbarButton">
         <Setter Property="Background" Value="Black"/>
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-
+        <Setter Property="Width" Value="80" />
+        <Setter Property="FontSize" Value="15" />
     </Style>
 
     <Style TargetType="Run" x:Key="bolder">

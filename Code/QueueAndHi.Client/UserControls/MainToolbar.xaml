@@ -13,8 +13,8 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel Orientation="Horizontal" x:Name="mainMenu" Background="Black" Height="32" TextBlock.Foreground="White">
-        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="80,0,0,0" FontSize="18">
+    <StackPanel Orientation="Horizontal" x:Name="mainMenu" Background="Black" Height="46" TextBlock.Foreground="White">
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="80,0,0,0" FontSize="24">
             <TextBlock.Effect>
                 <DropShadowEffect/>
             </TextBlock.Effect>
@@ -24,13 +24,13 @@
         </TextBlock>
         <Button Margin="680,0,0,0" Padding="5,5,5,5" Foreground="White" Background="Transparent" Style="{StaticResource toolbarButton}"  Command="{Binding DoRegister}" Visibility="{Binding IsLoggedIn, Converter={StaticResource InvBool2VisConverter}}">sign up</Button>
         <Button Foreground="White" Padding="5,5,5,5" Background="Transparent" Style="{StaticResource toolbarButton}" Command="{Binding DoLogin}" Visibility="{Binding IsLoggedIn, Converter={StaticResource InvBool2VisConverter}}">log in</Button>
-        <Button Margin="680,0,0,0" Foreground="White" Padding="5,5,5,5" Background="Transparent" Style="{StaticResource toolbarButton}" Command="{Binding DoLogout}" Visibility="{Binding IsLoggedIn, Converter={StaticResource Bool2VisConverter}}">
+        <Button Margin="680,0,0,0" Foreground="White" Padding="20,5,20,5" Background="Transparent" Width="Auto" Style="{StaticResource toolbarButton}" Command="{Binding DoLogout}" Visibility="{Binding IsLoggedIn, Converter={StaticResource Bool2VisConverter}}">
             <TextBlock>
                 <Run Text="logout"/>
                 <Run Text="{Binding LoggedInUser, Mode=OneWay}"/>
             </TextBlock>
         </Button>
-        <TextBox HorizontalAlignment="Stretch" Style="{StaticResource hintTextBox}" Margin="50,0,30,0" Width="180" Height="22" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <TextBox HorizontalAlignment="Stretch" Style="{StaticResource hintTextBox}" Margin="100,0,30,0" FontSize="15" Width="280" Height="22" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <TextBox.InputBindings>
                 <KeyBinding Command="{Binding DoSearch}" Key="Return" />
             </TextBox.InputBindings>

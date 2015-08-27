@@ -18,8 +18,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Column="0">
-            <Image Height="90" Width="160" Source="..\Resources\virtual-queue.png"/>
-            <TextBlock FontSize="20" VerticalAlignment="Center" FontWeight="Bold" Margin="40,0,40,0">
+            <Image Height="120" Width="180" Margin="40,0,0,0" Source="..\Resources\virtual-queue.png"/>
+            <TextBlock FontSize="40" VerticalAlignment="Center" FontWeight="Bold" Margin="80,0,40,0">
                 <TextBlock.Effect>
                     <DropShadowEffect ShadowDepth="1"/>
                 </TextBlock.Effect>
@@ -37,10 +37,10 @@
                 </Style>
             </StackPanel.Resources>
             
-            <Button Command="{Binding NavigateHome}">Home</Button>
-            <Button Command="{Binding NavigateMyQuestions}" Visibility="{Binding IsLoggedIn, Converter={StaticResource Bool2VisConverter}}">My Questions</Button>
-            <Button Command="{Binding NavigateNewQuestion}" Visibility="{Binding IsMuted, Converter={StaticResource InvBool2VisConverter}}">New Question</Button>
-            <Button Command="{Binding NavigateUserManagement}" Visibility="{Binding IsUserAdmin, Converter={StaticResource Bool2VisConverter}}">User Management</Button>
+            <Button Command="{Binding NavigateHome}" FontSize="13" Width="100">Home</Button>
+            <Button Command="{Binding NavigateMyQuestions}" FontSize="13" Width="100" Visibility="{Binding IsLoggedIn, Converter={StaticResource Bool2VisConverter}}">My Questions</Button>
+            <Button Command="{Binding NavigateNewQuestion}" FontSize="13" Width="100" Visibility="{Binding IsMuted, Converter={StaticResource InvBool2VisConverter}}">New Question</Button>
+            <Button Command="{Binding NavigateUserManagement}" FontSize="14" Width="130" Visibility="{Binding IsUserAdmin, Converter={StaticResource Bool2VisConverter}}">User Management</Button>
         </StackPanel>
         
     </Grid>
