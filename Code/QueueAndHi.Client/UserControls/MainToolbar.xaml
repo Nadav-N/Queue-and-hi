@@ -22,9 +22,9 @@
                 Queue &amp; Hi
             </TextBlock.Text>
         </TextBlock>
-        <Button Margin="680,0,0,0" Padding="5,5,5,5" Foreground="White" Background="Transparent" Style="{StaticResource toolbarButton}"  Command="{Binding DoRegister}" Visibility="{Binding IsLoggedIn, Converter={StaticResource InvBool2VisConverter}}">sign up</Button>
+        <Button Margin="400,0,0,0" Padding="5,5,5,5" Foreground="White" Background="Transparent" Style="{StaticResource toolbarButton}"  Command="{Binding DoRegister}" Visibility="{Binding IsLoggedIn, Converter={StaticResource InvBool2VisConverter}}">sign up</Button>
         <Button Foreground="White" Padding="5,5,5,5" Background="Transparent" Style="{StaticResource toolbarButton}" Command="{Binding DoLogin}" Visibility="{Binding IsLoggedIn, Converter={StaticResource InvBool2VisConverter}}">log in</Button>
-        <Button Margin="680,0,0,0" Foreground="White" Padding="20,5,20,5" Background="Transparent" Width="Auto" Style="{StaticResource toolbarButton}" Command="{Binding DoLogout}" Visibility="{Binding IsLoggedIn, Converter={StaticResource Bool2VisConverter}}">
+        <Button Margin="400,0,0,0" Foreground="White" Padding="20,5,20,5" Background="Transparent" Width="Auto" Style="{StaticResource toolbarButton}" Command="{Binding DoLogout}" Visibility="{Binding IsLoggedIn, Converter={StaticResource Bool2VisConverter}}">
             <TextBlock>
                 <Run Text="logout"/>
                 <Run Text="{Binding LoggedInUser, Mode=OneWay}"/>

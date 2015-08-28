@@ -33,21 +33,21 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label Content="Login" Name="lblDetails" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Center" Grid.Row="0" Style="{DynamicResource header}"/>
-            <Label Content="User Name: " Name="lblName" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right"/>
+            <Label Content="Login" Name="lblDetails" Grid.Column="0" Grid.ColumnSpan="2" FontSize="22" HorizontalAlignment="Center" Grid.Row="0" Style="{DynamicResource header}"/>
+            <Label Content="User Name: " Name="lblName" Margin="5,20,5,10" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right"/>
             
-            <Label Content="Password: " Name="lblPwd" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right"/>
+            <Label Content="Password: " Margin="5" Name="lblPwd" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right"/>
             
             
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0" HorizontalAlignment="Left">
-                <TextBox Margin="5" Name="txtUserName"  Text="{Binding UserName}" Width="210">
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0,20,5,10" HorizontalAlignment="Left">
+                <TextBox Margin="5" Name="txtUserName" Text="{Binding UserName}" Width="210">
 
                 </TextBox>
 
             </StackPanel>
-            <PasswordBox Margin="5" Name="txtPwd" Width="210" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" PasswordChanged="PasswordBox_PasswordChanged"/>
+            <PasswordBox Margin="5" Name="txtPwd" Width="210" Height="18" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" PasswordChanged="PasswordBox_PasswordChanged"/>
             <Label Content="{Binding LoginResult}" Name="lblResult" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" HorizontalAlignment="Center"/>
-            <Button Name="btnLogin" IsDefault="True" Margin="5" Grid.Row="5" Grid.Column="1" Command="{Binding LoginUser}">Login</Button>
+            <Button Name="btnLogin" Width="100" HorizontalAlignment="Left" Height="25" IsDefault="True" Margin="5" Grid.Row="5" Grid.Column="1" Command="{Binding LoginUser}">Login</Button>
         </Grid>
     </Grid>
 </UserControl>
