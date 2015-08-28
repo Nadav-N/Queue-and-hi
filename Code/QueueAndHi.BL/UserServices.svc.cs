@@ -32,13 +32,11 @@ namespace QueueAndHi.BL
             newUser.IsAdmin = false;
             OperationResult validationResult = userValidator.IsValid(newUser);
 
-            //if (validationResult.IsSuccessful)
-            //{
-                // call DAL to create new user
-              //  return new OperationResult();
-            //}
+            if (!validationResult.IsSuccessful)
+            {
+                throw new ArgumentException(string.Join(",\n", validationResult.ErrorMessages));
+            }
 
-            //return validationResult;
             List<string> errorMsgs = new List<string>();
             OperationResult or = new OperationResult(errorMsgs);
             try
