@@ -41,7 +41,16 @@ namespace QueueAndHi.BL
 
         public DiscussionThread GetDiscussionThreadById(int id)
         {
-            return postOps.GetDiscussionThreadById(id);
+            DiscussionThread dt = postOps.GetDiscussionThreadById(id);
+            dt.Answers = dt.Answers.OrderByDescending(answer => answer.Ranking.OverallRanking).ToList();
+            if (dt.Question.RightAnswerId.HasValue)
+            {
+                Answer rightAnswer = dt.Answers.Single(ans => ans.ID == dt.Question.RightAnswerId.Value);
+                dt.Answers.Remove(rightAnswer);
+                dt.Answers.Insert(0, rightAnswer);
+            }
+
+            return dt;
         }
 
         public IEnumerable<Question> GetLatestQuestions()

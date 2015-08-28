@@ -18,7 +18,6 @@ namespace DAL
                 question intQuestion = Converter.toQuestion(question);
                 intQuestion.version = 1;
                 db.questions.Add(intQuestion);
-                //foreach(var tag in 
                 db.SaveChanges();
                 return Converter.toExtQuestion(intQuestion, question.Author, new RankingHistory(), question.Tags);
             }
@@ -42,15 +41,7 @@ namespace DAL
                 var answers = db.answers.Where(x => x.question_id == questionId);
                 foreach (var answer in answers)
                 {
-                    foreach (var ranking in db.answer_rankings.Where(x => x.answer_id == answer.id))
-                    {
-                        //change user's rank based on ranking of answer
-                        var ans = db.answers.Where(x => x.id == ranking.answer_id).Single();
-                        user rankee = db.users.Single(x => x.id == ans.author_id);
-                        rankee.ranking = rankee.ranking + (ranking.rank == 0 ? 1 : -1);
-                        db.answer_rankings.Remove(ranking);
-                    }
-                    db.answers.Remove(answer);
+                    DeleteAnswerInternal(answer.id, db);
                 }
 
                 //remove tags? nope. tags are remove by the entity framework for us. this is buggy!
@@ -82,24 +73,29 @@ namespace DAL
         {
             using (var db = new qnhdb())
             {
-                foreach (var ranking in db.answer_rankings.Where(r => r.answer_id == answerId))
-                {
-                    //get the question id
-                    var ans = db.answers.Where(x => x.id == ranking.answer_id).Single();
-                    user rankee = db.users.Single(x => x.id == ans.author_id);
-                    rankee.ranking = rankee.ranking + (ranking.rank == 0 ? 1 : -1);
-                    db.answer_rankings.Remove(ranking);
-                }
-                answer answer = db.answers.Single(a => a.id == answerId);
-                question relatedQuestion = db.questions.First(q => q.id == answer.question_id);
-                if (relatedQuestion.right_answer_id == answerId)
-                {
-                    UnmarkAsRightAnswer(answerId);
-                }
-
-                db.answers.Remove(answer);
+                DeleteAnswerInternal(answerId, db);
                 db.SaveChanges();
             }
+        }
+
+        private void DeleteAnswerInternal(int answerId, qnhdb db)
+        {
+            foreach (var ranking in db.answer_rankings.Where(r => r.answer_id == answerId))
+            {
+                //get the question id
+                var ans = db.answers.Where(x => x.id == ranking.answer_id).Single();
+                user rankee = db.users.Single(x => x.id == ans.author_id);
+                rankee.ranking = rankee.ranking + (ranking.rank == 0 ? 1 : -1);
+                db.answer_rankings.Remove(ranking);
+            }
+            answer answer = db.answers.Single(a => a.id == answerId);
+            question relatedQuestion = db.questions.First(q => q.id == answer.question_id);
+            if (relatedQuestion.right_answer_id == answerId)
+            {
+                UnmarkAsRightAnswer(answerId);
+            }
+
+            db.answers.Remove(answer);
         }
 
         public void RecommendQuestion(int questionId)
@@ -190,6 +186,7 @@ namespace DAL
             }
             return result;
         }
+
         public IEnumerable<Question> GetQuestionsByUser(int userId)
         {
             List<Question> result = new List<Question>();
@@ -208,7 +205,7 @@ namespace DAL
                     result.Add(Converter.toExtQuestion(
                             q,
                             ui,
-                            new RankingHistory(),//GetQuestionRankingHistory(q.id, q.author_id), 
+                            GetQuestionRankingHistory(q.id), 
                             getTags(q.id)
                             )
                        );
@@ -256,7 +253,7 @@ namespace DAL
             }
         }
 
-        private IEnumerable<Answer> GetAnswers(Question question)
+        private List<Answer> GetAnswers(Question question)
         {
             List<Answer> externalAnswers = new List<Answer>();
             using (var db = new qnhdb())

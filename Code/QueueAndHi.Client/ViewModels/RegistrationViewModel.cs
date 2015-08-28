@@ -10,7 +10,7 @@ using System.Windows.Input;
 using QueueAndHi.Common.Services;
 using QueueAndHi.Common.Logic.Validators;
 using QueueAndHi.Common.Logic.Validations.User;
-
+using QueueAndHi.Client.Authentication;
 
 namespace QueueAndHi.Client.ViewModels
 {
@@ -99,12 +99,14 @@ namespace QueueAndHi.Client.ViewModels
             OperationResult registerResult = this.userServices.AddNewUser(this.User, this.Credentials);
             if (registerResult.IsSuccessful)
             {
-
-                RegistrationResult = "User " + UserName + " registered successfully.\n You may now proceed to login.\n In 5 seconds you will be sent to the login page";
+                RegistrationResult = "User " + UserName + " registered successfully.\n You will now be logged in automatically.";
+                var authIdentity = userServices.LogIn(this.Credentials).Payload;
+                var userInfo = userServices.GetUserInfo(authIdentity.Token).Payload;
+                AuthenticationTokenSingleton.Instance.LogIn(authIdentity, userInfo);
                 OnPropertyChanged("RegistrationResult");
                 Task.Delay(5000).ContinueWith(_ =>
                     {
-                        navManager.RequestNavigation(new LoginViewModel(navManager, userServices, postQueries, postServices));
+                        navManager.RequestNavigation(new QuestionListViewModel(navManager, postQueries, postServices, userServices));
                     }
                 );
                 return true;

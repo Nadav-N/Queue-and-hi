@@ -14,7 +14,7 @@ namespace QueueAndHi.Common
         public Question Question { get; set; }
 
         [DataMember]
-        public IEnumerable<Answer> Answers { get; set; }
+        public List<Answer> Answers { get; set; }
 
         [DataMember]
         public int Version { get; set; }
