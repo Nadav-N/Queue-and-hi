@@ -35,7 +35,6 @@ namespace QueueAndHi.Client.ViewModels
 
             RegisterUser = new DelegateCommand(s => ExecuteRegister()); 
         }
-        public UserInfo User { get; set; }
 
         public UserCredentials Credentials { get; set; }
 
@@ -53,7 +52,7 @@ namespace QueueAndHi.Client.ViewModels
 
             RegistrationResult = "";
             //create objects from the user posted data
-            this.User = new UserInfo()
+            UserInfo user = new UserInfo()
             {
                 EmailAddress = Email,
                 IsAdmin = false,
@@ -62,7 +61,7 @@ namespace QueueAndHi.Client.ViewModels
                 Username = UserName
             };
 
-            OperationResult or = validator.IsValid(this.User);
+            OperationResult or = validator.IsValid(user);
             if (!or.IsSuccessful)
             {
                 foreach (string s in or.ErrorMessages)
@@ -96,7 +95,7 @@ namespace QueueAndHi.Client.ViewModels
             if (!validationResult) return false;
 
 
-            OperationResult registerResult = this.userServices.AddNewUser(this.User, this.Credentials);
+            OperationResult registerResult = this.userServices.AddNewUser(user, this.Credentials);
             if (registerResult.IsSuccessful)
             {
                 RegistrationResult = "User " + UserName + " registered successfully.\n You will now be logged in automatically.";

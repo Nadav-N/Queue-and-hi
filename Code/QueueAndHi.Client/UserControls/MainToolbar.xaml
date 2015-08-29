@@ -13,7 +13,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel Orientation="Horizontal" x:Name="mainMenu" Background="Black" Height="46" TextBlock.Foreground="White">
+    <StackPanel Orientation="Horizontal" x:Name="mainMenu" Background="Black" Height="38" TextBlock.Foreground="White">
         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="80,0,0,0" FontSize="24">
             <TextBlock.Effect>
                 <DropShadowEffect/>
