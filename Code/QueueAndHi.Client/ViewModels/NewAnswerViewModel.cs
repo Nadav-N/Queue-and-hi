@@ -44,7 +44,7 @@ namespace QueueAndHi.Client.ViewModels
             OperationResult result = this.validator.IsValid(Answer.ToExternal());
             if (result.IsSuccessful)
             {
-                this.postServices.AddAnswer(AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token, this.questionId, Answer.Content);
+                this.postServices.AddAnswer(AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation(new Tuple<int, string>(this.questionId, Answer.Content)));
                 ErrorMessages = "Answer posted successfully";
                 OnPropertyChanged("ErrorMessages");
                 Task.Delay(3000).ContinueWith(_ =>

@@ -17,7 +17,7 @@ namespace QueueAndHi.Common.Services
         void DeleteQuestion(AuthenticatedOperation<int> questionId);
 
         [OperationContract]
-        void AddAnswer(AuthenticationToken token, int questionId, string content);
+        void AddAnswer(AuthenticatedOperation<Tuple<int, string>> answerData);
 
         [OperationContract]
         void DeleteAnswer(AuthenticatedOperation<int> answerId);

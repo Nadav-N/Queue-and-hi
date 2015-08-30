@@ -75,9 +75,9 @@ namespace QueueAndHi.BL
                 NotificationType.PostWasDeleted);
         }
 
-        public void AddAnswer(AuthenticationToken token, int questionId, string content)
+        public void AddAnswer(AuthenticatedOperation<Tuple<int, string>> answerData)
         {
-            UserInfo user = GetUserFromRequest(token);
+            UserInfo user = GetUserFromRequest(answerData.Token);
             if (user.IsMuted)
             {
                 throw new InvalidOperationException("The user can not add a new question because he is muted.");
@@ -85,8 +85,8 @@ namespace QueueAndHi.BL
 
             Answer newAnswer = new Answer
             {
-                Content = content,
-                RelatedQuestionId = questionId,
+                Content = answerData.Payload.Item2,
+                RelatedQuestionId = answerData.Payload.Item1,
                 Author = user,
                 DatePosted = DateTime.Now
             };
@@ -98,9 +98,9 @@ namespace QueueAndHi.BL
             }
 
             this.postOps.AddAnswer(newAnswer);
-            this.postOps.IncrementVersion(questionId);
+            this.postOps.IncrementVersion(answerData.Payload.Item1);
 
-            Question relatedQuestion = this.postOps.GetQuestionById(questionId);
+            Question relatedQuestion = this.postOps.GetQuestionById(answerData.Payload.Item1);
             this.notificationOps.SaveNotification(relatedQuestion.Author.ID,
                 string.Format("An answer was added to your question \"{0}\"", relatedQuestion.Title),
                 NotificationType.NewAnswer);
