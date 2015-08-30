@@ -103,7 +103,7 @@
             <ToggleButton HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"
                  Width="30" Name="btnAnswered" ToolTip="Click to mark answer as accepted"
                  Grid.Row="3" Grid.Column="0" Grid.RowSpan="1" IsChecked="{Binding Post.Answered, Mode=OneWay}"
-                 Style="{DynamicResource NoMouseOverImageButton}" Visibility="{Binding IsQuestionAuthorOrAdmin, Converter={StaticResource Bool2VisConverter}}">
+                 Style="{DynamicResource NoMouseOverImageButton}" Visibility="{Binding IsMarkedAsRightAnswerVisible, Converter={StaticResource Bool2VisConverter}}" IsEnabled="{Binding IsQuestionAuthorOrAdmin}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Checked">
                         <i:InvokeCommandAction Command="{Binding MarkAsRight}"/>

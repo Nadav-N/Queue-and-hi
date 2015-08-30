@@ -29,6 +29,14 @@ namespace QueueAndHi.Client.ViewModels
             }
         }
 
+        public bool IsMarkedAsRightAnswerVisible
+        {
+            get
+            {
+                return Post.Answered || IsQuestionAuthorOrAdmin;
+            }
+        }
+
         public ICommand MarkAsRight { get; set; }
 
         public ICommand UnmarkAsRight { get; set; }
