@@ -39,7 +39,7 @@ namespace QueueAndHi.Client.ViewModels
             set;
         }
 
-        public void ExecuteAddAnswer()
+        private void ExecuteAddAnswer()
         {
             OperationResult result = this.validator.IsValid(Answer.ToExternal());
             if (result.IsSuccessful)
