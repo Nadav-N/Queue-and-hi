@@ -68,7 +68,7 @@ namespace QueueAndHi.Client.ViewModels
             this.navigationManager.RequestNavigation(new QuestionListViewModel(this.navigationManager, this.postQueries, this.postServices, this.userServices));
         }
 
-        public void ExecuteSearch()
+        private void ExecuteSearch()
         {
             string searchText = SearchText;
             SearchText = String.Empty;
