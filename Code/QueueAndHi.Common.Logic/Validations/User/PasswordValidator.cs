@@ -18,13 +18,25 @@ namespace QueueAndHi.Common.Logic.Validations.User
             OperationResult or = new OperationResult(new List<string>());
             bool ok = true;
 
+            if (String.IsNullOrEmpty(password) || String.IsNullOrWhiteSpace(password))
+            {
+                or.ErrorMessages.Add("Password can't be empty");
+                ok = false;
+            }
+
+            if (String.IsNullOrEmpty(passwordConf) || String.IsNullOrWhiteSpace(passwordConf))
+            {
+                or.ErrorMessages.Add("Password confirmation can't be empty");
+                ok = false;
+            }
+
             if (password != passwordConf)
             {
                 or.ErrorMessages.Add("Password and Confirmation password fields don't match");
                 ok = false;
             }
 
-            if (!isPwdValid(password))
+            if (ok && !isPwdValid(password))
             {
                 or.ErrorMessages.Add("Password should match guidlines for complex password");
                 ok = false;
