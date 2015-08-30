@@ -84,13 +84,13 @@ namespace QueueAndHi.Client.ViewModels
             }
         }
 
-        public DelegateCommand NavigateHome { get; set; }
+        public ICommand NavigateHome { get; set; }
 
-        public DelegateCommand NavigateMyQuestions { get; set; }
+        public ICommand NavigateMyQuestions { get; set; }
 
-        public DelegateCommand NavigateNewQuestion { get; private set; }
+        public ICommand NavigateNewQuestion { get; private set; }
 
-        public DelegateCommand NavigateUserManagement { get; set; }
+        public ICommand NavigateUserManagement { get; set; }
 
         internal void OnPropertyChanged(string propName)
         {
