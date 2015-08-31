@@ -34,6 +34,10 @@ namespace QueueAndHi.Client.ViewModels
             IEnumerable<UserInfo> managedUsers = this.userServices.GetAllUsersData(AuthenticationTokenSingleton.Instance.AuthenticatedIdentity.Token);
             Users = new ObservableCollection<UserAccountModel>(managedUsers.Select(q => new UserAccountModel(q)));
             StaleUsers = Users.Select(objEntity => (UserAccountModel)objEntity.Clone()).ToList();
+            if (Users.Count == 0)   //counting users as the UserInfo isn't refreshed when the user is changed.
+            {
+                ApplyResult = "User's Admin privileges where revoked. You are no longer allowed to manage users";
+            }
             OnPropertyChanged("Users");
         }
 
