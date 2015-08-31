@@ -19,8 +19,8 @@ namespace DAL
                 answers = null,
                 created = DateTime.Now,
                 email = userInfo.EmailAddress,
-                ismuted = 0,
-                isowner = 0,
+                ismuted = Convert.ToByte(userInfo.IsMuted),
+                isowner = Convert.ToByte(userInfo.IsOwner),
                 name = userInfo.Username,
                 notifications = null,
                 pwd = userCredentials.Password,
@@ -39,6 +39,7 @@ namespace DAL
                 ID = user.id,
                 IsAdmin = Convert.ToBoolean(user.isadmin),
                 IsMuted = Convert.ToBoolean(user.ismuted),
+                IsOwner = Convert.ToBoolean(user.isowner),
                 Ranking = user.ranking,
                 Username = user.name
             };

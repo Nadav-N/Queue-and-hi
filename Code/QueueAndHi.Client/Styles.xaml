@@ -188,5 +188,9 @@
         x:Key="Int2VisConverter"
         True="Visible"
         False="Collapsed" />
+    
+    <app:InverseBooleanConverter
+        x:Key="InverseBooleanConverter"
+        />
     <!-- ################  End Of Converters  ###########################################################-->
 </ResourceDictionary>

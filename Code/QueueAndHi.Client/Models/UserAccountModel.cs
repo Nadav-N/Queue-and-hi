@@ -15,6 +15,7 @@ namespace QueueAndHi.Client
         private bool isAdmin;
         public bool isMuted;
         public int id;
+        private bool isOwner;
 
         public UserAccountModel()
         {
@@ -28,6 +29,8 @@ namespace QueueAndHi.Client
             IsAdmin = userInfo.IsAdmin;
             IsMuted = userInfo.IsMuted;
             ID = userInfo.ID;
+            IsOwner = userInfo.IsOwner;
+            
         }
 
         public UserInfo ToExternal()
@@ -38,7 +41,8 @@ namespace QueueAndHi.Client
                 Ranking = Ranking,
                 IsAdmin = IsAdmin,
                 IsMuted = IsMuted,
-                ID = ID
+                ID = ID,
+                IsOwner = IsOwner
             };
         }
 
@@ -104,6 +108,19 @@ namespace QueueAndHi.Client
             {
                 this.isMuted = value;
                 OnPropertyChanged("IsMuted");
+            }
+        }
+
+        public bool IsOwner
+        {
+            get
+            {
+                return this.isOwner;
+            }
+            set
+            {
+                this.isOwner = value;
+                OnPropertyChanged("IsOwner");
             }
         }
 

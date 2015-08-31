@@ -23,6 +23,9 @@ namespace QueueAndHi.Common
         public bool IsAdmin { get; set; }
 
         [DataMember]
+        public bool IsOwner { get; set; }
+
+        [DataMember]
         public bool IsMuted { get; set; }
 
         [DataMember]
@@ -35,6 +38,7 @@ namespace QueueAndHi.Common
             EmailAddress.GetHashCode() * 17 +
             IsAdmin.GetHashCode() * 17 +
             IsMuted.GetHashCode() * 17 +
+            IsOwner.GetHashCode() * 17 +
             ID.GetHashCode();
         }
 
@@ -44,6 +48,7 @@ namespace QueueAndHi.Common
                 Username.Equals(other.Username) &&
                 EmailAddress.Equals(other.EmailAddress) &&
                 IsAdmin.Equals(other.IsAdmin) &&
+                IsOwner.Equals(other.IsOwner) &&
                 IsMuted.Equals(other.IsMuted) &&
                 ID.Equals(other.ID);
         }
