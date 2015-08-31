@@ -49,6 +49,7 @@
             <TextBlock  VerticalAlignment="Bottom" HorizontalAlignment="Left" Style="{DynamicResource commandLinks}">
                 <Hyperlink Command="{Binding Delete}">Delete Answer</Hyperlink>
             </TextBlock>
+            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left" Text="{Binding ErrorMessages}" Foreground="Red"></TextBlock>
         </StackPanel>
 
         <Grid Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top">

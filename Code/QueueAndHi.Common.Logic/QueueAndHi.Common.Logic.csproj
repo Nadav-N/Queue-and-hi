@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validations\User\DeleteAnswerValidator.cs" />
     <Compile Include="Validations\User\UserValidator.cs" />
     <Compile Include="Validations\User\EmailAddressValidator.cs" />
     <Compile Include="Validations\IValidator.cs" />

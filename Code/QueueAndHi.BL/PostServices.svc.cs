@@ -23,6 +23,7 @@ namespace QueueAndHi.BL
         private IValidator<Answer> newAnswerValidator;
         private IValidator<UserInfo> recommendPostValidator;
         private IValidator<UserInfo> rankDownValidator;
+        private IValidator<UserInfo> deleteAnswerValidator;
 
         public PostServices()
         {
@@ -33,6 +34,7 @@ namespace QueueAndHi.BL
             this.newAnswerValidator = new ContentValidator();
             this.recommendPostValidator = new RecommendQuestionValidator();
             this.rankDownValidator = new RankDownValidator();
+            this.deleteAnswerValidator = new DeleteAnswerValidator();
             this.postOps = new PostOps();
         }
 
@@ -62,6 +64,7 @@ namespace QueueAndHi.BL
         public void DeleteQuestion(AuthenticatedOperation<int> questionId)
         {
             UserInfo user = GetUserFromRequest(questionId);
+            
             Question questionToDelete = this.postOps.GetQuestionById(questionId.Payload);
             if (questionToDelete.Author.ID != user.ID && !user.IsAdmin)
             {
@@ -80,7 +83,7 @@ namespace QueueAndHi.BL
             UserInfo user = GetUserFromRequest(answerData.Token);
             if (user.IsMuted)
             {
-                throw new InvalidOperationException("The user can not add a new question because he is muted.");
+                throw new InvalidOperationException("The user can not add a new answer because he is muted.");
             }
 
             Answer newAnswer = new Answer
@@ -109,6 +112,11 @@ namespace QueueAndHi.BL
         public void DeleteAnswer(AuthenticatedOperation<int> answerId)
         {
             UserInfo user = GetUserFromRequest(answerId);
+            OperationResult validationResult = this.deleteAnswerValidator.IsValid(user);
+            if (!validationResult.IsSuccessful)
+            {
+                throw new ArgumentException(String.Join("\n", validationResult.ErrorMessages));
+            }
             Answer answerToDelete = this.postOps.GetAnswerById(answerId.Payload);
             if (answerToDelete.Author.ID != user.ID && !user.IsAdmin)
             {

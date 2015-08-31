@@ -61,9 +61,15 @@ namespace QueueAndHi.Client.ViewModels
                     OnPropertyChanged("ErrorMessages");
                 }
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException ioe)
             {
-                this.navManager.RequestNavigation(new QuestionListViewModel(this.navManager, this.postQueries, this.postServices, this.userServices));
+                ErrorMessages = String.Join("\n", ioe.Message);
+                OnPropertyChanged("ErrorMessages");
+                Task.Delay(5000).ContinueWith(_ =>
+                {
+                    this.navManager.RequestNavigation(new QuestionListViewModel(this.navManager, this.postQueries, this.postServices, this.userServices));
+                }
+                ); 
             }
         }
 

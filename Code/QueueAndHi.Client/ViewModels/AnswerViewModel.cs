@@ -50,6 +50,12 @@ namespace QueueAndHi.Client.ViewModels
             }
         }
 
+        public string ErrorMessages
+        {
+            get;
+            set;
+        }
+
         private void ExecuteMarkAsRight()
         {
             AnswerViewModel lastRightAnswer = this.questionVM.Answers.FirstOrDefault(answer => answer.Answer.Answered);
@@ -97,10 +103,19 @@ namespace QueueAndHi.Client.ViewModels
 
         protected override void ExecuteDelete()
         {
-            this.postServices.DeleteAnswer(GetAuthenticatedOperation());
-            DiscussionThread dt = this.postQueries.GetDiscussionThreadById(Post.RelatedQuestionId);
-            var vm = new QuestionViewModel(dt, this.postServices, this.navigationManager, this.postQueries, this.userServices);
-            this.navigationManager.RequestNavigation(vm);
+            try
+            {
+                this.postServices.DeleteAnswer(GetAuthenticatedOperation());
+                DiscussionThread dt = this.postQueries.GetDiscussionThreadById(Post.RelatedQuestionId);
+                var vm = new QuestionViewModel(dt, this.postServices, this.navigationManager, this.postQueries, this.userServices);
+                this.navigationManager.RequestNavigation(vm);
+            }
+            catch (ArgumentException ioe)
+            {
+                ErrorMessages = string.Join("\n", ioe.Message);
+                OnPropertyChanged("ErrorMessages");
+            }
+            
         }
     }
 }
