@@ -50,7 +50,17 @@ namespace QueueAndHi.Client.ViewModels
         private void ExecuteNavigateToQuestion(object questionInfo)
         {
             int questionId = ((QuestionInfo)questionInfo).ID;
-            DiscussionThread selectedThread = this.postQueries.GetDiscussionThreadById(questionId);
+            DiscussionThread selectedThread = null;
+            try
+            {
+                selectedThread = this.postQueries.GetDiscussionThreadById(questionId);
+            }
+            catch (InvalidOperationException)
+            {
+                Questions.Remove((QuestionInfo)questionInfo);
+                return;
+            }
+
             QuestionViewModel questionVM = new QuestionViewModel(selectedThread, this.postServices, this.navigationManager, this.postQueries, this.userServices);
             this.navigationManager.RequestNavigation(questionVM);
         }
