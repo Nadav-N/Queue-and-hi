@@ -23,11 +23,17 @@ namespace QueueAndHi.Client.ViewModels
             this.threadObserver = new DiscussionThreadObserver(postQueries);
             this.threadObserver.StartObservingDiscussionThread(discussionThread.Question.ID);
             this.threadObserver.NewDiscussionThreadVersion += OnNewDiscussionThreadVersion;
+            this.threadObserver.DiscussionThreadDeleted += OnDiscussionThreadDeleted;
             RecommendQuestion = new DelegateCommand(s => ExecuteRecommendQuestion(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn);
             UnrecommendQuestion = new DelegateCommand(s => ExecuteUnrecommendQuestion(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn);
             AddAnswer = new DelegateCommand(s => ExecuteAddAnswer(), s => AuthenticationTokenSingleton.Instance.IsLoggedIn && !AuthenticationTokenSingleton.Instance.AuthenticatedUser.IsMuted);
             DoTagSearch = new DelegateCommand(ExecuteTagSearch);
             this.questionRecommendationValidator = new RecommendQuestionValidator();
+        }
+
+        private void OnDiscussionThreadDeleted(object sender, EventArgs e)
+        {
+            this.navigationManager.RequestNavigation(new QuestionListViewModel(this.navigationManager, this.postQueries, this.postServices, this.userServices));
         }
 
         public bool IsRecommendationEnabled
@@ -131,6 +137,7 @@ namespace QueueAndHi.Client.ViewModels
         public override void Dispose()
         {
             this.threadObserver.NewDiscussionThreadVersion -= OnNewDiscussionThreadVersion;
+            this.threadObserver.DiscussionThreadDeleted -= OnDiscussionThreadDeleted;
             this.threadObserver.Dispose();
             base.Dispose();
         }

@@ -22,6 +22,8 @@ namespace QueueAndHi.Client
         //unsubscribing from it is the detach method.
         public event EventHandler<NewDiscussionThreadVersionEventArgs> NewDiscussionThreadVersion;
 
+        public event EventHandler<EventArgs> DiscussionThreadDeleted;
+
         public DiscussionThreadObserver(IPostQueries postQueries)
         {
             this.postQueries = postQueries;
@@ -42,7 +44,17 @@ namespace QueueAndHi.Client
 
         private void OnTimerProc(object state)
         {
-            DiscussionThread newDiscussionThread = this.postQueries.GetDiscussionThreadById(this.latestDiscussionThread.Question.ID);
+            DiscussionThread newDiscussionThread;
+            try
+            {
+                newDiscussionThread = this.postQueries.GetDiscussionThreadById(this.latestDiscussionThread.Question.ID);
+            }
+            catch (InvalidOperationException ex)
+            {
+                OnDiscussionThreadDeleted();
+                return;
+            }
+
             if (newDiscussionThread.Version != this.latestDiscussionThread.Version)
             {
                 if (NewDiscussionThreadVersion != null)
@@ -53,6 +65,14 @@ namespace QueueAndHi.Client
             
             if(!this.isDisposed)
                 this.timer.Change(timerInterval, Timeout.Infinite);
+        }
+
+        private void OnDiscussionThreadDeleted()
+        {
+            if (DiscussionThreadDeleted != null)
+            {
+                DiscussionThreadDeleted(this, new EventArgs());
+            }
         }
 
         public void Dispose()
