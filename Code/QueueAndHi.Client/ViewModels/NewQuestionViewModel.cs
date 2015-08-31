@@ -86,18 +86,34 @@ namespace QueueAndHi.Client.ViewModels
             //add author to question
             question.Author = ui;
 
-            OperationResult validationResult = this.validator.IsValid(question);
-            if (validationResult.IsSuccessful)
-            {
-                Question addedQuestion = this.postServices.AddQuestion(AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation(question));
-                DiscussionThread discussionThread = this.postQueries.GetDiscussionThreadById(addedQuestion.ID);
-                this.navigationManager.RequestNavigation(new QuestionViewModel(discussionThread, this.postServices, this.navigationManager, this.postQueries, this.userServices));
-            }
-            else
-            {
-                ErrorMessages = String.Join("\n", validationResult.ErrorMessages);
-                OnPropertyChanged("ErrorMessages");
-            }
+            
+            
+                OperationResult validationResult = this.validator.IsValid(question);
+                if (validationResult.IsSuccessful)
+                {
+                    try{
+                        Question addedQuestion = this.postServices.AddQuestion(AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation(question));
+                        DiscussionThread discussionThread = this.postQueries.GetDiscussionThreadById(addedQuestion.ID);
+                        this.navigationManager.RequestNavigation(new QuestionViewModel(discussionThread, this.postServices, this.navigationManager, this.postQueries, this.userServices));
+                    }
+                    catch (InvalidOperationException ioe)
+                    {
+                        ErrorMessages = String.Join("\n", ioe.Message);
+                        OnPropertyChanged("ErrorMessages");
+                    }
+                    catch (ArgumentException ae)
+                    {
+                        ErrorMessages = String.Join("\n", ae.Message);
+                        OnPropertyChanged("ErrorMessages");
+                    }
+                }
+                else
+                {
+                    ErrorMessages = String.Join("\n", validationResult.ErrorMessages);
+                    OnPropertyChanged("ErrorMessages");
+                }
+            
+            
         }
 
         internal void OnPropertyChanged(string propName)
