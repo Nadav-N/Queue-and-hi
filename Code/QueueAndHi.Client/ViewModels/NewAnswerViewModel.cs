@@ -41,22 +41,29 @@ namespace QueueAndHi.Client.ViewModels
 
         private void ExecuteAddAnswer()
         {
-            OperationResult result = this.validator.IsValid(Answer.ToExternal());
-            if (result.IsSuccessful)
+            try
             {
-                this.postServices.AddAnswer(AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation(new Tuple<int, string>(this.questionId, Answer.Content)));
-                ErrorMessages = "Answer posted successfully";
-                OnPropertyChanged("ErrorMessages");
-                Task.Delay(3000).ContinueWith(_ =>
+                OperationResult result = this.validator.IsValid(Answer.ToExternal());
+                if (result.IsSuccessful)
                 {
-                    DiscussionThread selectedThread = this.postQueries.GetDiscussionThreadById(questionId);
-                    navManager.RequestNavigation(new QuestionViewModel(selectedThread, this.postServices, this.navManager, this.postQueries, this.userServices));
-                });
+                    this.postServices.AddAnswer(AuthenticationTokenSingleton.Instance.CreateAuthenticatedOperation(new Tuple<int, string>(this.questionId, Answer.Content)));
+                    ErrorMessages = "Answer posted successfully";
+                    OnPropertyChanged("ErrorMessages");
+                    Task.Delay(3000).ContinueWith(_ =>
+                    {
+                        DiscussionThread selectedThread = this.postQueries.GetDiscussionThreadById(questionId);
+                        navManager.RequestNavigation(new QuestionViewModel(selectedThread, this.postServices, this.navManager, this.postQueries, this.userServices));
+                    });
+                }
+                else
+                {
+                    ErrorMessages = String.Join("\n", result.ErrorMessages);
+                    OnPropertyChanged("ErrorMessages");
+                }
             }
-            else
+            catch (InvalidOperationException)
             {
-                ErrorMessages = String.Join("\n", result.ErrorMessages);
-                OnPropertyChanged("ErrorMessages");
+                this.navManager.RequestNavigation(new QuestionListViewModel(this.navManager, this.postQueries, this.postServices, this.userServices));
             }
         }
 

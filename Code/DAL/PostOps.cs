@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using QueueAndHi.Common;
+using System.Data.Entity.Infrastructure;
 
 namespace DAL
 {
@@ -60,12 +61,19 @@ namespace DAL
 
         public Answer AddAnswer(Answer answer)
         {
-            using (var db = new qnhdb())
+            try
             {
-                answer intAnswer = Converter.toAnswer(answer);
-                db.answers.Add(intAnswer);
-                db.SaveChanges();
-                return answer;
+                using (var db = new qnhdb())
+                {
+                    answer intAnswer = Converter.toAnswer(answer);
+                    db.answers.Add(intAnswer);
+                    db.SaveChanges();
+                    return answer;
+                }
+            }
+            catch (DbUpdateException)
+            {
+                throw new InvalidOperationException("Cannot add answer because its root question was deleted");
             }
         }
 
